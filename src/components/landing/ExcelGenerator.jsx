@@ -1,27 +1,17 @@
 import React from 'react';
+import * as XLSX from 'xlsx'; // Import all exports from xlsx module
 
 const ExcelGenerator = ({ tableItems }) => {
   const generateExcel = () => {
-    const rows = [Object.keys(tableItems[0])]; // Create header row
-    tableItems.forEach(item => {
-      rows.push(Object.values(item)); // Add data rows
-    });
-
-    const csvContent = rows.map(row => row.join(',')).join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const fileName = 'table-data.csv';
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const worksheet = XLSX.utils.json_to_sheet(tableItems);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Table Data');
+    XLSX.writeFile(workbook, 'table-data.xlsx');
   };
 
   return (
     <div>
-      <button onClick={generateExcel}>Generate Excel</button>
+      <button className='p-[10px] text-sm font-bold text-color-black rounded mb-4 bg-green-300' onClick={generateExcel}>Generate Excel</button>
     </div>
   );
 };

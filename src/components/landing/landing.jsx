@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { calculateDRAndBalance } from './calculateDRAndBalance';
-import PDFGenerator from './PDFGenerator';
 import ExcelGenerator from './ExcelGenerator';
 
 const Landing = () => {
@@ -125,16 +124,100 @@ const Landing = () => {
       cr: "200",
       balance: "400",
     },
+    {
+      numberid: "1002",
+      salesdate: "2023-08-24",
+      drivername: "Liam James",
+      autono: "4560",
+      Limea: "40",
+      LimeaPrice: "100",
+      Limew: "50",
+      LimewPrice: "100",
+      Limeb: "60",
+      LimebPrice: "100",
+      jhiki: "40",
+      jhikiPrice: "100",
+      rs: "40",
+      rsPrice: "100",
+      siteaddress: "hiran mangri",
+      km: "labor",
+      autocharge: "1000",
+      amount: "500",
+      dr: "200",
+      cr: "200",
+      balance: "400",
+    },
+
+    {
+      numberid: "2125",
+      salesdate: "2023-08-24",
+      drivername: "Liam James",
+      autono: "4560",
+      Limea: "40",
+      LimeaPrice: "100",
+      Limew: "50",
+      LimewPrice: "100",
+      Limeb: "60",
+      LimebPrice: "100",
+      jhiki: "40",
+      jhikiPrice: "100",
+      rs: "40",
+      rsPrice: "100",
+      siteaddress: "hiran mangri",
+      km: "labor",
+      autocharge: "1000",
+      amount: "500",
+      dr: "200",
+      cr: "200",
+      balance: "400",
+    },
+
+    {
+      numberid: "4549",
+      salesdate: "2023-08-24",
+      drivername: "Liam James",
+      autono: "4560",
+      Limea: "40",
+      LimeaPrice: "100",
+      Limew: "50",
+      LimewPrice: "100",
+      Limeb: "60",
+      LimebPrice: "100",
+      jhiki: "40",
+      jhikiPrice: "100",
+      rs: "40",
+      rsPrice: "100",
+      siteaddress: "hiran mangri",
+      km: "labor",
+      autocharge: "1000",
+      amount: "500",
+      dr: "200",
+      cr: "200",
+      balance: "400",
+    },
+
 
   ]);
   const [initialCalculationDone, setInitialCalculationDone] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(tableItems.length / itemsPerPage);
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredTableItems = tableItems.filter(item =>
+    item.numberid.includes(searchQuery) ||
+    item.drivername.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const handleFormChangeForExistingData = (event, index) => {
     const { name, value } = event.target;
     const updatedTableItems = [...tableItems];
     updatedTableItems[index][name] = value;
     setTableItems(updatedTableItems);
+  };
+
+  const handleSearchSubmit = event => {
+    event.preventDefault();
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -400,13 +483,12 @@ const Landing = () => {
       <div className="w-full px-4 md:px-8">
         <div className="items-start justify-between md:flex">
           <div className="max-w-lg">
-            <h3 className="text-gray-800 text-xl font-bold sm:text-2xl">
+            <h3 className="text-gray-800 text-xl font-bold sm:text-2xl mb-4">
               Vision Jain Data
             </h3>
+            <ExcelGenerator tableItems={tableItems} />
           </div>
           <div className="mt-3 md:mt-0">
-          <ExcelGenerator tableItems={tableItems} />
-          <PDFGenerator tableItems={tableItems} /> 
             <a
               href="javascript:void(0)"
               className="inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
@@ -416,7 +498,35 @@ const Landing = () => {
             </a>
           </div>
         </div>
-        <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
+        <div className="mt-4">
+          <input
+            type="text"
+            placeholder="Search by S.NO. or Name"
+            value={searchQuery}
+            onChange={event => setSearchQuery(event.target.value)}
+            className="border p-2 rounded-md w-full"
+          />
+        </div>
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={() => setCurrentPage(prevPage => prevPage - 1)}
+            disabled={currentPage === 1}
+            className="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-pointer"
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => setCurrentPage(prevPage => prevPage + 1)}
+            disabled={currentPage === totalPages}
+            className="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-pointer"
+          >
+            Next
+          </button>
+        </div>
+        <div className="mt-2 text-center">
+          Page {currentPage} of {totalPages}
+        </div>
+        <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto mb-10">
           <table className="w-full table-auto text-sm text-left">
             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
               <tr>
@@ -440,61 +550,63 @@ const Landing = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 divide-y">
-              {tableItems.map((item, idx) => (
-                <tr key={idx} className="divide-x">
-                  <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.salesdate}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.drivername}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.autono}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {item.Limea ? `${item.Limea} X ${item.LimeaPrice}` : ''}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {item.Limew ? `${item.Limew} X ${item.LimewPrice}` : ''}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {item.Limeb ? `${item.Limeb} X ${item.LimebPrice}` : ''}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {item.jhiki ? `${item.jhiki} X ${item.jhikiPrice}` : ''}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {item.rs ? `${item.rs} X ${item.rsPrice}` : ''}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.siteaddress}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.km}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {item.amount === '' ?
-                      '' :
-                      (
-                        parseFloat(item.Limea) * parseFloat(item.LimeaPrice) +
-                        parseFloat(item.Limew) * parseFloat(item.LimewPrice) +
-                        parseFloat(item.Limeb) * parseFloat(item.LimebPrice) +
-                        parseFloat(item.jhiki) * parseFloat(item.jhikiPrice) +
-                        parseFloat(item.rs) * parseFloat(item.rsPrice)
-                      ).toFixed(2)
-                    }
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.dr}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.cr}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{item.balance}</td>
-                  <td className="text-right px-6 whitespace-nowrap">
-                    <button
-                      onClick={() => handleEditClick(idx)} // Call handleEditClick with the index
-                      className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteClick(idx)} // Call the delete handler
-                      className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {filteredTableItems
+                .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                .map((item, idx) => (
+                  <tr key={idx} className="divide-x">
+                    <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.salesdate}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.drivername}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.autono}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {item.Limea ? `${item.Limea} X ${item.LimeaPrice}` : ''}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {item.Limew ? `${item.Limew} X ${item.LimewPrice}` : ''}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {item.Limeb ? `${item.Limeb} X ${item.LimebPrice}` : ''}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {item.jhiki ? `${item.jhiki} X ${item.jhikiPrice}` : ''}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {item.rs ? `${item.rs} X ${item.rsPrice}` : ''}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.siteaddress}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.km}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {item.amount === '' ?
+                        '' :
+                        (
+                          parseFloat(item.Limea) * parseFloat(item.LimeaPrice) +
+                          parseFloat(item.Limew) * parseFloat(item.LimewPrice) +
+                          parseFloat(item.Limeb) * parseFloat(item.LimebPrice) +
+                          parseFloat(item.jhiki) * parseFloat(item.jhikiPrice) +
+                          parseFloat(item.rs) * parseFloat(item.rsPrice)
+                        ).toFixed(2)
+                      }
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.dr}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.cr}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">{item.balance}</td>
+                    <td className="text-right px-6 whitespace-nowrap">
+                      <button
+                        onClick={() => handleEditClick(idx)} // Call handleEditClick with the index
+                        className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(idx)} // Call the delete handler
+                        className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
@@ -680,7 +792,9 @@ const Landing = () => {
                   Cancel
                 </button>
               </div>
+
             </form>
+
           </div>
         </div>
       )}
