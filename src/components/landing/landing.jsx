@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { calculateDRAndBalance } from './calculateDRAndBalance';
 import ExcelGenerator from './ExcelGenerator';
+const axios = require('axios').default
+
+
+
+
 
 const Landing = () => {
 
@@ -10,13 +15,13 @@ const Landing = () => {
       salesdate: "2023-08-24",
       drivername: "Liam James",
       autono: "4560",
-      Limea: "40",
+      Limea: "20",
       LimeaPrice: "100",
       Limew: "50",
       LimewPrice: "100",
       Limeb: "60",
       LimebPrice: "100",
-      jhiki: "40",
+      jhiki: "50",
       jhikiPrice: "100",
       rs: "40",
       rsPrice: "100",
@@ -36,11 +41,11 @@ const Landing = () => {
       autono: "4560",
       Limea: "40",
       LimeaPrice: "100",
-      Limew: "50",
+      Limew: "10",
       LimewPrice: "100",
       Limeb: "60",
       LimebPrice: "100",
-      jhiki: "40",
+      jhiki: "20",
       jhikiPrice: "100",
       rs: "40",
       rsPrice: "100",
@@ -62,7 +67,7 @@ const Landing = () => {
       LimeaPrice: "100",
       Limew: "50",
       LimewPrice: "100",
-      Limeb: "60",
+      Limeb: "40",
       LimebPrice: "100",
       jhiki: "40",
       jhikiPrice: "100",
@@ -84,7 +89,7 @@ const Landing = () => {
       autono: "4560",
       Limea: "40",
       LimeaPrice: "100",
-      Limew: "50",
+      Limew: "10",
       LimewPrice: "100",
       Limeb: "60",
       LimebPrice: "100",
@@ -108,15 +113,15 @@ const Landing = () => {
       autono: "4560",
       Limea: "40",
       LimeaPrice: "100",
-      Limew: "50",
+      Limew: "30",
       LimewPrice: "100",
       Limeb: "60",
       LimebPrice: "100",
-      jhiki: "40",
+      jhiki: "30",
       jhikiPrice: "100",
       rs: "40",
       rsPrice: "100",
-      siteaddress: "hiran mangri",
+      siteaddress: "fathesagar lake ke bich",
       km: "labor",
       autocharge: "1000",
       amount: "500",
@@ -131,15 +136,15 @@ const Landing = () => {
       autono: "4560",
       Limea: "40",
       LimeaPrice: "100",
-      Limew: "50",
+      Limew: "40",
       LimewPrice: "100",
-      Limeb: "60",
+      Limeb: "20",
       LimebPrice: "100",
       jhiki: "40",
       jhikiPrice: "100",
       rs: "40",
       rsPrice: "100",
-      siteaddress: "hiran mangri",
+      siteaddress: "Raju ke papa k ghar",
       km: "labor",
       autocharge: "1000",
       amount: "500",
@@ -151,7 +156,7 @@ const Landing = () => {
     {
       numberid: "2125",
       salesdate: "2023-08-24",
-      drivername: "Liam James",
+      drivername: "Rohit jain",
       autono: "4560",
       Limea: "40",
       LimeaPrice: "100",
@@ -163,7 +168,7 @@ const Landing = () => {
       jhikiPrice: "100",
       rs: "40",
       rsPrice: "100",
-      siteaddress: "hiran mangri",
+      siteaddress: "sector-8",
       km: "labor",
       autocharge: "1000",
       amount: "500",
@@ -175,7 +180,7 @@ const Landing = () => {
     {
       numberid: "4549",
       salesdate: "2023-08-24",
-      drivername: "Liam James",
+      drivername: "surajmal ji",
       autono: "4560",
       Limea: "40",
       LimeaPrice: "100",
@@ -198,6 +203,96 @@ const Landing = () => {
 
 
   ]);
+
+
+  // const [TranslatedKMLabel, setTranslatedKMLabel] = useState([]);
+
+  // useEffect(() => {
+  //   const TranslatedKMLabel = async () => {
+  //     const km = tableItems.map(item => item.km);
+
+  //     try {
+  //       const translations = await Promise.all(km.map(name => translate(name)));
+  //       const translatedNames = translations.map(res => res.data.responseData.translatedText);
+  //       setTranslatedKMLabel(translatedNames);
+  //     } catch (error) {
+  //       console.error('Translation error:', error);
+  //     }
+  //   };
+
+  //   const translate = async (text) => {
+  //     const apiKey = '7fe898c8a155dbcbb5bd';
+  //     const email = 'visionjain118@gmail.com';
+  //     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
+
+  //     return axios.get(url);
+  //   };
+
+  //   TranslatedKMLabel();
+  // }, [tableItems]);
+
+
+  const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
+
+  useEffect(() => {
+    const translateSiteAddresses = async () => {
+      const siteAddresses = tableItems.map(item => item.siteaddress);
+
+      try {
+        const apiKey = '7fe898c8a155dbcbb5bd';
+        const email = 'visionjain118@gmail.com'; // Provide a valid email here
+        const translations = await Promise.all(siteAddresses.map(address =>
+          translate(address, apiKey, email)
+        ));
+
+        const translatedAddresses = translations.map(res => res.data.responseData.translatedText);
+        setTranslatedSiteAddresses(translatedAddresses);
+      } catch (error) {
+        console.error('Translation error:', error);
+      }
+    };
+
+    translateSiteAddresses();
+  }, [tableItems]);
+
+  const translate = async (text, apiKey, email) => {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
+    return axios.get(url);
+  };
+
+
+  useEffect(() => {
+    const translateDriverNames = async () => {
+      const driverNames = tableItems.map(item => item.drivername);
+
+      try {
+        const translations = await Promise.all(driverNames.map(name => translate(name)));
+        const translatedNames = translations.map(res => res.data.responseData.translatedText);
+        setTranslatedDriverNames(translatedNames);
+      } catch (error) {
+        console.error('Translation error:', error);
+      }
+    };
+
+    const translate = async (text) => {
+      const apiKey = '7fe898c8a155dbcbb5bd';
+      const email = 'visionjain118@gmail.com';
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
+
+      return axios.get(url);
+    };
+
+    translateDriverNames();
+  }, [tableItems]);
+
+
+  const handlePrint = () => {
+    // Open the print dialog
+    window.print();
+  };
+
+
+  const [translatedDriverNames, setTranslatedDriverNames] = useState([]);
   const [initialCalculationDone, setInitialCalculationDone] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -213,11 +308,6 @@ const Landing = () => {
     const updatedTableItems = [...tableItems];
     updatedTableItems[index][name] = value;
     setTableItems(updatedTableItems);
-  };
-
-  const handleSearchSubmit = event => {
-    event.preventDefault();
-    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -496,7 +586,14 @@ const Landing = () => {
             >
               Add Data
             </a>
+            <button
+              onClick={handlePrint}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10"
+            >
+              Print Table
+            </button>
           </div>
+
         </div>
         <div className="mt-4">
           <input
@@ -507,25 +604,7 @@ const Landing = () => {
             className="border p-2 rounded-md w-full"
           />
         </div>
-        <div className="flex justify-between mt-4">
-          <button
-            onClick={() => setCurrentPage(prevPage => prevPage - 1)}
-            disabled={currentPage === 1}
-            className="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-pointer"
-          >
-            Previous
-          </button>
-          <button
-            onClick={() => setCurrentPage(prevPage => prevPage + 1)}
-            disabled={currentPage === totalPages}
-            className="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-pointer"
-          >
-            Next
-          </button>
-        </div>
-        <div className="mt-2 text-center">
-          Page {currentPage} of {totalPages}
-        </div>
+
         <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto mb-10">
           <table className="w-full table-auto text-sm text-left">
             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
@@ -543,9 +622,9 @@ const Landing = () => {
                 <th className="py-3 px-6">K.M.</th>
                 <th className="py-3 px-6">Auto Charge</th>
                 <th className="py-3 px-6">Amount</th>
-                <th className="py-3 px-6">DR</th>
-                <th className="py-3 px-6">CR</th>
-                <th className="py-3 px-6">Balance</th>
+                <th className="py-3 px-6">DR (बकाया)</th>
+                <th className="py-3 px-6">CR (जमा)</th>
+                <th className="py-3 px-6">Balance (शेष)</th>
                 <th className="py-3 px-6"></th>
               </tr>
             </thead>
@@ -556,7 +635,9 @@ const Landing = () => {
                   <tr key={idx} className="divide-x">
                     <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{item.salesdate}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.drivername}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {translatedDriverNames[idx] || item.drivername}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">{item.autono}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.Limea ? `${item.Limea} X ${item.LimeaPrice}` : ''}
@@ -573,8 +654,13 @@ const Landing = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.rs ? `${item.rs} X ${item.rsPrice}` : ''}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.siteaddress}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {translatedSiteAddresses[idx] || item.siteaddress}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">{item.km}</td>
+                    {/* <td className="px-6 py-4 whitespace-nowrap">
+                      {TranslatedKMLabel[idx] || item.km}
+                    </td> */}
                     <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.amount === '' ?
@@ -590,7 +676,7 @@ const Landing = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">{item.dr}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{item.cr}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.balance}</td>
+                    <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>
                     <td className="text-right px-6 whitespace-nowrap">
                       <button
                         onClick={() => handleEditClick(idx)} // Call handleEditClick with the index
@@ -609,7 +695,29 @@ const Landing = () => {
                 ))}
             </tbody>
           </table>
+
         </div>
+        <div className="flex justify-between mt-4 pb-10">
+
+          <button
+            onClick={() => setCurrentPage(prevPage => prevPage - 1)}
+            disabled={currentPage === 1}
+            className="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-pointer"
+          >
+            Previous
+          </button>
+          <div className="mt-2 text-center">
+            Page {currentPage} of {totalPages}
+          </div>
+          <button
+            onClick={() => setCurrentPage(prevPage => prevPage + 1)}
+            disabled={currentPage === totalPages}
+            className="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-pointer"
+          >
+            Next
+          </button>
+        </div>
+
       </div>
       {isAddingData && (
         <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">

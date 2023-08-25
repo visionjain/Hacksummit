@@ -1,9 +1,45 @@
 import React, { useState } from 'react';
+import Landing from '../landing/landing';
+import { Link } from 'react-router-dom';
 
 const Customers = () => {
 
+    const [tableItems, setTableItems] = useState([
+        {
+            numberid: "1",
+            customername: "Vision",
+            phoneno: "8209599286",
+        },
+        {
+            numberid: "2",
+            customername: "Mahesh",
+            phoneno: "9445456155",
+        },
+        {
+            numberid: "3",
+            customername: "Rohit",
+            phoneno: "9209594564",
+        },
+        {
+            numberid: "4",
+            customername: "Waibhav",
+            phoneno: "8656545445",
+        },
+        {
+            numberid: "5",
+            customername: "Someone",
+            phoneno: "9999999999",
+        },
+    ]);
+
+
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const filteredTableItems = tableItems.filter(item =>
+        item.numberid.includes(searchQuery) || item.phoneno.includes(searchQuery) ||
+        item.customername.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
@@ -23,32 +59,13 @@ const Customers = () => {
         });
     };
 
-    const [tableItems, setTableItems] = useState([
-        {
-            numberid: "1",
-            customername: "Rajesh",
-        },
-        {
-            numberid: "2",
-            customername: "Mahesh",
-        },
-        {
-            numberid: "3",
-            customername: "Rohit",
-        },
-        {
-            numberid: "4",
-            customername: "Vision",
-        },
-        {
-            numberid: "5",
-            customername: "Someone",
-        },
-    ]);
+
 
     const [newData, setNewData] = useState({
         numberid: '',
         customername: '',
+        phoneno: '',
+
     });
 
 
@@ -87,10 +104,12 @@ const Customers = () => {
         setNewData({
             numberid: '',
             customername: '',
+            phoneno: '',
         });
         setIsAddingData(false);
         setEditingIndex(null);
     };
+
 
 
     return (
@@ -112,20 +131,40 @@ const Customers = () => {
                         </a>
                     </div>
                 </div>
+
+                <div className="mt-10">
+                    <input
+                        type="text"
+                        placeholder="Search by S.NO. / Customers Name / Contact No."
+                        value={searchQuery}
+                        onChange={event => setSearchQuery(event.target.value)}
+                        className="border p-2 rounded-md w-full"
+                    />
+                </div>
                 <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
                     <table className="w-full table-auto text-sm text-left">
                         <thead className="bg-gray-50 text-gray-600 font-medium border-b">
                             <tr>
                                 <th className="py-3 px-6">S. NO.</th>
                                 <th className="py-3 px-6">Customers Name</th>
+                                <th className="py-3 px-6">Contact No.</th>
+                                <th className="py-3 px-6">View Data</th>
                                 <th className="py-3 px-6"></th>
                             </tr>
                         </thead>
                         <tbody className="text-gray-600 divide-y">
-                            {tableItems.map((item, idx) => (
+                            {filteredTableItems.map((item, idx) => (
                                 <tr key={idx} className="divide-x">
                                     <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{item.customername}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{item.phoneno}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <button
+                                            className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
+                                        >
+                                            View Data
+                                        </button>
+                                    </td>
                                     <td className="text-right px-6 whitespace-nowrap">
                                         <button
                                             onClick={() => handleEditClick(idx)} // Call handleEditClick with the index
@@ -157,6 +196,14 @@ const Customers = () => {
                                     name="customername"
                                     placeholder="Customers Name"
                                     value={newData.customername} // Corrected value attribute
+                                    onChange={handleFormChange}
+                                    className="border p-2 rounded-md"
+                                />
+                                <input
+                                    type="tel"
+                                    name="phoneno"
+                                    placeholder="Contact No."
+                                    value={newData.phoneno} // Corrected value attribute
                                     onChange={handleFormChange}
                                     className="border p-2 rounded-md"
                                 />
