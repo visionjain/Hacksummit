@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Landing from '../landing/landing';
 import { Link } from 'react-router-dom';
 
-const Customers = () => {
+const Customers = ({customer}) => {
 
     const [tableItems, setTableItems] = useState([
         {
@@ -123,7 +123,6 @@ const Customers = () => {
                     </div>
                     <div className="mt-3 md:mt-0">
                         <a
-                            href="javascript:void(0)"
                             className="inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
                             onClick={handleAddDataClick}
                         >
