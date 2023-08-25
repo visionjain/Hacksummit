@@ -2,37 +2,39 @@ import React, { useState } from 'react';
 import Landing from '../landing/landing';
 import { Link } from 'react-router-dom';
 
-const Customers = ({customer}) => {
 
-    const [tableItems, setTableItems] = useState([
-        {
-            numberid: "1",
-            customername: "Vision",
-            phoneno: "8209599286",
-        },
-        {
-            numberid: "2",
-            customername: "Mahesh",
-            phoneno: "9445456155",
-        },
-        {
-            numberid: "3",
-            customername: "Rohit",
-            phoneno: "9209594564",
-        },
-        {
-            numberid: "4",
-            customername: "Waibhav",
-            phoneno: "8656545445",
-        },
-        {
-            numberid: "5",
-            customername: "Someone",
-            phoneno: "9999999999",
-        },
-    ]);
+export const tableItemsData = [
+    {
+        numberid: "1",
+        customername: "Vision",
+        phoneno: "8209599286",
+    },
+    {
+        numberid: "2",
+        customername: "Mahesh",
+        phoneno: "9445456155",
+    },
+    {
+        numberid: "3",
+        customername: "Rohit",
+        phoneno: "9209594564",
+    },
+    {
+        numberid: "4",
+        customername: "Waibhav",
+        phoneno: "8656545445",
+    },
+    {
+        numberid: "5",
+        customername: "Someone",
+        phoneno: "9999999999",
+    },
+]
+
+const Customers = ({ customer }) => {
 
 
+    const [tableItems, setTableItems] = useState(tableItemsData);
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -75,6 +77,11 @@ const Customers = ({customer}) => {
         const nextId = tableItems.length + 1;
         setNewData(prevData => ({ ...prevData, numberid: nextId.toString() }));
         setEditingIndex(null); // Clear editing index when adding new data
+    };
+
+    const handleViewData = (numberid) => {
+        // Navigate to the DetailPage with the corresponding numberid
+        window.location.href = `/customers/${numberid}`;
     };
 
 
@@ -159,10 +166,12 @@ const Customers = ({customer}) => {
                                     <td className="px-6 py-4 whitespace-nowrap">{item.phoneno}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <button
+                                            onClick={() => handleViewData(item.numberid)}
                                             className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
                                         >
                                             View Data
                                         </button>
+
                                     </td>
                                     <td className="text-right px-6 whitespace-nowrap">
                                         <button
