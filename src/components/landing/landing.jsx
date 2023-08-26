@@ -607,7 +607,7 @@ const Landing = () => {
                 .map((item, idx) => (
                   <tr key={idx} className="divide-x">
                     <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.salesdate}</td>
+                    <td className="px-6 py-4 whitespace-nowrap font-bold">{item.salesdate}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {translatedDriverNames[idx] || item.drivername}
                     </td>
