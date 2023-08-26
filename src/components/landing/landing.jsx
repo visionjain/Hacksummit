@@ -7,6 +7,7 @@ const axios = require('axios').default
 
 
 
+
 const Landing = () => {
 
   const [tableItems, setTableItems] = useState([
@@ -203,33 +204,6 @@ const Landing = () => {
 
 
   ]);
-
-
-  // const [TranslatedKMLabel, setTranslatedKMLabel] = useState([]);
-
-  // useEffect(() => {
-  //   const TranslatedKMLabel = async () => {
-  //     const km = tableItems.map(item => item.km);
-
-  //     try {
-  //       const translations = await Promise.all(km.map(name => translate(name)));
-  //       const translatedNames = translations.map(res => res.data.responseData.translatedText);
-  //       setTranslatedKMLabel(translatedNames);
-  //     } catch (error) {
-  //       console.error('Translation error:', error);
-  //     }
-  //   };
-
-  //   const translate = async (text) => {
-  //     const apiKey = '7fe898c8a155dbcbb5bd';
-  //     const email = 'visionjain118@gmail.com';
-  //     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
-
-  //     return axios.get(url);
-  //   };
-
-  //   TranslatedKMLabel();
-  // }, [tableItems]);
 
 
   const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
@@ -653,7 +627,7 @@ const Landing = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {item.rs ? `${item.rs} X ${item.rsPrice}` : ''}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap font-bold">
                       {translatedSiteAddresses[idx] || item.siteaddress}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">{item.km}</td>
@@ -661,7 +635,7 @@ const Landing = () => {
                       {TranslatedKMLabel[idx] || item.km}
                     </td> */}
                     <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-4 whitespace-nowrap font-bold">
                       {item.amount === '' ?
                         '' :
                         (
@@ -673,8 +647,8 @@ const Landing = () => {
                         ).toFixed(2)
                       }
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.dr}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{item.cr}</td>
+                    <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
+                    <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
                     <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>
                     <td className="text-right px-6 whitespace-nowrap">
                       <button
