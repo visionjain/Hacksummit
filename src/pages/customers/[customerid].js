@@ -206,13 +206,27 @@ const Landing = () => {
         const shouldDelete = window.confirm("Are you sure you want to delete this item?");
         if (shouldDelete) {
             const updatedTableItems = selectedCustomer.data.filter((item, idx) => idx !== index);
-            reassignNumberIds(updatedTableItems);
-            setSelectedCustomer(prevCustomer => ({
+    
+            // Recalculate balance for remaining rows
+            let currentBalance = 0;
+            const updatedItemsWithBalances = updatedTableItems.map((item) => {
+                const drValue = parseFloat(item.dr);
+                const crValue = parseFloat(item.cr);
+                currentBalance += drValue - crValue;
+    
+                return {
+                    ...item,
+                    balance: currentBalance.toFixed(2),
+                };
+            });
+    
+            setSelectedCustomer((prevCustomer) => ({
                 ...prevCustomer,
-                data: updatedTableItems
+                data: updatedItemsWithBalances,
             }));
         }
     };
+    
 
 
     const reassignNumberIds = (items) => {
