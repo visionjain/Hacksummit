@@ -1,47 +1,22 @@
-import React, { useState } from 'react';
-import Landing from '../landing/landing';
+import React, { useState, useEffect } from 'react';
+import db from '../database/db.json';
 import { Link } from 'react-router-dom';
-
-
-export const tableItemsData = [
-    {
-        numberid: "1",
-        customername: "Vision",
-        phoneno: "8209599286",
-    },
-    {
-        numberid: "2",
-        customername: "Mahesh",
-        phoneno: "9445456155",
-    },
-    {
-        numberid: "3",
-        customername: "Rohit",
-        phoneno: "9209594564",
-    },
-    {
-        numberid: "4",
-        customername: "Waibhav",
-        phoneno: "8656545445",
-    },
-    {
-        numberid: "5",
-        customername: "Someone",
-        phoneno: "9999999999",
-    },
-]
 
 const Customers = ({ customer }) => {
 
 
-    const [tableItems, setTableItems] = useState(tableItemsData);
+    const [tableItems, setTableItems] = useState([]);
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const filteredTableItems = tableItems.filter(item =>
-        item.numberid.includes(searchQuery) || item.phoneno.includes(searchQuery) ||
+        item.customerid.includes(searchQuery) || item.phoneno.includes(searchQuery) ||
         item.customername.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    useEffect(() => {
+        setTableItems(db);
+    }, []);
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
@@ -50,21 +25,25 @@ const Customers = ({ customer }) => {
     };
 
     const handleDeleteClick = (index) => {
-        const updatedTableItems = tableItems.filter((item, idx) => idx !== index);
-        reassignNumberIds(updatedTableItems);
-        setTableItems(updatedTableItems);
+        const confirmDelete = window.confirm("Are you sure you want to delete this customer?");
+        
+        if (confirmDelete) {
+            const updatedTableItems = tableItems.filter((item, idx) => idx !== index);
+            reassignNumberIds(updatedTableItems);
+            setTableItems(updatedTableItems);
+        }
     };
 
     const reassignNumberIds = (items) => {
         items.forEach((item, index) => {
-            item.numberid = (index + 1).toString();
+            item.customerid = (index + 1).toString();
         });
     };
 
 
 
     const [newData, setNewData] = useState({
-        numberid: '',
+        customerid: '',
         customername: '',
         phoneno: '',
 
@@ -75,13 +54,13 @@ const Customers = ({ customer }) => {
     const handleAddDataClick = () => {
         setIsAddingData(true);
         const nextId = tableItems.length + 1;
-        setNewData(prevData => ({ ...prevData, numberid: nextId.toString() }));
+        setNewData(prevData => ({ ...prevData, customerid: nextId.toString() }));
         setEditingIndex(null); // Clear editing index when adding new data
     };
 
-    const handleViewData = (numberid) => {
+    const handleViewData = (customerid) => {
         // Navigate to the DetailPage with the corresponding numberid
-        window.location.href = `/customers/${numberid}`;
+        window.location.href = `/customers/${customerid}`;
     };
 
 
@@ -109,7 +88,7 @@ const Customers = ({ customer }) => {
         }
         // Reset form and state
         setNewData({
-            numberid: '',
+            customerid: '',
             customername: '',
             phoneno: '',
         });
@@ -161,12 +140,12 @@ const Customers = ({ customer }) => {
                         <tbody className="text-gray-600 divide-y">
                             {filteredTableItems.map((item, idx) => (
                                 <tr key={idx} className="divide-x">
-                                    <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{item.customerid}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{item.customername}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{item.phoneno}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <button
-                                            onClick={() => handleViewData(item.numberid)}
+                                            onClick={() => handleViewData(item.customerid)}
                                             className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
                                         >
                                             View Data
