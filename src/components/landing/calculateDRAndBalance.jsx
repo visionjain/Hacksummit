@@ -13,7 +13,7 @@ export const calculateDRAndBalance = (data, previousBalance) => {
         (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
         (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
         (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
-    const dr = (totalProductAmount + valueToNumber(data.autocharge)).toFixed(2);
+    const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
     const balance = (previousBalance + parseFloat(dr) - parseFloat(data.cr)).toFixed(2);
 
     return { dr, balance };
