@@ -10,7 +10,7 @@ const Customers = ({ customer }) => {
     const [editingIndex, setEditingIndex] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const filteredTableItems = tableItems.filter(item =>
-        item.customerid.includes(searchQuery) || item.phoneno.includes(searchQuery) ||
+        item.customerid.includes(searchQuery) ||
         item.customername.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -120,7 +120,7 @@ const Customers = ({ customer }) => {
                 <div className="mt-10">
                     <input
                         type="text"
-                        placeholder="Search by S.NO. / Customers Name / Contact No."
+                        placeholder="Search by S.NO. or Customers Name"
                         value={searchQuery}
                         onChange={event => setSearchQuery(event.target.value)}
                         className="border p-2 rounded-md w-full"
