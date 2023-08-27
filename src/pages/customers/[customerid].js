@@ -417,7 +417,7 @@ const Landing = () => {
                     <div className="items-start justify-between md:flex">
                         <div className="max-w-lg">
                             <h3 className="text-gray-800 text-xl font-bold sm:text-2xl mb-4">
-                                {selectedCustomer.customername} Data
+                                {selectedCustomer.customername}&apos;s Data
                             </h3>
                             <ExcelGenerator tableItems={selectedCustomer.data} />
                         </div>
