@@ -113,11 +113,12 @@ const Landing = () => {
     // const totalPages = Math.ceil(selectedCustomer.data.length / itemsPerPage);
     const [searchQuery, setSearchQuery] = useState("");
     const filteredTableItems = selectedCustomer && selectedCustomer.data
-        ? selectedCustomer.data.filter(item =>
-            item.numberid.includes(searchQuery) ||
-            item.drivername.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        : [];
+    ? selectedCustomer.data.filter(item =>
+        item.numberid.includes(searchQuery) ||
+        item.salesdate.includes(searchQuery) ||
+        item.drivername.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    : [];
 
     const handleFormChangeForExistingData = (event, index) => {
         const { name, value } = event.target;
@@ -436,15 +437,15 @@ const Landing = () => {
                         </div>
 
                     </div>
-                    <div className="mt-4">
-                        <input
-                            type="text"
-                            placeholder="Search by S.NO. or Name"
-                            value={searchQuery}
-                            onChange={event => setSearchQuery(event.target.value)}
-                            className="border p-2 rounded-md w-full"
-                        />
-                    </div>
+                    <div className="mt-10">
+                    <input
+                        type="text"
+                        placeholder="Search by S.NO. / Driver Name / Date"
+                        value={searchQuery}
+                        onChange={event => setSearchQuery(event.target.value)}
+                        className="border p-2 rounded-md w-full"
+                    />
+                </div>
 
                     <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto mb-10">
                         <table className="w-full table-auto text-sm text-left">
@@ -471,8 +472,8 @@ const Landing = () => {
                             </thead>
                             <tbody className="text-gray-600 divide-y">
 
-                                {selectedCustomer && selectedCustomer.data
-                                    ? selectedCustomer.data.map((item, idx) => (
+                                {selectedCustomer && selectedCustomer.data && filteredTableItems
+                                    ? filteredTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
                                             <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.salesdate}</td>
