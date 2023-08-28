@@ -18,6 +18,7 @@
     "eslint-config-next": "13.4.19",
     "jspdf": "^2.5.1",
     "jsqr": "^1.4.0",
+    "mongoose": "^7.4.5",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-datepicker": "^4.16.0",

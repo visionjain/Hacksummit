@@ -18,11 +18,10 @@ const Login = () => {
 
                     <div className="mt-5 space-y-2">
                         <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Log in to your account</h3>
-                        <p> Dont have an account? <Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">Sign up</Link></p>
                     </div>
                 </div>
                 <form
-                    onSubmit={(e) => e.preventDefault()}
+                    action="/api/login" method='post'
                 >
                     <div>
                         <label className="font-medium">
@@ -30,6 +29,8 @@ const Login = () => {
                         </label>
                         <input
                             type="email"
+                            name='email'
+                            placeholder='Type your email'
                             required
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                         />
@@ -40,15 +41,20 @@ const Login = () => {
                         </label>
                         <input
                             type="password"
+                            name='password'
+                            placeholder='Type your password'
                             required
                             className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
                         />
                     </div>
+                    {/* <Link href='/customers'> */}
                     <button
-                        className="w-full mt-4 px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+                        className="w-full mt-4 px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150 cursor-pointer"
+                        type='submit' value='Login'
                     >
-                        <Link href='/customers'>Log In</Link>
+                       Log In
                     </button>
+                    {/* </Link> */}
                 </form>
             </div>
         </main>
