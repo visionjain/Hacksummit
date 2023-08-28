@@ -13,10 +13,6 @@ import db from '../../components/database/db.json';
 const Landing = () => {
 
     const [selectedCustomer, setSelectedCustomer] = useState(null);
-    // const [translatedDriverNames, setTranslatedDriverNames] = useState([]);
-    // const [translationsFetched, setTranslationsFetched] = useState(false);
-
-    // Assuming this code is inside a function or component
     const router = useRouter();
     const customerid = router.query.customerid;
 
@@ -25,16 +21,6 @@ const Landing = () => {
         const fetchedCustomer = db.find(item => item.customerid === customerid);
         setSelectedCustomer(fetchedCustomer);
     }, [customerid]);
-    // Find the customer using the customerid
-    // const selectedCustomer = db.find(item => item.customerid === customerid);
-    // console.log(selectedCustomer);
-
-
-    //   selectedCustomer.data.map((e)=>{
-
-    //       console.log(e);
-    //   }
-    //   )
     if (!selectedCustomer) {
         console.log("loading")
     }
@@ -343,20 +329,6 @@ const Landing = () => {
             };
         });
 
-        // setSelectedCustomer(updatedItemsWithBalancesAndTotals);
-
-        // Recalculate balance values for all rows
-        // let currentBalance = 0;
-        // const updatedItems = updatedTableItems.map((item) => {
-        //     const drValue = parseFloat(item.dr);
-        //     const crValue = parseFloat(item.cr);
-        //     currentBalance += drValue - crValue;
-
-        //     return {
-        //         ...item,
-        //         balance: currentBalance.toFixed(2),
-        //     };
-        // });
 
         setSelectedCustomer((prevCustomer) => ({
             ...prevCustomer,
@@ -508,7 +480,7 @@ const Landing = () => {
                                                 {item.jhiki ? `${item.jhiki} X ${item.jhikiPrice}` : ''}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {item.rs ? `${item.rs} X ${item.rsPrice}` : ''}
+                                                {item.rs ? `${item.rs} KG X ${item.rsPrice}` : ''}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {translatedSiteAddresses[idx] || item.siteaddress}
