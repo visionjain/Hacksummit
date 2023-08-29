@@ -155,6 +155,7 @@ const Customers = ({ customer }) => {
 
     const handleUpdateCustomer = async () => {
         try {
+
             const response = await axios.put(
                 `/api/updatecustomer?customerid=${newData.customerid}`,
                 newData
@@ -170,13 +171,34 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
             });
-
-            window.location.reload();
         } catch (error) {
             console.error("Error updating customer:", error);
         }
     };
+    const handleSaveChanges = async () => {
+        try {
+            const shouldSubmit = window.confirm("Are you sure you want to save the changes?");
+            if (!shouldSubmit) {
+                return; // User canceled submission
+            }
 
+            await handleUpdateCustomer(); // Call the update handler
+
+            // Close the edit block and reset new data
+            setIsEditing(false);
+            setEditingIndex(null);
+            setNewData({
+                customerid: '',
+                customername: '',
+                phoneno: '',
+            });
+
+            // Fetch the data again to reflect changes
+            fetchData();
+        } catch (error) {
+            console.error("Error saving changes:", error);
+        }
+    };
 
 
     const handleFormSubmit = () => {
@@ -187,41 +209,6 @@ const Customers = ({ customer }) => {
             handleAddCustomer();
         }
     };
-
-
-
-    // const handleFormSubmit = async (event) => {
-    //     event.preventDefault();
-
-    //     try {
-    //         if (editingIndex !== null) {
-    //             // Update existing data when in edit mode
-    //             const response = await axios.put(`/api/updatecustomer?customerid=${newData.customerid}`, newData);
-    //             console.log("Customer updated:", response.data);
-    //         } else {
-    //             // Find the maximum customerid (S.No.) in the existing customer data
-    //             const existingCustomerIds = customerData.customer.map((item) => parseInt(item.customerid));
-    //             const maxCustomerid = Math.max(...existingCustomerIds, 0);
-
-    //             // Add new customer with basic data and next S.No.
-    //             const newCustomerData = {
-    //                 customerid: (maxCustomerid + 1).toString(),
-    //                 customername: newData.customername,
-    //                 phoneno: newData.phoneno,
-    //                 data: [] // Initialize with an empty array for other data
-    //             };
-    //             const response = await axios.post('/api/addcustomer', [newCustomerData]);
-    //             console.log("Customer added:", response.data);
-    //         }
-
-    //         // Update customerData state after successful add/update
-    //         fetchData();
-    //         setIsAddingData(false);
-    //         setEditingIndex(null);
-    //     } catch (error) {
-    //         console.error("Error adding/updating customer:", error);
-    //     }
-    // };
 
 
 
@@ -306,7 +293,7 @@ const Customers = ({ customer }) => {
                                                             className="border p-2 rounded-md"
                                                         />
                                                         <button
-                                                            onClick={() => handleFormSubmit()}
+                                                            onClick={handleSaveChanges} // Use the handler directly here
                                                             className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
                                                         >
                                                             Save
