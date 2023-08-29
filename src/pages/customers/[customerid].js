@@ -299,22 +299,22 @@ const Landing = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-    
+
         // Calculate DR and balance for the new data
         const { dr, balance } = calculateDRAndBalance(newData, 0);
         newData.dr = dr;
         newData.balance = balance;
-    
+
         try {
             if (editingIndex !== null) {
                 // Update existing data when in edit mode
                 const updatedTableItems = customer.data.map((item, index) =>
                     index === editingIndex ? newData : item
                 );
-    
+
                 // Send a PUT request to update the item
                 await axios.put(`/api/updateitem?customerid=${customer.customerid}`, newData);
-    
+
                 setCustomer((prevCustomer) => ({
                     ...prevCustomer,
                     data: updatedTableItems,
@@ -322,7 +322,7 @@ const Landing = () => {
             } else {
                 // Send a POST request to add the new data
                 await axios.post(`/api/additem?customerid=${customer.customerid}`, newData);
-    
+
                 // Update local state with the new data
                 const updatedTableItems = [...customer.data, newData];
                 setCustomer((prevCustomer) => ({
@@ -330,7 +330,7 @@ const Landing = () => {
                     data: updatedTableItems,
                 }));
             }
-    
+
             // Reset form and state
             setNewData({
                 numberid: "",
@@ -356,7 +356,7 @@ const Landing = () => {
             console.error('Error adding data entry:', error);
         }
     };
-    
+
 
 
 
@@ -391,7 +391,9 @@ const Landing = () => {
 
 
     if (!customer) {
-        return <p>loading.....</p>
+        <div className="flex justify-center items-center h-screen">
+            <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-blue-500"></div>
+        </div>
     } else {
 
 
@@ -695,7 +697,7 @@ const Landing = () => {
                                     />
                                 </div>
                                 <div className="flex mt-4">
-                                <button type="submit" className='bg-indigo-600 p-3 px-6 rounded mr-4'>{editingIndex !== null ? 'Update' : 'Add'}</button>
+                                    <button type="submit" className='bg-indigo-600 p-3 px-6 rounded mr-4'>{editingIndex !== null ? 'Update' : 'Add'}</button>
                                     <button
                                         type="button"
                                         onClick={() => setIsAddingData(false)}
@@ -704,7 +706,7 @@ const Landing = () => {
                                         Cancel
                                     </button>
                                 </div>
-                                
+
                             </form>
 
                         </div>
