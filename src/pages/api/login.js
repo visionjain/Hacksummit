@@ -1,15 +1,25 @@
-import connect from "../../../lib/mongodb";
+import connectDb from "../../../lib/mongodb";
 import User from '../../../model/loginschema'
 
-connect()
+const handler = async (req, res) => {
+    if (req.method === 'POST') {
+        console.log(req.body);
+        try {
+            const { email, password } = req.body;
+            const user = await User.findOne({ email });
 
-export default async function handler(req, res) {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email, password });
-
-    if (!user) {
-        return res.json({ status: 'User does not exist' });
+            if (user && user.password === password) {
+                // Redirect to /customers upon successful login
+                res.redirect(302, '/customers');
+            } else {
+                res.status(401).json({ error: "Invalid credentials" });
+            }
+        } catch (error) {
+            res.status(500).json({ error: "Internal server error" });
+        }
     } else {
-        res.redirect('/customers')
+        res.status(400).json({ error: "This method is not allowed" });
     }
 }
+
+export default connectDb(handler);
