@@ -130,7 +130,6 @@ const Customers = ({ customer }) => {
             };
 
             const response = await axios.post('/api/addcustomer', [newCustomerData]);
-            console.log("Customer added:", response.data);
 
             // Update customerData state after successful add
             fetchData();
@@ -152,7 +151,6 @@ const Customers = ({ customer }) => {
                 `/api/updatecustomer?customerid=${newData.customerid}`,
                 newData
             );
-            console.log("Customer updated:", response.data);
 
             // Update customerData state after successful update
             fetchData();
@@ -350,7 +348,7 @@ const Customers = ({ customer }) => {
                                             placeholder="Contact No."
                                             value={newData.phoneno} // Corrected value attribute
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="ml-2 border p-2 rounded-md"
                                         />
                                     </div>
                                     <div className="flex mt-4">
