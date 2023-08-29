@@ -1,13 +1,13 @@
 [
     {
         "customerid": "1",
-        "customername": "Vision",
+        "customername": "jiksu",
         "phoneno": "8209599286",
         "data": [
             {
                 "numberid": "1002",
                 "salesdate": "2023-08-24",
-                "drivername": "Vision Jain",
+                "drivername": "Vision jain",
                 "autono": "4560",
                 "Limea": "20",
                 "LimeaPrice": "100",

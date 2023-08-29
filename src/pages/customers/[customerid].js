@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { calculateDRAndBalance } from '../../components/landing/calculateDRAndBalance';
 import { useRouter } from 'next/router';
 import ExcelGenerator from '../../components/landing/ExcelGenerator';
-const axios = require('axios').default;
-import db from '../../components/database/db.json';
+import axios from 'axios';
 
 
 
@@ -11,29 +10,48 @@ import db from '../../components/database/db.json';
 
 
 const Landing = () => {
+    const [customer, setCustomer] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const [selectedCustomer, setSelectedCustomer] = useState(null);
+
     const router = useRouter();
     const customerid = router.query.customerid;
 
+
     useEffect(() => {
-        // Fetch the selected customer data based on customerid
-        const fetchedCustomer = db.find(item => item.customerid === customerid);
-        setSelectedCustomer(fetchedCustomer);
-    }, [customerid]);
-    if (!selectedCustomer) {
-        console.log("loading")
-    }
-    else {
-        console.log("hi")
-    }
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/api/getcustomer');
+                const allCustomerData = response.data.customer;
+
+                // Find the customer that matches the current customer ID (slug)
+                const matchingCustomer = allCustomerData.find(customer => customer.customerid === customerid);
+
+                if (matchingCustomer) {
+                    setCustomer(matchingCustomer); // Set the matching customer object
+                    setIsLoading(false); // Turn off loading state after data fetch
+                } else {
+                    console.error('Customer not found');
+                    setIsLoading(false);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, [customerid]); // Trigger the effect when the customer ID changes
+
+    console.log(customer); // This will log the entire matching customer object
+
+
     const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
 
     useEffect(() => {
         const translateSiteAddresses = async () => {
-            if (!selectedCustomer) return;
+            if (!customer) return;
 
-            const siteAddresses = selectedCustomer.data.map(item => item.siteaddress);
+            const siteAddresses = customer.data.map(item => item.siteaddress);
 
             try {
                 const apiKey = '7fe898c8a155dbcbb5bd';
@@ -50,7 +68,7 @@ const Landing = () => {
         };
 
         translateSiteAddresses();
-    }, [selectedCustomer]);
+    }, [customer]);
 
     const translate = async (text, apiKey, email) => {
         const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
@@ -61,9 +79,9 @@ const Landing = () => {
     const [translationsFetched, setTranslationsFetched] = useState(false);
     useEffect(() => {
         const translateDriverNames = async () => {
-            if (!selectedCustomer) return;
+            if (!customer) return;
 
-            const driverNames = selectedCustomer.data.map(item => item.drivername);
+            const driverNames = customer.data.map(item => item.drivername);
 
             try {
                 const translations = await Promise.all(driverNames.map(name => translate(name)));
@@ -84,34 +102,30 @@ const Landing = () => {
         };
 
         translateDriverNames();
-    }, [selectedCustomer]);
+    }, [customer]);
 
 
     const handlePrint = () => {
-        // Open the print dialog
         window.print();
     };
 
 
     const [initialCalculationDone, setInitialCalculationDone] = useState(false);
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const itemsPerPage = 10;
-    // const totalPages = Math.ceil(selectedCustomer.data.length / itemsPerPage);
     const [searchQuery, setSearchQuery] = useState("");
-    const filteredTableItems = selectedCustomer && selectedCustomer.data
-    ? selectedCustomer.data.filter(item =>
-        item.numberid.includes(searchQuery) ||
-        item.salesdate.includes(searchQuery) ||
-        item.drivername.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    : [];
+    const filteredTableItems = customer && customer.data
+        ? customer.data.filter(item =>
+            item.numberid.includes(searchQuery) ||
+            item.salesdate.includes(searchQuery) ||
+            item.drivername.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        : [];
 
-    const handleFormChangeForExistingData = (event, index) => {
-        const { name, value } = event.target;
-        const updatedTableItems = [...selectedCustomer.data];
-        updatedTableItems[index][name] = value;
-        setSelectedCustomer(updatedTableItems);
-    };
+    // const handleFormChangeForExistingData = (event, index) => {
+    //     const { name, value } = event.target;
+    //     const updatedTableItems = [...customer.data];
+    //     updatedTableItems[index][name] = value;
+    //     setCustomer(updatedTableItems);
+    // };
 
     useEffect(() => {
         const calculateDRAndBalance = (data, previousBalance) => {
@@ -128,7 +142,7 @@ const Landing = () => {
             return { dr, balance };
         };
 
-        setSelectedCustomer(prevCustomer => {
+        setCustomer(prevCustomer => {
             if (!prevCustomer) return prevCustomer;
 
             let previousBalance = 0; // Initialize previousBalance here
@@ -150,33 +164,33 @@ const Landing = () => {
 
 
 
-    const calculateDR = (data) => {
-        const totalProductAmount =
-            (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
-            (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
-            (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
-            (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
-            (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
+    // const calculateDR = (data) => {
+    //     const totalProductAmount =
+    //         (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
+    //         (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
+    //         (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
+    //         (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
+    //         (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
 
-        return (totalProductAmount + valueToNumber(data.autocharge)).toFixed(2);
-    };
+    //     return (totalProductAmount + valueToNumber(data.autocharge)).toFixed(2);
+    // };
 
-    const calculateTotalAmount = () => {
-        let totalAmount = 0;
+    // const calculateTotalAmount = () => {
+    //     let totalAmount = 0;
 
-        selectedCustomer.data.forEach(item => {
-            if (item.Limea && item.LimeaPrice) {
-                const limeaParts = item.Limea.split(' x ');
-                const limeaValue = parseFloat(limeaParts[0]);
-                const limeaPrice = parseFloat(item.LimeaPrice);
-                const productAmount = limeaValue * limeaPrice;
+    //     customer.data.forEach(item => {
+    //         if (item.Limea && item.LimeaPrice) {
+    //             const limeaParts = item.Limea.split(' x ');
+    //             const limeaValue = parseFloat(limeaParts[0]);
+    //             const limeaPrice = parseFloat(item.LimeaPrice);
+    //             const productAmount = limeaValue * limeaPrice;
 
-                totalAmount += productAmount;
-            }
-        });
+    //             totalAmount += productAmount;
+    //         }
+    //     });
 
-        return totalAmount.toFixed(2); // You can format this as needed
-    };
+    //     return totalAmount.toFixed(2); // You can format this as needed
+    // };
 
 
     const [isAddingData, setIsAddingData] = useState(false);
@@ -184,42 +198,31 @@ const Landing = () => {
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
-        setNewData(selectedCustomer.data[index]);
+        setNewData(customer.data[index]);
         setIsAddingData(true);
     };
 
-    const handleDeleteClick = (index) => {
+    const handleDeleteClick = async (index, itemId) => {
         const shouldDelete = window.confirm("Are you sure you want to delete this item?");
         if (shouldDelete) {
-            const updatedTableItems = selectedCustomer.data.filter((item, idx) => idx !== index);
-    
-            // Recalculate balance for remaining rows
-            let currentBalance = 0;
-            const updatedItemsWithBalances = updatedTableItems.map((item) => {
-                const drValue = parseFloat(item.dr);
-                const crValue = parseFloat(item.cr);
-                currentBalance += drValue - crValue;
-    
-                return {
-                    ...item,
-                    balance: currentBalance.toFixed(2),
-                };
-            });
-    
-            setSelectedCustomer((prevCustomer) => ({
-                ...prevCustomer,
-                data: updatedItemsWithBalances,
-            }));
+            try {
+                await axios.delete(`/api/deleteitem?customerid=${customer.customerid}&itemid=${itemId}`);
+
+                // Update the local state after successful deletion
+                const updatedTableItems = customer.data.filter((item, idx) => idx !== index);
+                setCustomer(prevCustomer => ({
+                    ...prevCustomer,
+                    data: updatedTableItems,
+                }));
+            } catch (error) {
+                console.error('Error deleting data entry:', error);
+            }
         }
     };
-    
 
 
-    const reassignNumberIds = (items) => {
-        items.forEach((item, index) => {
-            item.numberid = (index + 1).toString();
-        });
-    };
+
+
 
 
     const [newData, setNewData] = useState({
@@ -292,79 +295,76 @@ const Landing = () => {
     };
 
 
-    
 
-    const handleFormSubmit = (event) => {
+
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
-
-        let updatedTableItems;
-        if (editingIndex !== null) {
-            // Update existing data when in edit mode
-            updatedTableItems = selectedCustomer.data.map((item, index) =>
-                index === editingIndex ? newData : item
-            );
-        } else {
-            // Add new data when in add mode
-            updatedTableItems = [...selectedCustomer.data, newData];
-        }
-
+    
         // Calculate DR and balance for the new data
         const { dr, balance } = calculateDRAndBalance(newData, 0);
         newData.dr = dr;
         newData.balance = balance;
-
-
-        let currentBalance = 0;
-        let previousBalance = 0;
-        const updatedItemsWithBalancesAndTotals = updatedTableItems.map((item) => {
-            const { dr, balance } = calculateDRAndBalance(item, previousBalance);
-            previousBalance = parseFloat(balance);
-
-            currentBalance += dr - parseFloat(item.cr);
-
-            return {
-                ...item,
-                dr,
-                balance: currentBalance.toFixed(2),
-            };
-        });
-
-
-        setSelectedCustomer((prevCustomer) => ({
-            ...prevCustomer,
-            data: updatedItemsWithBalancesAndTotals, // Use the correct variable name here
-        }));
-
-        // Reset form and state
-        setNewData({
-            numberid: "",
-            salesdate: "",
-            drivername: "",
-            autono: "",
-            Limea: "",
-            Limew: "",
-            Limeb: "",
-            jhiki: "",
-            rs: "",
-            siteaddress: "",
-            labourcharge: "",
-            autocharge: "",
-            amount: "",
-            dr: "",
-            cr: "",
-            balance: "",
-        });
-        setIsAddingData(false);
-        setEditingIndex(null);
+    
+        try {
+            if (editingIndex !== null) {
+                // Update existing data when in edit mode
+                const updatedTableItems = customer.data.map((item, index) =>
+                    index === editingIndex ? newData : item
+                );
+    
+                // Send a PUT request to update the item
+                await axios.put(`/api/updateitem?customerid=${customer.customerid}`, newData);
+    
+                setCustomer((prevCustomer) => ({
+                    ...prevCustomer,
+                    data: updatedTableItems,
+                }));
+            } else {
+                // Send a POST request to add the new data
+                await axios.post(`/api/additem?customerid=${customer.customerid}`, newData);
+    
+                // Update local state with the new data
+                const updatedTableItems = [...customer.data, newData];
+                setCustomer((prevCustomer) => ({
+                    ...prevCustomer,
+                    data: updatedTableItems,
+                }));
+            }
+    
+            // Reset form and state
+            setNewData({
+                numberid: "",
+                salesdate: "",
+                drivername: "",
+                autono: "",
+                Limea: "",
+                Limew: "",
+                Limeb: "",
+                jhiki: "",
+                rs: "",
+                siteaddress: "",
+                labourcharge: "",
+                autocharge: "",
+                amount: "",
+                dr: "",
+                cr: "",
+                balance: "",
+            });
+            setIsAddingData(false);
+            setEditingIndex(null);
+        } catch (error) {
+            console.error('Error adding data entry:', error);
+        }
     };
+    
 
 
 
     useEffect(() => {
-        if (selectedCustomer && selectedCustomer.data && !initialCalculationDone) {
+        if (customer && customer.data && !initialCalculationDone) {
             let previousBalance = 0;
 
-            const updatedItemsWithBalance = selectedCustomer.data.map(item => {
+            const updatedItemsWithBalance = customer.data.map(item => {
                 const { dr, balance } = calculateDRAndBalance(item, previousBalance);
                 previousBalance = parseFloat(balance);
 
@@ -375,14 +375,14 @@ const Landing = () => {
                 };
             });
 
-            setSelectedCustomer(prevCustomer => ({
+            setCustomer(prevCustomer => ({
                 ...prevCustomer,
                 data: updatedItemsWithBalance,
             }));
 
             setInitialCalculationDone(true);
         }
-    }, [selectedCustomer, initialCalculationDone]);
+    }, [customer, initialCalculationDone]);
 
 
 
@@ -390,7 +390,7 @@ const Landing = () => {
 
 
 
-    if (!selectedCustomer) {
+    if (!customer) {
         return <p>loading.....</p>
     } else {
 
@@ -403,9 +403,9 @@ const Landing = () => {
                     <div className="items-start justify-between md:flex">
                         <div className="max-w-lg">
                             <h3 className="text-gray-800 text-xl font-bold sm:text-2xl mb-4">
-                                {selectedCustomer.customername}&apos;s Data
+                                {customer.customername}&apos;s Data
                             </h3>
-                            <ExcelGenerator tableItems={selectedCustomer.data} />
+                            <ExcelGenerator tableItems={customer.data} />
                         </div>
                         <div className="mt-3 md:mt-0">
                             <a
@@ -424,14 +424,14 @@ const Landing = () => {
 
                     </div>
                     <div className="mt-10">
-                    <input
-                        type="text"
-                        placeholder="Search by S.NO. / Driver Name / Date"
-                        value={searchQuery}
-                        onChange={event => setSearchQuery(event.target.value)}
-                        className="border p-2 rounded-md w-full"
-                    />
-                </div>
+                        <input
+                            type="text"
+                            placeholder="Search by S.NO. / Driver Name / Date"
+                            value={searchQuery}
+                            onChange={event => setSearchQuery(event.target.value)}
+                            className="border p-2 rounded-md w-full"
+                        />
+                    </div>
 
                     <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto mb-10">
                         <table className="w-full table-auto text-sm text-left">
@@ -458,7 +458,7 @@ const Landing = () => {
                             </thead>
                             <tbody className="text-gray-600 divide-y">
 
-                                {selectedCustomer && selectedCustomer.data && filteredTableItems
+                                {customer && customer.data && filteredTableItems
                                     ? filteredTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
                                             <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
@@ -504,13 +504,13 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>
                                             <td className="text-right px-6 whitespace-nowrap">
                                                 <button
-                                                    onClick={() => handleEditClick(idx)} // Call handleEditClick with the index
+                                                    onClick={() => handleEditClick(idx, item.numberid)} // Call handleEditClick with the index
                                                     className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
                                                 >
                                                     Edit
                                                 </button>
                                                 <button
-                                                    onClick={() => handleDeleteClick(idx)} // Call the delete handler
+                                                    onClick={() => handleDeleteClick(idx, item.numberid)} // Call the delete handler with item._id
                                                     className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                                                 >
                                                     Delete
@@ -695,18 +695,16 @@ const Landing = () => {
                                     />
                                 </div>
                                 <div className="flex mt-4">
-                                    <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded-lg">
-                                        Add
-                                    </button>
+                                <button type="submit" className='bg-indigo-600 p-3 px-6 rounded mr-4'>{editingIndex !== null ? 'Update' : 'Add'}</button>
                                     <button
                                         type="button"
                                         onClick={() => setIsAddingData(false)}
-                                        className="ml-2 text-gray-600 hover:text-gray-800"
+                                        className=" text-black bg-red-600 p-3 px-6 rounded mr-4"
                                     >
                                         Cancel
                                     </button>
                                 </div>
-
+                                
                             </form>
 
                         </div>
