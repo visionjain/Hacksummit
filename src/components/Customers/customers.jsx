@@ -5,14 +5,6 @@ import axios from 'axios';
 
 const Customers = ({ customer }) => {
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('/api/getcustomer'); // Replace with your API endpoint
-            setCustomerData(response.data);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
     const [isEditing, setIsEditing] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -221,7 +213,7 @@ const Customers = ({ customer }) => {
                     <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-blue-500"></div>
                 </div>
             ) : (
-                <div className='pt-10'>
+                <div className='pt-10 pb-10'>
 
                     <div className="w-full px-4 md:px-8">
                         <div className="items-start justify-between md:flex">
