@@ -69,22 +69,22 @@ const Customers = ({ customer }) => {
         if (!shouldDelete) {
             return; // If user cancels deletion, do nothing
         }
-    
+
         try {
             await axios.delete(`/api/deletecustomer?customerid=${customerid}`);
-    
+
             // Update customerData state after successful deletion
             const updatedCustomerData = customerData.customer.filter(customer => customer.customerid !== customerid);
             reassignCustomerIds(updatedCustomerData); // Reassign customer IDs
             setCustomerData({ customer: updatedCustomerData });
-    
+
             // Call the updateCustomerIds API to reassign customer IDs in the database
             await axios.post('/api/updateCustomerIds');
         } catch (error) {
             console.error("Error deleting customer:", error);
         }
     };
-    
+
 
 
 
@@ -170,6 +170,8 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
             });
+
+            window.location.reload();
         } catch (error) {
             console.error("Error updating customer:", error);
         }
