@@ -190,7 +190,7 @@ const Customers = ({ customer }) => {
             });
 
             // Fetch the data again to reflect changes
-            fetchData();
+            // fetchData();
             window.location.reload(true);
         } catch (error) {
             console.error("Error saving changes:", error);
