@@ -515,7 +515,7 @@ const Landing = () => {
                                         className="border p-2 rounded-md"
                                     />
                                     <input
-                                        type="date"
+                                        type="text"
                                         name="salesdate"
                                         placeholder="Sales Date"
                                         value={newData.salesdate}
