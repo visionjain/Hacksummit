@@ -72,7 +72,6 @@ const Customers = ({ customer }) => {
 
             // Call the updateCustomerIds API to reassign customer IDs in the database
             await axios.post('/api/updateCustomerIds');
-            setTimeout()
                 window.location.reload(true);
         } catch (error) {
             console.error("Error deleting customer:", error);
@@ -167,9 +166,7 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
             });
-            setTimeout(() => {
-                window.location.reload(true);
-            }, 1500);
+            window.location.reload(true);
         } catch (error) {
             console.error("Error updating customer:", error);
         }
@@ -205,8 +202,10 @@ const Customers = ({ customer }) => {
 
         if (isEditing) {
             handleUpdateCustomer();
+            window.location.reload(true);
         } else {
             handleAddCustomer();
+            window.location.reload(true);
         }
     };
 
