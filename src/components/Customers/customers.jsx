@@ -141,10 +141,10 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
             });
-            window.location.reload(true);
+            
             setTimeout(() => {
                 window.location.reload(true);
-            }, 1000);
+            }, 2000);
         } catch (error) {
             console.error("Error adding customer:", error);
         }
