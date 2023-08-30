@@ -43,64 +43,64 @@ const Landing = () => {
     }, [customerid]);
 
 
-    const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
+    // const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
 
-    useEffect(() => {
-        const translateSiteAddresses = async () => {
-            if (!customer) return;
+    // useEffect(() => {
+    //     const translateSiteAddresses = async () => {
+    //         if (!customer) return;
 
-            const siteAddresses = customer.data.map(item => item.siteaddress);
+    //         const siteAddresses = customer.data.map(item => item.siteaddress);
 
-            try {
-                const apiKey = '7fe898c8a155dbcbb5bd';
-                const email = 'visionjain118@gmail.com'; // Provide a valid email here
-                const translations = await Promise.all(
-                    siteAddresses.map(address => translate(address, apiKey, email))
-                );
+    //         try {
+    //             const apiKey = '7fe898c8a155dbcbb5bd';
+    //             const email = 'visionjain118@gmail.com'; // Provide a valid email here
+    //             const translations = await Promise.all(
+    //                 siteAddresses.map(address => translate(address, apiKey, email))
+    //             );
 
-                const translatedAddresses = translations.map(res => res.data.responseData.translatedText);
-                setTranslatedSiteAddresses(translatedAddresses);
-            } catch (error) {
-                console.error('Translation error:', error);
-            }
-        };
+    //             const translatedAddresses = translations.map(res => res.data.responseData.translatedText);
+    //             setTranslatedSiteAddresses(translatedAddresses);
+    //         } catch (error) {
+    //             console.error('Translation error:', error);
+    //         }
+    //     };
 
-        translateSiteAddresses();
-    }, [customer]);
+    //     translateSiteAddresses();
+    // }, [customer]);
 
-    const translate = async (text, apiKey, email) => {
-        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
-        return axios.get(url);
-    };
+    // const translate = async (text, apiKey, email) => {
+    //     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
+    //     return axios.get(url);
+    // };
 
-    const [translatedDriverNames, setTranslatedDriverNames] = useState([]);
-    const [translationsFetched, setTranslationsFetched] = useState(false);
-    useEffect(() => {
-        const translateDriverNames = async () => {
-            if (!customer) return;
+    // const [translatedDriverNames, setTranslatedDriverNames] = useState([]);
+    // const [translationsFetched, setTranslationsFetched] = useState(false);
+    // useEffect(() => {
+    //     const translateDriverNames = async () => {
+    //         if (!customer) return;
 
-            const driverNames = customer.data.map(item => item.drivername);
+    //         const driverNames = customer.data.map(item => item.drivername);
 
-            try {
-                const translations = await Promise.all(driverNames.map(name => translate(name)));
-                const translatedNames = translations.map(res => res.data.responseData.translatedText);
-                setTranslatedDriverNames(translatedNames);
-                setTranslationsFetched(true); // Set translationsFetched to true when translations are available
-            } catch (error) {
-                console.error('Translation error:', error);
-            }
-        };
+    //         try {
+    //             const translations = await Promise.all(driverNames.map(name => translate(name)));
+    //             const translatedNames = translations.map(res => res.data.responseData.translatedText);
+    //             setTranslatedDriverNames(translatedNames);
+    //             setTranslationsFetched(true); // Set translationsFetched to true when translations are available
+    //         } catch (error) {
+    //             console.error('Translation error:', error);
+    //         }
+    //     };
 
-        const translate = async (text) => {
-            const apiKey = '7fe898c8a155dbcbb5bd';
-            const email = 'visionjain118@gmail.com';
-            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
+    //     const translate = async (text) => {
+    //         const apiKey = '7fe898c8a155dbcbb5bd';
+    //         const email = 'visionjain118@gmail.com';
+    //         const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
 
-            return axios.get(url);
-        };
+    //         return axios.get(url);
+    //     };
 
-        translateDriverNames();
-    }, [customer]);
+    //     translateDriverNames();
+    // }, [customer]);
 
 
     const handlePrint = () => {
@@ -126,6 +126,7 @@ const Landing = () => {
                 (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
                 (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
                 (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
+                (valueToNumber(data.Limeoffw) * valueToNumber(data.LimeoffwPrice)) +
                 (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
                 (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
 
@@ -196,6 +197,8 @@ const Landing = () => {
         Limea: '',
         Limew: '',
         Limeb: '',
+        Limeoffw: '',
+        LimeoffwPrice: '',
         jhiki: '',
         rs: '',
         siteaddress: '',
@@ -303,6 +306,8 @@ const Landing = () => {
                 Limea: "",
                 Limew: "",
                 Limeb: "",
+                Limeoffw: '',
+        LimeoffwPrice: '',
                 jhiki: "",
                 rs: "",
                 siteaddress: "",
@@ -410,6 +415,7 @@ const Landing = () => {
                                     <th className="py-3 px-6">Lime (A)</th>
                                     <th className="py-3 px-6">Lime (W)</th>
                                     <th className="py-3 px-6">Lime (B)</th>
+                                    <th className="py-3 px-6">Lime (OFF_W)</th>
                                     <th className="py-3 px-6">Jhiki</th>
                                     <th className="py-3 px-6">RS</th>
                                     <th className="py-3 px-6">Site Address</th>
@@ -430,7 +436,7 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.salesdate}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {translatedDriverNames[idx] || item.drivername}
+                                                {item.drivername}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.autono}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">
@@ -443,13 +449,16 @@ const Landing = () => {
                                                 {item.Limeb ? `${item.Limeb} X ${item.LimebPrice}` : ''}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
+                                                {item.Limeoffw ? `${item.Limeoffw} X ${item.LimeoffwPrice}` : ''}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
                                                 {item.jhiki ? `${item.jhiki} X ${item.jhikiPrice}` : ''}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {item.rs ? `${item.rs} KG X ${item.rsPrice}` : ''}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {translatedSiteAddresses[idx] || item.siteaddress}
+                                                {item.siteaddress}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.labourcharge}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
@@ -506,7 +515,7 @@ const Landing = () => {
                                         className="border p-2 rounded-md"
                                     />
                                     <input
-                                        type="text"
+                                        type="date"
                                         name="salesdate"
                                         placeholder="Sales Date"
                                         value={newData.salesdate}
@@ -584,6 +593,25 @@ const Landing = () => {
                                             name="LimebPrice"
                                             placeholder="Price"
                                             value={newData.LimebPrice}
+                                            onChange={handleFormChange}
+                                            className="border p-2 rounded-md"
+                                        />
+                                    </div>
+                                    <div className="flex items-center">
+                                        <input
+                                            type="text"
+                                            name="Limeoffw"
+                                            placeholder="Lime (OFF_W)"
+                                            value={newData.Limeoffw}
+                                            onChange={handleFormChange}
+                                            className="border p-2 rounded-md"
+                                        />
+                                        <span className="text-gray-600 mx-2">x</span>
+                                        <input
+                                            type="text"
+                                            name="LimeoffwPrice"
+                                            placeholder="Price"
+                                            value={newData.LimeoffwPrice}
                                             onChange={handleFormChange}
                                             className="border p-2 rounded-md"
                                         />

@@ -41,6 +41,12 @@ const CustomerSchema = new mongoose.Schema({
         LimebPrice: {
             type: String
         },
+        Limeoffw: {
+            type: String
+        },
+        LimeoffwPrice: {
+            type: String
+        },
         jhiki: {
             type: String
         },

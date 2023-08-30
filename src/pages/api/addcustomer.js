@@ -15,6 +15,8 @@ const handler = async (req, res) => {
                     Limew: item.Limew,
                     LimewPrice: item.LimewPrice,
                     Limeb: item.Limeb,
+                    Limeoffw: item.Limeoffw,
+                    LimeoffwPrice: item.LimeoffwPrice,
                     LimebPrice: item.LimebPrice,
                     jhiki: item.jhiki,
                     jhikiPrice: item.jhikiPrice,

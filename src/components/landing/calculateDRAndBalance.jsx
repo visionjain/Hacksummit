@@ -11,6 +11,7 @@ export const calculateDRAndBalance = (data, previousBalance) => {
         (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
         (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
         (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
+        (valueToNumber(data.Limeoffw) * valueToNumber(LimeoffwPrice)) +
         (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
         (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
     const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
