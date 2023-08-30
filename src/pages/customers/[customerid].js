@@ -40,9 +40,7 @@ const Landing = () => {
             }
         };
         fetchData();
-    }, [customerid]); // Trigger the effect when the customer ID changes
-
-    console.log(customer); // This will log the entire matching customer object
+    }, [customerid]);
 
 
     const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
@@ -120,12 +118,7 @@ const Landing = () => {
         )
         : [];
 
-    // const handleFormChangeForExistingData = (event, index) => {
-    //     const { name, value } = event.target;
-    //     const updatedTableItems = [...customer.data];
-    //     updatedTableItems[index][name] = value;
-    //     setCustomer(updatedTableItems);
-    // };
+
 
     useEffect(() => {
         const calculateDRAndBalance = (data, previousBalance) => {
@@ -161,37 +154,6 @@ const Landing = () => {
         });
 
     }, []);
-
-
-
-    // const calculateDR = (data) => {
-    //     const totalProductAmount =
-    //         (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
-    //         (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
-    //         (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
-    //         (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
-    //         (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
-
-    //     return (totalProductAmount + valueToNumber(data.autocharge)).toFixed(2);
-    // };
-
-    // const calculateTotalAmount = () => {
-    //     let totalAmount = 0;
-
-    //     customer.data.forEach(item => {
-    //         if (item.Limea && item.LimeaPrice) {
-    //             const limeaParts = item.Limea.split(' x ');
-    //             const limeaValue = parseFloat(limeaParts[0]);
-    //             const limeaPrice = parseFloat(item.LimeaPrice);
-    //             const productAmount = limeaValue * limeaPrice;
-
-    //             totalAmount += productAmount;
-    //         }
-    //     });
-
-    //     return totalAmount.toFixed(2); // You can format this as needed
-    // };
-
 
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
@@ -352,6 +314,7 @@ const Landing = () => {
             });
             setIsAddingData(false);
             setEditingIndex(null);
+            window.location.reload(true);
         } catch (error) {
             console.error('Error adding data entry:', error);
         }
