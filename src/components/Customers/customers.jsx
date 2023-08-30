@@ -141,10 +141,8 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
             });
-            
-            setTimeout(() => {
                 window.location.reload(true);
-            }, 2000);
+            
         } catch (error) {
             console.error("Error adding customer:", error);
         }
@@ -167,6 +165,7 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
             });
+            window.location.reload(true);
         } catch (error) {
             console.error("Error updating customer:", error);
         }
@@ -191,6 +190,7 @@ const Customers = ({ customer }) => {
 
             // Fetch the data again to reflect changes
             fetchData();
+            window.location.reload(true);
         } catch (error) {
             console.error("Error saving changes:", error);
         }
