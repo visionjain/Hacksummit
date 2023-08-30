@@ -176,6 +176,7 @@ const Landing = () => {
                     ...prevCustomer,
                     data: updatedTableItems,
                 }));
+                window.location.reload(true);
             } catch (error) {
                 console.error('Error deleting data entry:', error);
             }
