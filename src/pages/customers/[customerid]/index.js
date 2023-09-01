@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { calculateDRAndBalance } from '../../components/landing/calculateDRAndBalance';
+import { calculateDRAndBalance } from '../../../components/landing/calculateDRAndBalance';
 import { useRouter } from 'next/router';
-import ExcelGenerator from '../../components/landing/ExcelGenerator';
+import ExcelGenerator from '../../../components/landing/ExcelGenerator';
 import axios from 'axios';
 
 
@@ -325,6 +325,10 @@ const Landing = () => {
             console.error('Error adding data entry:', error);
         }
     };
+    const handleViewData = (customerid, numberid) => {
+        // Navigate to the DetailPage with the corresponding customerid
+        window.location.href = `/customers/${customerid}/bill/${numberid}`;
+    };
 
 
 
@@ -370,6 +374,7 @@ const Landing = () => {
 
         return (
             <div className='pt-10'>
+                
                 <div className="w-full px-4 md:px-8">
                     <div className="items-start justify-between md:flex">
                         <div className="max-w-lg">
@@ -394,6 +399,26 @@ const Landing = () => {
                         </div>
 
                     </div>
+                    <table className="border-2 border-black mx-auto">
+                          <tbody>
+                            <tr>
+                              <td className="border-2 border-black p-6 px-40 text-center">
+                                <div className='text-5xl font-bold font-serif'>
+                                  JAI LIME & CHEMICALS
+                                </div>
+                                <div>
+                                  H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
+                                </div>
+                                <div>
+                                  Mo. : 99508 35585, 85296 22695
+                                </div>
+                                <div>
+                                  GST No. 08ADVPJ9429L1ZL Email: jailime79@gmail.com
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                     <div className="mt-10">
                         <input
                             type="text"
@@ -425,6 +450,7 @@ const Landing = () => {
                                     <th className="py-3 px-6">DR (बकाया)</th>
                                     <th className="py-3 px-6">CR (जमा)</th>
                                     <th className="py-3 px-6">Balance (शेष)</th>
+                                    <th className="py-3 px-6">Generate Bill</th>
                                     <th className="py-3 px-6"></th>
                                 </tr>
                             </thead>
@@ -477,6 +503,14 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <button
+                                                    onClick={() => handleViewData(customer.customerid, item.numberid)}
+                                                    className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
+                                                >
+                                                    Generate Bill
+                                                </button>
+                                            </td>
                                             <td className="text-right px-6 whitespace-nowrap">
                                                 <button
                                                     onClick={() => handleEditClick(idx, item.numberid)} // Call handleEditClick with the index

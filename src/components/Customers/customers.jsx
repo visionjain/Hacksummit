@@ -238,7 +238,26 @@ const Customers = ({ customer }) => {
                                 </a>
                             </div>
                         </div>
-
+                        <table className="border-2 border-black mx-auto">
+                          <tbody>
+                            <tr>
+                              <td className="border-2 border-black p-6 px-40 text-center">
+                                <div className='text-5xl font-bold font-serif'>
+                                  JAI LIME & CHEMICALS
+                                </div>
+                                <div>
+                                  H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
+                                </div>
+                                <div>
+                                  Mo. : 99508 35585, 85296 22695
+                                </div>
+                                <div>
+                                  GST No. 08ADVPJ9429L1ZL Email: jailime79@gmail.com
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                         <div className="mt-10">
                             <input
                                 type="text"
