@@ -44,10 +44,10 @@ const Customers = ({ customer }) => {
     };
 
 
-    const handleEditClick = (index) => {
+    const handleEditClick = (pageIndex, indexWithinPage) => {
         setIsEditing(true);
-        setEditingIndex(index);
-        const customerToEdit = filteredCustomerData[index];
+        setEditingIndex({ pageIndex, indexWithinPage }); // Store both page index and index within page
+        const customerToEdit = displayedCustomers[indexWithinPage]; // Access data from the displayedCustomers array
         setNewData({
             customerid: customerToEdit.customerid,
             customername: customerToEdit.customername,
@@ -329,7 +329,7 @@ const Customers = ({ customer }) => {
 
                                             </td>
                                             <td className="text-right px-6 whitespace-nowrap">
-                                                {isEditing && editingIndex === _id ? (
+                                                {isEditing && editingIndex && editingIndex.pageIndex === pageNumber && editingIndex.indexWithinPage === _id ? (
                                                     <>
                                                         <input
                                                             type="text"
@@ -377,11 +377,12 @@ const Customers = ({ customer }) => {
                                                 ) : (
                                                     <>
                                                         <button
-                                                            onClick={() => handleEditClick(_id)} // Pass the index to the handler
+                                                            onClick={() => handleEditClick(pageNumber, _id)}
                                                             className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
                                                         >
                                                             Edit
                                                         </button>
+
                                                         <button
                                                             onClick={() => handleDeleteClick(item.customerid)}
                                                             className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"

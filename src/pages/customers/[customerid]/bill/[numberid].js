@@ -29,10 +29,14 @@ const BillPage = () => {
 
     fetchData();
   }, [customerid]);
+  const valueToNumber = (value) => {
+    const numericValue = parseFloat(value);
+    return isNaN(numericValue) ? 0 : numericValue;
+};
 
   // Render the component
   return (
-    <div className="flex justify-center items-start h-screen mx-10 mt-10">
+    <div className="flex justify-center items-start h-screen mx-60 mt-10">
       {customer && (
         <div className="w-full">
           <table className="border-2 border-black w-full mb-6">
@@ -93,11 +97,83 @@ const BillPage = () => {
                             {item.km}
                           </td>
                         </tr>
+                        <tr>
+                          <td className="border-2 border-black p-2" style={{ width: '20%' }}>
+                            Site Address
+                          </td>
+                          <td className="border-2 border-black p-2" colSpan="3">
+                            {item.siteaddress}
+                          </td>
+                        </tr>
+                        <tr className="border-2 border-black">
+                          <td colSpan="4">
+                            <div className="w-full">
+                              <table className="w-full">
+                                <tbody>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Product</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Weight Per Bag</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Quantity</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Rate+GST(5%) SCST 2.5% + CGST 2.5%</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Amount</td>
+                                  </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Lime A</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>20 KG</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.Limea}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.LimeaPrice}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.Limea) * valueToNumber(item.LimeaPrice))}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Lime W</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>20 KG</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.Limew}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.LimewPrice}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.Limew) * valueToNumber(item.LimewPrice))}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Lime B</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>20 KG</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.Limeb}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.LimebPrice}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.Limeb) * valueToNumber(item.LimebPrice))}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>JHIKI</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>20 KG</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.jhiki}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.jhikiPrice}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.jhiki) * valueToNumber(item.jhikiPrice))}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>RS</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>20 KG</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.rs}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.rsPrice}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.rs) * valueToNumber(item.rsPrice))}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'></td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'></td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'></td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.rsPrice}</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.rs) * valueToNumber(item.rsPrice))}</td>
+                                  </tr>
+                                  {/* Add your product data rows here */}
+                                </tbody>
+                              </table>
+                            </div>
+                          </td>
+                        </tr>
                       </React.Fragment>
                     );
                   }
                   return null;
                 })}
+            </tbody>
+          </table>
+          <table className="border-2 border-black w-full mb-6">
+            <tbody>
             </tbody>
           </table>
         </div>
