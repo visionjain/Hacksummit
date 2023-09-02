@@ -32,17 +32,17 @@ const BillPage = () => {
   const valueToNumber = (value) => {
     const numericValue = parseFloat(value);
     return isNaN(numericValue) ? 0 : numericValue;
-};
+  };
 
   // Render the component
   return (
-    <div className="flex justify-center items-start h-screen mx-60 mt-10">
+    <div className="flex justify-center items-start h-screen mx-96 mt-10">
       {customer && (
         <div className="w-full">
           <table className="border-2 border-black w-full mb-6">
             <tbody>
               <tr>
-                <td className="border-2 border-black p-6 px-40 text-center" colSpan="4">
+                <td className="border-2 border-black p-6 text-center" colSpan="4">
                   <div className="text-5xl font-bold font-serif">JAI LIME & CHEMICAL</div>
                   <div>H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur</div>
                   <div>Mo. : 99508 35585, 85296 22695</div>
@@ -153,12 +153,40 @@ const BillPage = () => {
                                     <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.rs) * valueToNumber(item.rsPrice))}</td>
                                   </tr>
                                   <tr>
-                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'></td>
-                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'></td>
-                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'></td>
-                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.rsPrice}</td>
-                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {(valueToNumber(item.rs) * valueToNumber(item.rsPrice))}</td>
+                                    <td style={{ width: '20%' }} className='p-2'></td>
+                                    <td style={{ width: '20%' }} className='p-2'></td>
+                                    <td style={{ width: '20%' }} className='p-2'></td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Amount</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {item.amount}</td>
                                   </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='p-2'></td>
+                                    <td style={{ width: '20%' }} className=' p-2'></td>
+                                    <td style={{ width: '20%' }} className=' p-2'></td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Auto Charge</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {item.autocharge}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style={{ width: '20%' }} className='p-2'></td>
+                                    <td style={{ width: '20%' }} className='p-2'></td>
+                                    <td style={{ width: '20%' }} className='p-2'></td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'>Labour Charge</td>
+                                    <td style={{ width: '20%' }} className='border-2 border-black p-2'> {item.labourcharge}</td>
+                                  </tr>
+                                  <tr>
+                                    <td className='border-2 border-black p-2' colSpan="3">Old Due / पुराना बकाया</td>
+                                    <td className='border-2 border-black p-2'>Total</td>
+                                    <td className='border-2 border-black p-2'> {valueToNumber(item.amount) + valueToNumber(item.autocharge) + valueToNumber(item.labourcharge)}</td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border-2 border-black " colSpan={5}>
+                                      <div className=" font-bold text-xl">
+                                        नियम व शर्ते</div>
+                                      <div>1. लिया हुआ माल वापस नहीं लिया जायेगा ।</div>
+                                      <div className='text-xl font-bold text-right mr-4'>हस्ताक्षर</div>
+                                    </td>
+                                  </tr>
+
                                   {/* Add your product data rows here */}
                                 </tbody>
                               </table>
