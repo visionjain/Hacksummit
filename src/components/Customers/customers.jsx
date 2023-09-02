@@ -37,6 +37,7 @@ const Customers = ({ customer }) => {
 
 
 
+
     const reassignCustomerIds = (newCustomerData) => {
         newCustomerData.forEach((customer, index) => {
             customer.customerid = (index + 1).toString();
@@ -55,8 +56,8 @@ const Customers = ({ customer }) => {
             phoneno2: customerToEdit.phoneno2,
         });
     };
-
-    const [pageNumber, setPageNumber] = useState(0); // Initialize page number
+    const savedPageNumber = typeof window !== 'undefined' ? localStorage.getItem('currentPageNumber') : null;
+    const [pageNumber, setPageNumber] = useState(savedPageNumber ? parseInt(savedPageNumber) : 0);
 
     // Number of customers to display per page
     const customersPerPage = 10;
@@ -75,6 +76,12 @@ const Customers = ({ customer }) => {
         const selectedPage = data.selected;
         setPageNumber(selectedPage);
     };
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            // Store the current page number in localStorage whenever it changes
+            localStorage.setItem('currentPageNumber', pageNumber.toString());
+        }
+    }, [pageNumber]);
     const goToLastPage = () => {
         const lastPage = pageCount - 1; // Calculate the last page number
         setPageNumber(lastPage); // Update the pageNumber state
@@ -424,6 +431,7 @@ const Customers = ({ customer }) => {
                                 activeClassName={'bg-blue-500 border rounded p-2 text-white'}
                                 previousClassName={'px-2 py-1 border rounded border-gray-300'}
                                 nextClassName={'px-2 py-1 border rounded border-gray-300'}
+                                forcePage={pageNumber} // Set the current page from state
                             />
 
                         </div>
