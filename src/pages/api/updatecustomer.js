@@ -31,6 +31,7 @@ const handler = async (req, res) => {
                     salesdate: item.salesdate,
                     drivername: item.drivername,
                     autono: item.autono,
+                    km: item.km,
                     Limea: item.Limea,
                     LimeaPrice: item.LimeaPrice,
                     Limew: item.Limew,

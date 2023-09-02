@@ -31,7 +31,6 @@ const Landing = () => {
                     setCustomer(matchingCustomer); // Set the matching customer object
                     setIsLoading(false); // Turn off loading state after data fetch
                 } else {
-                    console.error('Customer not found');
                     setIsLoading(false);
                 }
             } catch (error) {
@@ -194,6 +193,7 @@ const Landing = () => {
         salesdate: '',
         drivername: '',
         autono: '',
+        km: '',
         Limea: '',
         Limew: '',
         Limeb: '',
@@ -303,6 +303,7 @@ const Landing = () => {
                 salesdate: "",
                 drivername: "",
                 autono: "",
+                km: '',
                 Limea: "",
                 Limew: "",
                 Limeb: "",
@@ -569,6 +570,14 @@ const Landing = () => {
                                         name="autono"
                                         placeholder="Auto No."
                                         value={newData.autono}
+                                        onChange={handleFormChange}
+                                        className="border p-2 rounded-md"
+                                    />
+                                    <input
+                                        type="text"
+                                        name="km"
+                                        placeholder="K.M."
+                                        value={newData.km}
                                         onChange={handleFormChange}
                                         className="border p-2 rounded-md"
                                     />

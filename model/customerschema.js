@@ -26,6 +26,9 @@ const CustomerSchema = new mongoose.Schema({
         autono: {
             type: String
         },
+        km:{
+            type: String
+        },
         Limea: {
             type: String
         },
