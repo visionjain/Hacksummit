@@ -285,7 +285,7 @@ const Customers = ({ customer }) => {
                                 <tr>
                                     <td className="border-2 border-black p-6 px-40 text-center">
                                         <div className='text-5xl font-bold font-serif'>
-                                            JAI LIME & CHEMICALS
+                                            JAI LIME & CHEMICAL
                                         </div>
                                         <div>
                                             H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur

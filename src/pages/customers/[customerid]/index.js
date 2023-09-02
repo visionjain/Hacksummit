@@ -405,7 +405,7 @@ const Landing = () => {
                             <tr>
                               <td className="border-2 border-black p-6 px-40 text-center">
                                 <div className='text-5xl font-bold font-serif'>
-                                  JAI LIME & CHEMICALS
+                                  JAI LIME & CHEMICAL
                                 </div>
                                 <div>
                                   H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
@@ -445,9 +445,10 @@ const Landing = () => {
                                     <th className="py-3 px-6">Jhiki</th>
                                     <th className="py-3 px-6">RS</th>
                                     <th className="py-3 px-6">Site Address</th>
+                                    <th className="py-3 px-6">Amount</th>
                                     <th className="py-3 px-6">Labour Charge</th>
                                     <th className="py-3 px-6">Auto Charge</th>
-                                    <th className="py-3 px-6">Amount</th>
+                                    
                                     <th className="py-3 px-6">DR (बकाया)</th>
                                     <th className="py-3 px-6">CR (जमा)</th>
                                     <th className="py-3 px-6">Balance (शेष)</th>
@@ -487,8 +488,6 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.siteaddress}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.labourcharge}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.amount === '' ?
                                                     '' :
@@ -501,6 +500,9 @@ const Landing = () => {
                                                     ).toFixed(2)
                                                 }
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{item.labourcharge}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
+                                            
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>

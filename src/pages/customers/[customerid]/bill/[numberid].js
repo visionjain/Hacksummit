@@ -43,7 +43,7 @@ const BillPage = () => {
             <tbody>
               <tr>
                 <td className="border-2 border-black p-6 px-40 text-center" colSpan="4">
-                  <div className="text-5xl font-bold font-serif">JAI LIME & CHEMICALS</div>
+                  <div className="text-5xl font-bold font-serif">JAI LIME & CHEMICAL</div>
                   <div>H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur</div>
                   <div>Mo. : 99508 35585, 85296 22695</div>
                   <div>GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com</div>
