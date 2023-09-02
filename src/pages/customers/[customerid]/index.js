@@ -434,7 +434,7 @@ const Landing = () => {
                     <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto mb-10">
                         <table className="w-full table-auto text-sm text-left">
                             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
-                                <tr>
+                                <tr className='divide-x'>
                                     <th className="py-3 px-6">S. NO.</th>
                                     <th className="py-3 px-6">Sales Date</th>
                                     <th className="py-3 px-6">Driver Name</th>
