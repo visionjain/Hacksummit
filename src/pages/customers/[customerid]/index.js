@@ -413,7 +413,7 @@ const Landing = () => {
                                   Mo. : 99508 35585, 85296 22695
                                 </div>
                                 <div>
-                                  GST No. 08ADVPJ9429L1ZL Email: jailime79@gmail.com
+                                  GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com
                                 </div>
                               </td>
                             </tr>

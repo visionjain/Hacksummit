@@ -4,7 +4,7 @@ import Customer from "../../../model/customerschema";
 const handler = async (req, res) => {
     if (req.method === 'PUT') {
         try {
-            const { customerid, customername, phoneno, data } = req.body;
+            const { customerid, customername, phoneno, phoneno2, data } = req.body;
 
             // Find the customer by customerid
             const existingCustomer = await Customer.findOne({ customerid });
@@ -19,6 +19,9 @@ const handler = async (req, res) => {
             }
             if (phoneno) {
                 existingCustomer.phoneno = phoneno;
+            }
+            if (phoneno2) {
+                existingCustomer.phoneno2 = phoneno2;
             }
 
             // Update nested data if provided

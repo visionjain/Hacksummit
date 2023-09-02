@@ -10,6 +10,9 @@ const CustomerSchema = new mongoose.Schema({
     phoneno: {
         type: String
     },
+    phoneno2:{
+        type: String
+    },
     data: [{
         numberid: {
             type: String,

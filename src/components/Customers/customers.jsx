@@ -51,6 +51,7 @@ const Customers = ({ customer }) => {
             customerid: customerToEdit.customerid,
             customername: customerToEdit.customername,
             phoneno: customerToEdit.phoneno,
+            phoneno2: customerToEdit.phoneno2,
         });
     };
 
@@ -88,6 +89,7 @@ const Customers = ({ customer }) => {
         customerid: '',
         customername: '',
         phoneno: '',
+        phoneno2: '',
     });
 
 
@@ -99,6 +101,7 @@ const Customers = ({ customer }) => {
             customerid: '',
             customername: '',
             phoneno: '',
+            phoneno2: '',
         });
         setEditingIndex(null);
     };
@@ -127,6 +130,7 @@ const Customers = ({ customer }) => {
                 customerid: (customerData.customer.length + 1).toString(), // Generate a new customer id
                 customername: newData.customername,
                 phoneno: newData.phoneno,
+                phoneno2: newData.phoneno2,
                 data: [] // Initialize with an empty array for other data
             };
 
@@ -139,6 +143,7 @@ const Customers = ({ customer }) => {
                 customerid: '',
                 customername: '',
                 phoneno: '',
+                phoneno2: '',
             });
             setTimeout(() => {
                 window.location.reload(true);
@@ -165,6 +170,7 @@ const Customers = ({ customer }) => {
                 customerid: '',
                 customername: '',
                 phoneno: '',
+                phoneno2: '',
             });
             window.location.reload(true);
         } catch (error) {
@@ -187,6 +193,7 @@ const Customers = ({ customer }) => {
                 customerid: '',
                 customername: '',
                 phoneno: '',
+                phoneno2: '',
             });
 
             // Fetch the data again to reflect changes
@@ -252,7 +259,7 @@ const Customers = ({ customer }) => {
                                   Mo. : 99508 35585, 85296 22695
                                 </div>
                                 <div>
-                                  GST No. 08ADVPJ9429L1ZL Email: jailime79@gmail.com
+                                  GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com
                                 </div>
                               </td>
                             </tr>
@@ -274,6 +281,7 @@ const Customers = ({ customer }) => {
                                         <th className="py-3 px-6">S. NO.</th>
                                         <th className="py-3 px-6">Customers Name</th>
                                         <th className="py-3 px-6">Contact No.</th>
+                                        <th className="py-3 px-6">Alt. Contact No.</th>
                                         <th className="py-3 px-6">View Data</th>
                                         <th className="py-3 px-6"></th>
                                     </tr>
@@ -284,6 +292,7 @@ const Customers = ({ customer }) => {
                                             <td className="px-6 py-4 whitespace-nowrap">{item.customerid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.customername}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.phoneno}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{item.phoneno2}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <button
                                                     onClick={() => handleViewData(item.customerid)}
@@ -310,6 +319,13 @@ const Customers = ({ customer }) => {
                                                             onChange={handleFormChange}
                                                             className="border p-2 rounded-md"
                                                         />
+                                                        <input
+                                                            type="tel"
+                                                            name="phoneno2"
+                                                            value={newData.phoneno2}
+                                                            onChange={handleFormChange}
+                                                            className="border p-2 rounded-md"
+                                                        />
                                                         <button
                                                             onClick={handleSaveChanges} // Use the handler directly here
                                                             className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
@@ -324,6 +340,7 @@ const Customers = ({ customer }) => {
                                                                     customerid: '',
                                                                     customername: '',
                                                                     phoneno: '',
+                                                                    phoneno2: '',
                                                                 });
                                                             }}
                                                             className="ml-2 text-gray-600 hover:text-gray-800"
@@ -375,6 +392,14 @@ const Customers = ({ customer }) => {
                                             name="phoneno"
                                             placeholder="Contact No."
                                             value={newData.phoneno} // Corrected value attribute
+                                            onChange={handleFormChange}
+                                            className="ml-2 border p-2 rounded-md"
+                                        />
+                                        <input
+                                            type="tel"
+                                            name="phoneno2"
+                                            placeholder="Alt. Contact No."
+                                            value={newData.phoneno2} // Corrected value attribute
                                             onChange={handleFormChange}
                                             className="ml-2 border p-2 rounded-md"
                                         />

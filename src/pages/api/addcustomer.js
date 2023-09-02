@@ -35,6 +35,7 @@ const handler = async (req, res) => {
                     customerid: req.body[i].customerid,
                     customername: req.body[i].customername,
                     phoneno: req.body[i].phoneno,
+                    phoneno2: req.body[i].phoneno2,
                     data: data
                 });
 
