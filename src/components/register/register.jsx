@@ -109,11 +109,11 @@ const Register = () => {
                             />
                         </div>
                         <div>
-                            <label className="font-medium">Referral Code</label>
+                            <label className="font-medium">Code</label>
                             <input
                                 type="text"
                                 name="referralCode"
-                                placeholder="Type your referral code"
+                                placeholder="Type Code To Register"
                                 required
                                 value={referralCode}
                                 onChange={(e) => setReferralCode(e.target.value)}
