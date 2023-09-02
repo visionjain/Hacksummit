@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 
 
@@ -55,7 +56,32 @@ const Customers = ({ customer }) => {
         });
     };
 
+    const [pageNumber, setPageNumber] = useState(0); // Initialize page number
 
+    // Number of customers to display per page
+    const customersPerPage = 10;
+
+    // Calculate the offset based on the page number
+    const offset = pageNumber * customersPerPage;
+
+    // Slice the customer data to display only the current page
+    const displayedCustomers = filteredCustomerData.slice(offset, offset + customersPerPage);
+
+    // Calculate the total number of pages
+    const pageCount = Math.ceil(filteredCustomerData.length / customersPerPage);
+
+    // Function to handle page change
+    const handlePageClick = (data) => {
+        const selectedPage = data.selected;
+        setPageNumber(selectedPage);
+    };
+    const goToLastPage = () => {
+        const lastPage = pageCount - 1; // Calculate the last page number
+        setPageNumber(lastPage); // Update the pageNumber state
+    };
+    const goToFirstPage = () => {
+        setPageNumber(0); // Update the pageNumber state to 0 for the first page
+    };
 
     const handleDeleteClick = async (customerid) => {
         const shouldDelete = window.confirm("Are you sure you want to delete this customer?");
@@ -73,7 +99,7 @@ const Customers = ({ customer }) => {
 
             // Call the updateCustomerIds API to reassign customer IDs in the database
             await axios.post('/api/updateCustomerIds');
-                window.location.reload(true);
+            window.location.reload(true);
         } catch (error) {
             console.error("Error deleting customer:", error);
         }
@@ -148,7 +174,7 @@ const Customers = ({ customer }) => {
             setTimeout(() => {
                 window.location.reload(true);
             }, 1500);
-            
+
         } catch (error) {
             console.error("Error adding customer:", error);
         }
@@ -246,24 +272,24 @@ const Customers = ({ customer }) => {
                             </div>
                         </div>
                         <table className="border-2 border-black mx-auto">
-                          <tbody>
-                            <tr>
-                              <td className="border-2 border-black p-6 px-40 text-center">
-                                <div className='text-5xl font-bold font-serif'>
-                                  JAI LIME & CHEMICALS
-                                </div>
-                                <div>
-                                  H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
-                                </div>
-                                <div>
-                                  Mo. : 99508 35585, 85296 22695
-                                </div>
-                                <div>
-                                  GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
+                            <tbody>
+                                <tr>
+                                    <td className="border-2 border-black p-6 px-40 text-center">
+                                        <div className='text-5xl font-bold font-serif'>
+                                            JAI LIME & CHEMICALS
+                                        </div>
+                                        <div>
+                                            H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
+                                        </div>
+                                        <div>
+                                            Mo. : 99508 35585, 85296 22695
+                                        </div>
+                                        <div>
+                                            GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                         <div className="mt-10">
                             <input
@@ -287,7 +313,7 @@ const Customers = ({ customer }) => {
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-600 divide-y">
-                                    {filteredCustomerData.map((item, _id) => (
+                                    {displayedCustomers.map((item, _id) => (
                                         <tr key={_id} className="divide-x">
                                             <td className="px-6 py-4 whitespace-nowrap">{item.customerid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.customername}</td>
@@ -371,6 +397,36 @@ const Customers = ({ customer }) => {
                                 </tbody>
                             </table>
                         </div>
+                        <div className="mt-4">
+                            <button
+                                onClick={goToFirstPage}
+                                className="mr-2 px-2 py-1 border rounded border-gray-300 hover:bg-blue-500 hover:text-white"
+                            >
+                                First Page
+                            </button>
+                            <button
+                                onClick={goToLastPage}
+                                className="ml-2 px-2 py-1 border rounded border-gray-300 hover:bg-blue-500 hover:text-white"
+                            >
+                                Last Page
+                            </button>
+                            <ReactPaginate
+                                previousLabel={'Previous'}
+                                nextLabel={'Next'}
+                                breakLabel={'...'}
+                                pageCount={pageCount}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={handlePageClick}
+                                containerClassName={'flex justify-center mt-4'}
+                                pageClassName={'mx-2'}
+                                activeClassName={'bg-blue-500 border rounded p-2 text-white'}
+                                previousClassName={'px-2 py-1 border rounded border-gray-300'}
+                                nextClassName={'px-2 py-1 border rounded border-gray-300'}
+                            />
+
+                        </div>
+
                     </div>
 
                     {isAddingData && (
