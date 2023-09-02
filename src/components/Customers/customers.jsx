@@ -43,7 +43,9 @@ const Customers = ({ customer }) => {
             customer.customerid = (index + 1).toString();
         });
     };
-
+    const handleSearchClick = () => {
+        setPageNumber(0);
+    };
 
     const handleEditClick = (pageIndex, indexWithinPage) => {
         setIsEditing(true);
@@ -304,6 +306,7 @@ const Customers = ({ customer }) => {
                                 placeholder="Search by S.NO. or Customers Name"
                                 value={searchQuery}
                                 onChange={event => setSearchQuery(event.target.value)}
+                                onClick={handleSearchClick} // Add this line
                                 className="border p-2 rounded-md w-full"
                             />
                         </div>
