@@ -241,7 +241,7 @@ const Landing = () => {
                     (valueToNumber(updatedNewData.Limew) * valueToNumber(updatedNewData.LimewPrice)) +
                     (valueToNumber(updatedNewData.Limeb) * valueToNumber(updatedNewData.LimebPrice)) +
                     (valueToNumber(updatedNewData.jhiki) * valueToNumber(updatedNewData.jhikiPrice)) +
-                    (valueToNumber(updatedNewData.Limeoffw) * valueName(updatedNewData.LimeoffwPrice)) +
+                    (valueToNumber(updatedNewData.Limeoffw) * valueToNumber(updatedNewData.LimeoffwPrice)) +
                     (valueToNumber(updatedNewData.rs) * valueToNumber(updatedNewData.rsPrice));
                 updatedNewData.dr = (totalProductAmount + valueToNumber(updatedNewData.autocharge)).toFixed(2);
                 totalAmount += productValue * productPrice;
