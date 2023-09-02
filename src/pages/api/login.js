@@ -5,8 +5,8 @@ const handler = async (req, res) => {
     if (req.method === 'POST') {
         console.log(req.body);
         try {
-            const { username, password } = req.body;
-            const user = await User.findOne({ username });
+            const { userid, password } = req.body;
+            const user = await User.findOne({ userid });
 
             if (user && user.password === password) {
                 // Redirect to /customers upon successful login
