@@ -489,6 +489,9 @@ const Customers = ({ customer }) => {
                         </div>
                     )}
                 </div>)}
+                <div className="mt-10 py-4 border-t md:text-center">
+                    <p>© 2023  Jai Lime & Chemical. All rights reserved.</p>
+                </div>
         </div>
     );
 };

@@ -191,7 +191,7 @@ const BillPage = () => {
                                         <td className="border-2 border-black " colSpan={5}>
                                           <div className=" font-bold text-xl">
                                             नियम व शर्ते</div>
-                                          <div>1. लिया हुआ माल वापस नहीं लिया जायेगा ।</div>
+                                          <div>1. बेचा हुआ माल वापस नहीं लिया जायेगा ।</div>
                                           <div className='text-xl font-bold text-right mr-4'>हस्ताक्षर</div>
                                         </td>
                                       </tr>
