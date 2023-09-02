@@ -56,7 +56,7 @@ const BillPage = () => {
               <table className="border-2 border-black w-full mb-6">
                 <tbody>
                   <tr>
-                    <td className="border-2 border-black p-6 text-center" colSpan="4">
+                    <td className="border-2 border-black p-6 text-center" colSpan="5">
                       <div className="text-5xl font-bold font-serif">JAI LIME & CHEMICAL</div>
                       <div>H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur</div>
                       <div>Mo. : 99508 35585, 85296 22695</div>
@@ -79,7 +79,7 @@ const BillPage = () => {
                               <td className="border-2 font-bold border-black p-2" style={{ width: '20%' }}>
                                 Sales Date
                               </td>
-                              <td className="border-2 border-black p-2" style={{ width: '30%' }}>
+                              <td className="border-2 border-black p-2" style={{ width: '30%' }} colSpan="4">
                                 {item.salesdate}
                               </td>
                             </tr>
@@ -93,7 +93,7 @@ const BillPage = () => {
                               <td className="border-2 font-bold border-black p-2" style={{ width: '20%' }}>
                                 Driver Name
                               </td>
-                              <td className="border-2 border-black p-2" style={{ width: '30%' }}>
+                              <td className="border-2 border-black p-2" style={{ width: '30%' }} colSpan="4">
                                 {item.drivername}
                               </td>
                             </tr>
@@ -107,7 +107,7 @@ const BillPage = () => {
                               <td className="border-2 font-bold border-black p-2" style={{ width: '20%' }}>
                                 K.M.
                               </td>
-                              <td className="border-2 border-black p-2" style={{ width: '30%' }}>
+                              <td className="border-2 border-black p-2" style={{ width: '30%' }} colSpan="4">
                                 {item.km}
                               </td>
                             </tr>
@@ -115,23 +115,18 @@ const BillPage = () => {
                               <td className="border-2 font-bold border-black p-2" style={{ width: '20%' }}>
                                 Site Address
                               </td>
-                              <td className="border-2 border-black p-2" colSpan="3">
+                              <td className="border-2 border-black p-2" colSpan="4">
                                 {item.siteaddress}
                               </td>
                             </tr>
-                            <tr className="border-2 border-black">
-                              <td colSpan="4">
-                                <div className="w-full">
-                                  <table className="w-full">
-                                    <tbody>
-                                      <tr>
+                                      <tr colSpan="4">
                                         <td style={{ width: '20%' }} className='border-2 font-bold border-black p-2'>Product</td>
                                         <td style={{ width: '20%' }} className='border-2 font-bold border-black p-2'>Weight Per Bag</td>
                                         <td style={{ width: '20%' }} className='border-2 font-bold border-black p-2'>Quantity</td>
                                         <td style={{ width: '20%' }} className='border-2 font-bold border-black p-2'>Rate+GST(5%) SCST 2.5% + CGST 2.5%</td>
                                         <td style={{ width: '20%' }} className='border-2 font-bold border-black p-2'>Amount</td>
                                       </tr>
-                                      <tr>
+                                      <tr colSpan="4">
                                         <td style={{ width: '20%' }} className='border-2 font-bold border-black p-2'>Lime A</td>
                                         <td style={{ width: '20%' }} className='border-2 border-black p-2'>20 KG</td>
                                         <td style={{ width: '20%' }} className='border-2 border-black p-2'>{item.Limea}</td>
@@ -200,11 +195,6 @@ const BillPage = () => {
                                           <div className='text-xl font-bold text-right mr-4'>हस्ताक्षर</div>
                                         </td>
                                       </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </td>
-                            </tr>
                           </React.Fragment>
                         );
                       }
