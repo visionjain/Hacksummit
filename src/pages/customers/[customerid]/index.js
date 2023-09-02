@@ -225,7 +225,7 @@ const Landing = () => {
         let updatedNewData = { ...newData };
         updatedNewData[name] = value;
 
-        const products = ["Limea", "LimeaPrice", "Limew", "LimewPrice", "Limeb", "LimebPrice", "jhiki", "jhikiPrice", "rs", "rsPrice"];
+        const products = ["Limea", "LimeaPrice", "Limew", "LimewPrice", "Limeb", "LimebPrice","Limeoffw", "LimeoffwPrice", "jhiki", "jhikiPrice", "rs", "rsPrice"];
         let totalAmount = 0;
 
         products.forEach((product, index) => {
@@ -241,6 +241,7 @@ const Landing = () => {
                     (valueToNumber(updatedNewData.Limew) * valueToNumber(updatedNewData.LimewPrice)) +
                     (valueToNumber(updatedNewData.Limeb) * valueToNumber(updatedNewData.LimebPrice)) +
                     (valueToNumber(updatedNewData.jhiki) * valueToNumber(updatedNewData.jhikiPrice)) +
+                    (valueToNumber(updatedNewData.Limeoffw) * valueName(updatedNewData.LimeoffwPrice)) +
                     (valueToNumber(updatedNewData.rs) * valueToNumber(updatedNewData.rsPrice));
                 updatedNewData.dr = (totalProductAmount + valueToNumber(updatedNewData.autocharge)).toFixed(2);
                 totalAmount += productValue * productPrice;
