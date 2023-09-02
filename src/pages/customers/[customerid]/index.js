@@ -496,6 +496,7 @@ const Landing = () => {
                                                         parseFloat(item.Limew) * parseFloat(item.LimewPrice) +
                                                         parseFloat(item.Limeb) * parseFloat(item.LimebPrice) +
                                                         parseFloat(item.jhiki) * parseFloat(item.jhikiPrice) +
+                                                        parseFloat(item.Limeoffw) * parseFloat(item.LimeoffwPrice) +
                                                         parseFloat(item.rs) * parseFloat(item.rsPrice)
                                                     ).toFixed(2)
                                                 }
