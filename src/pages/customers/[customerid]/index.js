@@ -489,7 +489,9 @@ const Landing = () => {
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {item.balance < 0 ? `${Math.abs(item.balance)} ADV` : item.balance}
+                                            </td>
                                             <td className="px-6 py-4 whitespace-nowrap print:hidden">
                                                 <button
                                                     onClick={() => handleViewData(customer.customerid, item.numberid)}
