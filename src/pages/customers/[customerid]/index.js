@@ -42,7 +42,43 @@ const Landing = () => {
     }, [customerid]);
 
 
-    
+    // ...
+    const [initialBalance, setInitialBalance] = useState(0);
+
+    // ...
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/api/getcustomer');
+                const allCustomerData = response.data.customer;
+
+                // Find the customer that matches the current customer ID (slug)
+                const matchingCustomer = allCustomerData.find(customer => customer.customerid === customerid);
+
+                if (matchingCustomer) {
+                    // Check if the customer object has an initialbalance property and parse it to a float
+                    const customerInitialBalance = parseFloat(matchingCustomer.initialbalance || 0);
+                    setInitialBalance(customerInitialBalance);
+
+                    setCustomer(matchingCustomer); // Set the matching customer object
+                    setIsLoading(false); // Turn off loading state after data fetch
+                } else {
+                    setIsLoading(false);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, [customerid]);
+
+
+
+
+
+
 
 
     const handlePrint = () => {
@@ -72,8 +108,8 @@ const Landing = () => {
                 (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
                 (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
 
-            const dr = (totalProductAmount + valueToNumber(data.autocharge)).toFixed(2);
-            const balance = (previousBalance + parseFloat(dr)).toFixed(2);
+            const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
+            const balance = (previousBalance + valueToNumber(dr) - valueToNumber(data.cr)).toFixed(2);
 
             return { dr, balance };
         };
@@ -81,7 +117,7 @@ const Landing = () => {
         setCustomer(prevCustomer => {
             if (!prevCustomer) return prevCustomer;
 
-            let previousBalance = 0; // Initialize previousBalance here
+            let previousBalance = initialBalance; // Use customerinitialbalance as the initial balance
 
             const updatedData = prevCustomer.data.map(item => {
                 const { dr, balance } = calculateDRAndBalance(item, previousBalance);
@@ -96,7 +132,8 @@ const Landing = () => {
             return { ...prevCustomer, data: updatedData };
         });
 
-    }, []);
+
+    }, [customer, initialBalance]);
 
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
@@ -168,7 +205,7 @@ const Landing = () => {
         let updatedNewData = { ...newData };
         updatedNewData[name] = value;
 
-        const products = ["Limea", "LimeaPrice", "Limew", "LimewPrice", "Limeb", "LimebPrice","Limeoffw", "LimeoffwPrice", "jhiki", "jhikiPrice", "rs", "rsPrice"];
+        const products = ["Limea", "LimeaPrice", "Limew", "LimewPrice", "Limeb", "LimebPrice", "Limeoffw", "LimeoffwPrice", "jhiki", "jhikiPrice", "rs", "rsPrice"];
         let totalAmount = 0;
 
         products.forEach((product, index) => {
@@ -186,10 +223,9 @@ const Landing = () => {
                     (valueToNumber(updatedNewData.jhiki) * valueToNumber(updatedNewData.jhikiPrice)) +
                     (valueToNumber(updatedNewData.Limeoffw) * valueToNumber(updatedNewData.LimeoffwPrice)) +
                     (valueToNumber(updatedNewData.rs) * valueToNumber(updatedNewData.rsPrice));
-                updatedNewData.dr = (totalProductAmount + valueToNumber(updatedNewData.autocharge)).toFixed(2);
+                updatedNewData.dr = (totalProductAmount + valueToNumber(updatedNewData.autocharge) + valueToNumber(updatedNewData.labourcharge)).toFixed(2);
                 totalAmount += productValue * productPrice;
             }
-
             if (index === products.length - 1) {
                 updatedNewData.amount = totalAmount.toFixed(2);
             }
@@ -319,7 +355,7 @@ const Landing = () => {
 
         return (
             <div className='pt-10'>
-                
+
                 <div className="w-full px-4 md:px-8">
                     <div className="items-start justify-between md:flex">
                         <div className="max-w-lg">
@@ -345,25 +381,25 @@ const Landing = () => {
 
                     </div>
                     <table className="border-2 border-black mx-auto">
-                          <tbody>
+                        <tbody>
                             <tr>
-                              <td className="border-2 border-black p-6 px-40 text-center">
-                                <div className='text-5xl font-bold font-serif'>
-                                  JAI LIME & CHEMICAL
-                                </div>
-                                <div>
-                                  H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
-                                </div>
-                                <div>
-                                  Mo. : 99508 35585, 85296 22695
-                                </div>
-                                <div>
-                                  GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com
-                                </div>
-                              </td>
+                                <td className="border-2 border-black p-6 px-40 text-center">
+                                    <div className='text-5xl font-bold font-serif'>
+                                        JAI LIME & CHEMICAL
+                                    </div>
+                                    <div>
+                                        H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
+                                    </div>
+                                    <div>
+                                        Mo. : 99508 35585, 85296 22695
+                                    </div>
+                                    <div>
+                                        GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com
+                                    </div>
+                                </td>
                             </tr>
-                          </tbody>
-                        </table>
+                        </tbody>
+                    </table>
                     <div className="mt-10 print:hidden">
                         <input
                             type="text"
@@ -372,6 +408,9 @@ const Landing = () => {
                             onChange={event => setSearchQuery(event.target.value)}
                             className="border p-2 rounded-md w-full"
                         />
+                    </div>
+                    <div className="mt-2 font-medium print:hidden">
+                        Old Bakaya Balance: {initialBalance}
                     </div>
 
                     <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto mb-10">
@@ -392,7 +431,7 @@ const Landing = () => {
                                     <th className="py-3 px-6">Amount</th>
                                     <th className="py-3 px-6">Labour Charge</th>
                                     <th className="py-3 px-6">Auto Charge</th>
-                                    
+
                                     <th className="py-3 px-6">DR (बकाया)</th>
                                     <th className="py-3 px-6">CR (जमा)</th>
                                     <th className="py-3 px-6">Balance (शेष)</th>
@@ -447,7 +486,7 @@ const Landing = () => {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.labourcharge}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
-                                            
+
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>

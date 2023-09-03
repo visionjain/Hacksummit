@@ -37,6 +37,7 @@ const handler = async (req, res) => {
                     customername: req.body[i].customername,
                     phoneno: req.body[i].phoneno,
                     phoneno2: req.body[i].phoneno2,
+                    initialbalance: req.body.initialbalance,
                     data: data
                 });
 

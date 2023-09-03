@@ -56,6 +56,7 @@ const Customers = ({ customer }) => {
             customername: customerToEdit.customername,
             phoneno: customerToEdit.phoneno,
             phoneno2: customerToEdit.phoneno2,
+            initialbalance: customerToEdit.initialbalance,
         });
     };
     const savedPageNumber = typeof window !== 'undefined' ? localStorage.getItem('currentPageNumber') : null;
@@ -125,6 +126,7 @@ const Customers = ({ customer }) => {
         customername: '',
         phoneno: '',
         phoneno2: '',
+        initialbalance: '',
     });
 
 
@@ -137,6 +139,7 @@ const Customers = ({ customer }) => {
             customername: '',
             phoneno: '',
             phoneno2: '',
+            initialbalance: '',
         });
         setEditingIndex(null);
     };
@@ -166,6 +169,7 @@ const Customers = ({ customer }) => {
                 customername: newData.customername,
                 phoneno: newData.phoneno,
                 phoneno2: newData.phoneno2,
+                initialbalance: newData.initialbalance,
                 data: [] // Initialize with an empty array for other data
             };
 
@@ -179,6 +183,7 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
                 phoneno2: '',
+                initialbalance: '',
             });
             setTimeout(() => {
                 window.location.reload(true);
@@ -206,6 +211,7 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
                 phoneno2: '',
+                initialbalance: '',
             });
             window.location.reload(true);
         } catch (error) {
@@ -229,6 +235,7 @@ const Customers = ({ customer }) => {
                 customername: '',
                 phoneno: '',
                 phoneno2: '',
+                initialbalance: '',
             });
 
             // Fetch the data again to reflect changes
@@ -362,6 +369,13 @@ const Customers = ({ customer }) => {
                                                             onChange={handleFormChange}
                                                             className="border p-2 rounded-md"
                                                         />
+                                                        <input
+                                                            type="text"
+                                                            name="initialbalance"
+                                                            value={newData.initialbalance}
+                                                            onChange={handleFormChange}
+                                                            className="border p-2 rounded-md"
+                                                        />
                                                         <button
                                                             onClick={handleSaveChanges} // Use the handler directly here
                                                             className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
@@ -377,6 +391,7 @@ const Customers = ({ customer }) => {
                                                                     customername: '',
                                                                     phoneno: '',
                                                                     phoneno2: '',
+                                                                    initialbalance: '',
                                                                 });
                                                             }}
                                                             className="ml-2 text-gray-600 hover:text-gray-800"
@@ -468,6 +483,14 @@ const Customers = ({ customer }) => {
                                             name="phoneno2"
                                             placeholder="Alt. Contact No."
                                             value={newData.phoneno2} // Corrected value attribute
+                                            onChange={handleFormChange}
+                                            className="ml-2 border p-2 rounded-md"
+                                        />
+                                        <input
+                                            type="tel"
+                                            name="initialbalance"
+                                            placeholder="Initial Balance"
+                                            value={newData.initialbalance} // Corrected value attribute
                                             onChange={handleFormChange}
                                             className="ml-2 border p-2 rounded-md"
                                         />

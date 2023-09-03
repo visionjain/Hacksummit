@@ -13,6 +13,9 @@ const CustomerSchema = new mongoose.Schema({
     phoneno2:{
         type: String
     },
+    initialbalance:{
+        type: String
+    },
     data: [{
         numberid: {
             type: String,
