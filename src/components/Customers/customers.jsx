@@ -13,6 +13,11 @@ const Customers = ({ customer }) => {
     const [isAddingData, setIsAddingData] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
+
+
+
+
+
     const filteredCustomerData = customerData.customer
         ? customerData.customer.filter((customer) =>
             customer.customerid.includes(searchQuery) ||
@@ -153,6 +158,7 @@ const Customers = ({ customer }) => {
 
 
 
+
     const handleFormChange = (event) => {
         const { name, value } = event.target;
         setNewData((prevData) => ({
@@ -247,6 +253,8 @@ const Customers = ({ customer }) => {
     };
 
 
+
+
     const handleFormSubmit = () => {
 
         if (isEditing) {
@@ -326,6 +334,7 @@ const Customers = ({ customer }) => {
                                         <th className="py-3 px-6">Contact No.</th>
                                         <th className="py-3 px-6">Alt. Contact No.</th>
                                         <th className="py-3 px-6">View Data</th>
+                                        <th className="py-3 px-6">Last Entry Date</th>
                                         <th className="py-3 px-6"></th>
                                     </tr>
                                 </thead>
@@ -345,6 +354,11 @@ const Customers = ({ customer }) => {
                                                 </button>
 
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {item.data.length > 0 ? item.data[item.data.length - 1].salesdate : ''}
+                                            </td>
+
+
                                             <td className="text-right px-6 whitespace-nowrap">
                                                 {isEditing && editingIndex && editingIndex.pageIndex === pageNumber && editingIndex.indexWithinPage === _id ? (
                                                     <>
@@ -512,9 +526,9 @@ const Customers = ({ customer }) => {
                         </div>
                     )}
                 </div>)}
-                <div className="mt-10 py-4 border-t md:text-center">
-                    <p>© 2023  Jai Lime & Chemical. All rights reserved.</p>
-                </div>
+            <div className="mt-10 py-4 border-t md:text-center">
+                <p>© 2023  Jai Lime & Chemical. All rights reserved.</p>
+            </div>
         </div>
     );
 };
