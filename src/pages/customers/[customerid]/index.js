@@ -8,7 +8,6 @@ import axios from 'axios';
 
 
 
-
 const Landing = () => {
     const [customer, setCustomer] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
