@@ -334,14 +334,14 @@ const Landing = () => {
                         </div>
                         <div className="mt-3 md:mt-0">
                             <a
-                                className="cursor-pointer inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
+                                className="cursor-pointer inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm print:hidden"
                                 onClick={handleAddDataClick}
                             >
                                 Add Data
                             </a>
                             <button
                                 onClick={handlePrint}
-                                className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10"
+                                className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10 print:hidden"
                             >
                                 Print Table
                             </button>
@@ -389,7 +389,7 @@ const Landing = () => {
                                     <th className="py-3 px-6">Amount</th>
                                     <th className="py-3 px-6">Daily Cash Recieved</th>
                                     <th className="py-3 px-6">Total Amount</th>
-                                    <th className="py-3 px-6"></th>
+                                    <th className="py-3 px-6 print:hidden"></th>
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 divide-y">
@@ -412,7 +412,7 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {item.totalamount}
                                             </td>
-                                            <td className="text-right px-6 whitespace-nowrap">
+                                            <td className="text-right px-6 whitespace-nowrap print:hidden">
                                                 <button
                                                     onClick={() => handleEditClick(idx, item.number)} // Call handleEditClick with the index
                                                     className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"

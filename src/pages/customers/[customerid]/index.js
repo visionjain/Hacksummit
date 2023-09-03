@@ -42,64 +42,7 @@ const Landing = () => {
     }, [customerid]);
 
 
-    // const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
-
-    // useEffect(() => {
-    //     const translateSiteAddresses = async () => {
-    //         if (!customer) return;
-
-    //         const siteAddresses = customer.data.map(item => item.siteaddress);
-
-    //         try {
-    //             const apiKey = '7fe898c8a155dbcbb5bd';
-    //             const email = 'visionjain118@gmail.com'; // Provide a valid email here
-    //             const translations = await Promise.all(
-    //                 siteAddresses.map(address => translate(address, apiKey, email))
-    //             );
-
-    //             const translatedAddresses = translations.map(res => res.data.responseData.translatedText);
-    //             setTranslatedSiteAddresses(translatedAddresses);
-    //         } catch (error) {
-    //             console.error('Translation error:', error);
-    //         }
-    //     };
-
-    //     translateSiteAddresses();
-    // }, [customer]);
-
-    // const translate = async (text, apiKey, email) => {
-    //     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
-    //     return axios.get(url);
-    // };
-
-    // const [translatedDriverNames, setTranslatedDriverNames] = useState([]);
-    // const [translationsFetched, setTranslationsFetched] = useState(false);
-    // useEffect(() => {
-    //     const translateDriverNames = async () => {
-    //         if (!customer) return;
-
-    //         const driverNames = customer.data.map(item => item.drivername);
-
-    //         try {
-    //             const translations = await Promise.all(driverNames.map(name => translate(name)));
-    //             const translatedNames = translations.map(res => res.data.responseData.translatedText);
-    //             setTranslatedDriverNames(translatedNames);
-    //             setTranslationsFetched(true); // Set translationsFetched to true when translations are available
-    //         } catch (error) {
-    //             console.error('Translation error:', error);
-    //         }
-    //     };
-
-    //     const translate = async (text) => {
-    //         const apiKey = '7fe898c8a155dbcbb5bd';
-    //         const email = 'visionjain118@gmail.com';
-    //         const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
-
-    //         return axios.get(url);
-    //     };
-
-    //     translateDriverNames();
-    // }, [customer]);
+    
 
 
     const handlePrint = () => {
@@ -387,14 +330,14 @@ const Landing = () => {
                         </div>
                         <div className="mt-3 md:mt-0">
                             <a
-                                className="cursor-pointer inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
+                                className="cursor-pointer inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm print:hidden"
                                 onClick={handleAddDataClick}
                             >
                                 Add Data
                             </a>
                             <button
                                 onClick={handlePrint}
-                                className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10"
+                                className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10 print:hidden"
                             >
                                 Print Table
                             </button>
@@ -421,7 +364,7 @@ const Landing = () => {
                             </tr>
                           </tbody>
                         </table>
-                    <div className="mt-10">
+                    <div className="mt-10 print:hidden">
                         <input
                             type="text"
                             placeholder="Search by S.NO. / Driver Name / Date"
@@ -453,8 +396,8 @@ const Landing = () => {
                                     <th className="py-3 px-6">DR (बकाया)</th>
                                     <th className="py-3 px-6">CR (जमा)</th>
                                     <th className="py-3 px-6">Balance (शेष)</th>
-                                    <th className="py-3 px-6">Generate Bill</th>
-                                    <th className="py-3 px-6"></th>
+                                    <th className="py-3 px-6 print:hidden">Generate Bill</th>
+                                    <th className="py-3 px-6 print:hidden"></th>
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 divide-y">
@@ -508,7 +451,7 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.balance}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap print:hidden">
                                                 <button
                                                     onClick={() => handleViewData(customer.customerid, item.numberid)}
                                                     className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
@@ -516,7 +459,7 @@ const Landing = () => {
                                                     Generate Bill
                                                 </button>
                                             </td>
-                                            <td className="text-right px-6 whitespace-nowrap">
+                                            <td className="text-right px-6 whitespace-nowrap print:hidden">
                                                 <button
                                                     onClick={() => handleEditClick(idx, item.numberid)} // Call handleEditClick with the index
                                                     className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"

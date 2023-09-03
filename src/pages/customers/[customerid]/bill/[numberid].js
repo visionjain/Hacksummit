@@ -44,7 +44,7 @@ const BillPage = () => {
       <div className='align-right flex mt-2'>
         <button
           onClick={handlePrint}
-          className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10 align-right"
+          className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10 align-right print:hidden"
         >
           Print Challan
         </button>
