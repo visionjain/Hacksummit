@@ -359,7 +359,7 @@ const Landing = () => {
                     <div className="items-start justify-between md:flex">
                         <div className="max-w-lg">
                             <h3 className="text-gray-800 text-xl font-bold sm:text-2xl mb-4">
-                                {customer.customername}&apos;s खाता
+                                {customer.customername}&apos;s Data
                             </h3>
                             <ExcelGenerator tableItems={customer.data} />
                         </div>
