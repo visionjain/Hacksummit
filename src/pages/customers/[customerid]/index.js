@@ -534,7 +534,7 @@ const Landing = () => {
                 </div>
                 {isAddingData && (
                     <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-                        <div className="bg-white p-6 rounded-lg">
+                        <div className="bg-white p-4 rounded-xl">
                             <h2 className="text-xl font-semibold mb-4">Add New Data</h2>
                             <form onSubmit={handleFormSubmit}>
                                 <div className="grid grid-cols-2 gap-4">
@@ -585,7 +585,7 @@ const Landing = () => {
                                             placeholder="Lime (A)"
                                             value={newData.Limea}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-20"
                                         />
                                         <span className="text-gray-600 mx-2">x</span>
                                         <input
@@ -594,7 +594,7 @@ const Landing = () => {
                                             placeholder="Price"
                                             value={newData.LimeaPrice}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-16"
                                         />
                                     </div>
 
@@ -605,7 +605,7 @@ const Landing = () => {
                                             placeholder="Lime (W)"
                                             value={newData.Limew}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-20"
                                         />
                                         <span className="text-gray-600 mx-2">x</span>
                                         <input
@@ -614,7 +614,7 @@ const Landing = () => {
                                             placeholder="Price"
                                             value={newData.LimewPrice}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-16"
                                         />
                                     </div>
 
@@ -625,7 +625,7 @@ const Landing = () => {
                                             placeholder="Lime (B)"
                                             value={newData.Limeb}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-20"
                                         />
                                         <span className="text-gray-600 mx-2">x</span>
                                         <input
@@ -634,7 +634,7 @@ const Landing = () => {
                                             placeholder="Price"
                                             value={newData.LimebPrice}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-16"
                                         />
                                     </div>
                                     <div className="flex items-center">
@@ -644,7 +644,7 @@ const Landing = () => {
                                             placeholder="Lime (OFF_W)"
                                             value={newData.Limeoffw}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-20"
                                         />
                                         <span className="text-gray-600 mx-2">x</span>
                                         <input
@@ -653,7 +653,7 @@ const Landing = () => {
                                             placeholder="Price"
                                             value={newData.LimeoffwPrice}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-16"
                                         />
                                     </div>
 
@@ -664,7 +664,7 @@ const Landing = () => {
                                             placeholder="Jhiki"
                                             value={newData.jhiki}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-20"
                                         />
                                         <span className="text-gray-600 mx-2">x</span>
                                         <input
@@ -673,7 +673,7 @@ const Landing = () => {
                                             placeholder="Price"
                                             value={newData.jhikiPrice}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-16"
                                         />
                                     </div>
                                     <div className="flex items-center">
@@ -683,7 +683,7 @@ const Landing = () => {
                                             placeholder="RS"
                                             value={newData.rs}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-20"
                                         />
                                         <span className="text-gray-600 mx-2">x</span>
                                         <input
@@ -692,7 +692,7 @@ const Landing = () => {
                                             placeholder="Price"
                                             value={newData.rsPrice}
                                             onChange={handleFormChange}
-                                            className="border p-2 rounded-md"
+                                            className="border p-2 rounded-md md:w-52 w-16"
                                         />
                                     </div>
                                     <input
