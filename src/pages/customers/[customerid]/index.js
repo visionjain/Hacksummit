@@ -143,11 +143,11 @@ const Landing = () => {
         setIsAddingData(true);
     };
 
-    const handleDeleteClick = async (index, itemId) => {
+    const handleDeleteClick = async (index, _id) => {
         const shouldDelete = window.confirm("Are you sure you want to delete this item?");
         if (shouldDelete) {
             try {
-                await axios.delete(`/api/deleteitem?customerid=${customer.customerid}&itemid=${itemId}`);
+                await axios.delete(`/api/deleteitem?customerid=${customer.customerid}&_id=${_id}`);
 
                 // Update the local state after successful deletion
                 const updatedTableItems = customer.data.filter((item, idx) => idx !== index);
@@ -508,7 +508,7 @@ const Landing = () => {
                                                     Edit
                                                 </button>
                                                 <button
-                                                    onClick={() => handleDeleteClick(idx, item.numberid)} // Call the delete handler with item._id
+                                                    onClick={() => handleDeleteClick(idx, item._id)} // Call the delete handler with item._id
                                                     className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                                                 >
                                                     Delete

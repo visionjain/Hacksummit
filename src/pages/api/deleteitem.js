@@ -4,10 +4,7 @@ import Customer from "../../../model/customerschema";
 const handler = async (req, res) => {
     if (req.method === 'DELETE') {
         try {
-            const { customerid, itemid } = req.query;
-            console.log("customerid:", customerid);
-            console.log("itemid:", itemid);
-
+            const { customerid, _id } = req.query;
             // Find the customer by customerid
             const customer = await Customer.findOne({ customerid });
 
@@ -15,15 +12,15 @@ const handler = async (req, res) => {
                 return res.status(404).json({ error: "Customer not found" });
             }
 
-            // Find the index of the item to delete
-            const itemIndex = customer.data.findIndex(item => item.numberid.toString() === itemid);
+            // Use the _id field to find the item to delete
+            const itemToDelete = customer.data.find(item => item._id.toString() === _id);
 
-            if (itemIndex === -1) {
+            if (!itemToDelete) {
                 return res.status(404).json({ error: "Item not found in customer's data" });
             }
 
             // Remove the item from the data array
-            customer.data.splice(itemIndex, 1);
+            customer.data.pull({ _id: itemToDelete._id });
 
             // Save the updated customer document
             await customer.save();
