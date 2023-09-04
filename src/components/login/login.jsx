@@ -1,10 +1,20 @@
 import React from 'react';
 import Image from "next/image";
 import Link from 'next/link';
+import jlc from "../../../public/jlc.png"
 
 const Login = () => {
   return (
     <div>
+        <div>
+        <Image
+                src={jlc}
+                width={150}
+                height={200}
+                className='absolute ml-10'
+                alt="Logo"
+              />
+        </div>
         <main className="w-full h-screen flex flex-col items-center justify-center px-4">
             <div className="max-w-sm w-full text-gray-600 space-y-8">
                 <div className="text-center">
