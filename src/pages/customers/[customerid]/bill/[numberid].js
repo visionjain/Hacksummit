@@ -53,7 +53,7 @@ const BillPage = () => {
         <div className="w-[60%] h-[80%] mt-10">
           {customer && (
             <div className="w-full">
-              <table className="border-2 border-black w-full mb-6 ml-4 md:ml-44 sm:ml-28 lg:ml-60">
+              <table className="border-2 border-black w-full mb-6 ml-0 md:ml-44 sm:ml-28 lg:ml-60">
                 <tbody>
                   <tr>
                     <td className="border-2 border-black p-6 text-center" colSpan="5">
