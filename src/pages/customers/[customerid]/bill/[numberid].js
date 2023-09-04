@@ -49,7 +49,7 @@ const BillPage = () => {
           Print Challan
         </button>
       </div>
-      <div className='flex justify-center'>
+      <div>
         <div className="w-[60%] h-[80%] mt-10">
           {customer && (
             <div className="w-full">
