@@ -40,6 +40,34 @@ const Customers = ({ customer }) => {
         fetchData();
     }, []);
 
+    const calculateBalanceForCustomer = (customer) => {
+        let balance = parseFloat(customer.initialbalance);
+
+        for (const entry of customer.data) {
+            const dr = parseFloat(entry.dr);
+            const cr = parseFloat(entry.cr);
+
+            balance += dr - cr;
+        }
+
+        return balance.toFixed(2); // Round to 2 decimal places
+    };
+
+    const calculateTotalBalance = (customerData) => {
+        let totalBalance = 0;
+
+        customerData.customer.forEach((customer) => {
+            totalBalance += parseFloat(customer.initialbalance);
+            customer.data.forEach((entry) => {
+                totalBalance += parseFloat(entry.dr) - parseFloat(entry.cr);
+            });
+        });
+
+        return totalBalance.toFixed(2); // Round to 2 decimal places
+    };
+
+
+
 
 
 
@@ -251,6 +279,8 @@ const Customers = ({ customer }) => {
             console.error("Error saving changes:", error);
         }
     };
+    const isLastPage = pageNumber === pageCount - 1;
+
 
 
 
@@ -335,6 +365,7 @@ const Customers = ({ customer }) => {
                                         <th className="py-3 px-6">Alt. Contact No.</th>
                                         <th className="py-3 px-6">View Data</th>
                                         <th className="py-3 px-6">Last Entry Date</th>
+                                        <th className="py-3 px-6">Balace</th>
                                         <th className="py-3 px-6"></th>
                                     </tr>
                                 </thead>
@@ -345,6 +376,7 @@ const Customers = ({ customer }) => {
                                             <td className="px-6 py-4 whitespace-nowrap">{item.customername}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.phoneno}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.phoneno2}</td>
+
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <button
                                                     onClick={() => handleViewData(item.customerid)}
@@ -357,6 +389,7 @@ const Customers = ({ customer }) => {
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {item.data.length > 0 ? item.data[item.data.length - 1].salesdate : ''}
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{calculateBalanceForCustomer(item)}</td>
 
 
                                             <td className="text-right px-6 whitespace-nowrap">
@@ -365,6 +398,7 @@ const Customers = ({ customer }) => {
                                                         <input
                                                             type="text"
                                                             name="customername"
+                                                            placeholder='Customer Name'
                                                             value={newData.customername}
                                                             onChange={handleFormChange}
                                                             className="border p-2 rounded-md"
@@ -372,6 +406,7 @@ const Customers = ({ customer }) => {
                                                         <input
                                                             type="tel"
                                                             name="phoneno"
+                                                            placeholder='Phone No'
                                                             value={newData.phoneno}
                                                             onChange={handleFormChange}
                                                             className="border p-2 rounded-md"
@@ -379,6 +414,7 @@ const Customers = ({ customer }) => {
                                                         <input
                                                             type="tel"
                                                             name="phoneno2"
+                                                            placeholder='Alt. Phone No'
                                                             value={newData.phoneno2}
                                                             onChange={handleFormChange}
                                                             className="border p-2 rounded-md"
@@ -386,6 +422,7 @@ const Customers = ({ customer }) => {
                                                         <input
                                                             type="text"
                                                             name="initialbalance"
+                                                            placeholder='Initial Balance'
                                                             value={newData.initialbalance}
                                                             onChange={handleFormChange}
                                                             className="border p-2 rounded-md"
@@ -437,6 +474,12 @@ const Customers = ({ customer }) => {
                                 </tbody>
                             </table>
                         </div>
+                        {isLastPage && (
+                            <div className="mt-4">
+                                <h2 className="text-xl font-semibold mb-2">Total Balance of All Customers:</h2>
+                                <div className="text-2xl font-bold">{calculateTotalBalance(customerData)} INR</div>
+                            </div>
+                        )}
                         <div className="mt-4">
                             <button
                                 onClick={goToFirstPage}
@@ -526,6 +569,7 @@ const Customers = ({ customer }) => {
                         </div>
                     )}
                 </div>)}
+
             <div className="mt-10 py-4 border-t md:text-center">
                 <p>© 2023  Jai Lime & Chemical. All rights reserved.</p>
             </div>
