@@ -16,6 +16,7 @@
     "axios": "^1.5.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "exceljs": "^4.3.0",
     "jspdf": "^2.5.1",
     "jsqr": "^1.4.0",
     "mongoose": "^7.4.5",
