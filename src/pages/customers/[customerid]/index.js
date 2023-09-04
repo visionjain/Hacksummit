@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { calculateDRAndBalance } from '../../../components/landing/calculateDRAndBalance';
 import { useRouter } from 'next/router';
 import ExcelGenerator from '../../../components/landing/ExcelGenerator';
@@ -97,42 +97,51 @@ const Landing = () => {
 
 
 
-    useEffect(() => {
-        const calculateDRAndBalance = (data, previousBalance) => {
-            const totalProductAmount =
+        const prevCustomerDataRef = useRef();
+        useEffect(() => {
+            const calculateDRAndBalance = (data, previousBalance) => {
+              const totalProductAmount =
                 (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
                 (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
                 (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
                 (valueToNumber(data.Limeoffw) * valueToNumber(data.LimeoffwPrice)) +
                 (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
                 (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
-
-            const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
-            const balance = (previousBalance + valueToNumber(dr) - valueToNumber(data.cr)).toFixed(2);
-
-            return { dr, balance };
-        };
-
-        setCustomer(prevCustomer => {
-            if (!prevCustomer) return prevCustomer;
-
-            let previousBalance = initialBalance; // Use customerinitialbalance as the initial balance
-
-            const updatedData = prevCustomer.data.map(item => {
+        
+              const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
+              const balance = (previousBalance + valueToNumber(dr) - valueToNumber(data.cr)).toFixed(2);
+        
+              return { dr, balance };
+            };
+        
+            if (customer && customer.data) {
+              let previousBalance = initialBalance;
+        
+              const updatedItemsWithBalance = customer.data.map(item => {
                 const { dr, balance } = calculateDRAndBalance(item, previousBalance);
                 previousBalance = parseFloat(balance);
+        
                 return {
-                    ...item,
-                    dr,
-                    balance,
+                  ...item,
+                  dr,
+                  balance,
                 };
-            });
-
-            return { ...prevCustomer, data: updatedData };
-        });
-
-
-    }, [initialBalance]);
+              });
+        
+              // Only update the state if the customer data has changed
+              if (JSON.stringify(customer.data) !== JSON.stringify(prevCustomerDataRef.current)) {
+                setCustomer(prevCustomer => ({
+                  ...prevCustomer,
+                  data: updatedItemsWithBalance,
+                }));
+        
+                prevCustomerDataRef.current = customer.data; // Update the ref
+              }
+        
+              setInitialCalculationDone(true);
+            }
+          }, [customer, initialBalance]);
+        
 
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
