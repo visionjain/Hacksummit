@@ -316,7 +316,7 @@ const Customers = ({ customer }) => {
                                     All Customers
                                 </h3>
                             </div>
-                            <div className="mt-3 md:mt-0">
+                            <div className="mt-3 mb-3 md:mt-0">
                                 <a
                                     className="cursor-pointer inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
                                     onClick={handleAddDataClick}
@@ -328,7 +328,7 @@ const Customers = ({ customer }) => {
                         <table className="border-2 border-black mx-auto">
                             <tbody>
                                 <tr>
-                                    <td className="border-2 border-black p-6 px-40 text-center">
+                                    <td className="border-2 border-black p-6 md:px-40 px-8 text-center">
                                         <div className='text-5xl font-bold font-serif'>
                                             JAI LIME & CHEMICAL
                                         </div>

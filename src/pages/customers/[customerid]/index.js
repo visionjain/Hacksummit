@@ -132,7 +132,7 @@ const Landing = () => {
         });
 
 
-    }, [customer, initialBalance]);
+    }, [initialBalance]);
 
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
@@ -316,26 +316,27 @@ const Landing = () => {
     useEffect(() => {
         if (customer && customer.data && !initialCalculationDone) {
             let previousBalance = 0;
-
+    
             const updatedItemsWithBalance = customer.data.map(item => {
                 const { dr, balance } = calculateDRAndBalance(item, previousBalance);
                 previousBalance = parseFloat(balance);
-
+    
                 return {
                     ...item,
                     dr,
                     balance,
                 };
             });
-
+    
             setCustomer(prevCustomer => ({
                 ...prevCustomer,
                 data: updatedItemsWithBalance,
             }));
-
+    
             setInitialCalculationDone(true);
         }
     }, [customer, initialCalculationDone]);
+    
 
 
 
@@ -363,7 +364,7 @@ const Landing = () => {
                             </h3>
                             <ExcelGenerator tableItems={customer.data} />
                         </div>
-                        <div className="mt-3 md:mt-0">
+                        <div className="mt-3 mb-3 md:mt-0">
                             <a
                                 className="cursor-pointer inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm print:hidden"
                                 onClick={handleAddDataClick}
@@ -382,7 +383,7 @@ const Landing = () => {
                     <table className="border-2 border-black mx-auto">
                         <tbody>
                             <tr>
-                                <td className="border-2 border-black p-6 px-40 text-center">
+                                <td className="border-2 border-black p-6 md:px-40 px-8 text-center">
                                     <div className='text-5xl font-bold font-serif'>
                                         JAI LIME & CHEMICAL
                                     </div>
