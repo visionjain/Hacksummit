@@ -434,8 +434,8 @@ const Landing = () => {
                                     <th className="py-3 px-6">Lime (W)</th>
                                     <th className="py-3 px-6">Lime (B)</th>
                                     <th className="py-3 px-6">Lime (OFF_W)</th>
-                                    <th className="py-3 px-6">Jhiki</th>
-                                    <th className="py-3 px-6">RS</th>
+                                    <th className="py-3 px-6">Jhiki (झिकीं)</th>
+                                    <th className="py-3 px-6">Aaras (आरस)</th>
                                     <th className="py-3 px-6">Site Address</th>
                                     <th className="py-3 px-6">Amount</th>
                                     <th className="py-3 px-6">Labour Charge</th>
@@ -680,7 +680,7 @@ const Landing = () => {
                                         <input
                                             type="text"
                                             name="rs"
-                                            placeholder="RS"
+                                            placeholder="Aaras"
                                             value={newData.rs}
                                             onChange={handleFormChange}
                                             className="border p-2 rounded-md md:w-52 w-20"
