@@ -18,7 +18,7 @@ const ExcelGenerator = ({ tableItems }) => {
     const headerRow = [
       'S. NO.', 'Sales Date', 'Driver Name', 'Auto No.', 'KM', 'Lime (A)', 'Lime (A) Price',
       'Lime (W)', 'Lime (W) Price', 'Lime (B)', 'Lime (B) Price', 'Lime (OFF_W)', 'Lime (OFF_W) Price',
-      'Jhiki', 'Jhiki Price', 'RS', 'RS Price', 'Site Address', 'Amount', 'Labour Charge',
+      'Jhiki (झिकीं)', 'Jhiki Price', 'Aaras (आरस)', 'Aaras Price', 'Site Address', 'Amount', 'Labour Charge',
       'Auto Charge', 'DR (बकाया)', 'CR (जमा)', 'Balance (शेष)',
     ];
     headerRow.forEach((header, colIndex) => {
