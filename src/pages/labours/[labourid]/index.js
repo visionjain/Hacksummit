@@ -70,28 +70,28 @@ const Landing = () => {
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const filteredTableItems = labour && labour.data
-  ? labour.data.filter(item => item.date.includes(searchQuery))
-  : [];
+        ? labour.data.filter(item => item.date.includes(searchQuery))
+        : [];
 
 
-  const handleDeleteClick = async (index, itemId) => {
-    const shouldDelete = window.confirm("Are you sure you want to delete this item?");
-    if (shouldDelete) {
-        try {
-            await axios.delete(`/api/deletelabitem?labourid=${labour.labourid}&itemid=${itemId}`);
+    const handleDeleteClick = async (index, itemId) => {
+        const shouldDelete = window.confirm("Are you sure you want to delete this item?");
+        if (shouldDelete) {
+            try {
+                await axios.delete(`/api/deletelabitem?labourid=${labour.labourid}&itemid=${itemId}`);
 
-            // Update the local state after successful deletion
-            const updatedTableItems = labour.data.filter((item, idx) => idx !== index);
-            setLabour(prevLabour => ({
-                ...prevLabour,
-                data: updatedTableItems,
-            }));
-            window.location.reload(true);
-        } catch (error) {
-            console.error('Error deleting data entry:', error);
+                // Update the local state after successful deletion
+                const updatedTableItems = labour.data.filter((item, idx) => idx !== index);
+                setLabour(prevLabour => ({
+                    ...prevLabour,
+                    data: updatedTableItems,
+                }));
+                window.location.reload(true);
+            } catch (error) {
+                console.error('Error deleting data entry:', error);
+            }
         }
-    }
-};
+    };
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
@@ -172,16 +172,23 @@ const Landing = () => {
             const amount = parseFloat(item.amount) || 0;
             const gas = parseFloat(item.gas) || 0;
             const cashrec = parseFloat(item.cashrec) || 0;
-            balance += amount - gas - cashrec;
-            item.totalamount = balance; // Update the totalamount field in each row
+
+            // Check if the values are empty and replace with 0
+            const amountValue = isNaN(amount) ? 0 : amount;
+            const gasValue = isNaN(gas) ? 0 : gas;
+            const cashrecValue = isNaN(cashrec) ? 0 : cashrec;
+
+            balance += amountValue - gasValue - cashrecValue;
+            item.totalamount = balance < 0 ? `${Math.abs(balance)} ADV` : balance;
         }
     };
+
 
 
     if (labour) {
         calculateBalance(labour.data); // Calculate balances
 
-    
+
 
 
 
@@ -260,42 +267,44 @@ const Landing = () => {
                             </thead>
                             <tbody className="text-gray-600 divide-y">
 
-                            {labour && labour.data && filteredTableItems
-    ? filteredTableItems.map((item, idx) => (
-        <tr key={idx} className="divide-x">
-            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.date}</td>
-            <td className="px-6 py-4 whitespace-nowrap font-bold">
-                {item.lot}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.wages}</td>
-            <td className="px-6 py-4 whitespace-nowrap font-bold">
-                {item.amount}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.gas}</td>
-            <td className="px-6 py-4 whitespace-nowrap font-bold">
-                {item.cashrec}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap font-bold">
-            {item.totalamount < 0 ? `${Math.abs(item.totalamount)} ADV` : item.totalamount}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap"></td>
-            <td className="text-right px-6 whitespace-nowrap print:hidden">
-                <button
-                    onClick={() => handleEditClick(idx, item._id)}
-                    className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
-                >
-                    Edit
-                </button>
-                <button
-                    onClick={() => handleDeleteClick(idx, item._id)}
-                    className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
-                >
-                    Delete
-                </button>
-            </td>
-        </tr>
-    ))
-    : null}
+                                {labour && labour.data && filteredTableItems
+                                    ? filteredTableItems.map((item, idx) => (
+                                        <tr key={idx} className="divide-x">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.date === '' ? '-' : item.date}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {item.lot === '' ? '-' : item.lot}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.wages === '' ? '-' : item.wages}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {item.amount === '' ? '-' : item.amount}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {item.gas === '' ? '-' : item.gas}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {item.cashrec === '' ? '-' : item.cashrec}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {item.totalamount < 0 ? `${Math.abs(item.totalamount)} ADV` : item.totalamount}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap"></td>
+                                            <td className="text-right px-6 whitespace-nowrap print:hidden">
+                                                <button
+                                                    onClick={() => handleEditClick(idx, item._id)}
+                                                    className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteClick(idx, item._id)}
+                                                    className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                    : null}
 
                             </tbody>
                         </table>
