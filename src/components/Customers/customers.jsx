@@ -365,7 +365,7 @@ const Customers = ({ customer }) => {
                                         <th className="py-3 px-6">Alt. Contact No.</th>
                                         <th className="py-3 px-6">View Data</th>
                                         <th className="py-3 px-6">Last Entry Date</th>
-                                        <th className="py-3 px-6">Balace</th>
+                                        <th className="py-3 px-6">Balance</th>
                                         <th className="py-3 px-6"></th>
                                     </tr>
                                 </thead>
