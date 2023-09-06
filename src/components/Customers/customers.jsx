@@ -49,8 +49,7 @@ const Customers = ({ customer }) => {
 
             balance += dr - cr;
         }
-
-        return balance.toFixed(2); // Round to 2 decimal places
+        return balance < 0 ? `${Math.abs(balance)} ADV` : balance.toFixed(2);
     };
 
     const calculateTotalBalance = (customerData) => {
@@ -390,6 +389,7 @@ const Customers = ({ customer }) => {
                                                 {item.data.length > 0 ? item.data[item.data.length - 1].salesdate : ''}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">{calculateBalanceForCustomer(item)}</td>
+                                            
 
 
                                             <td className="text-right px-6 whitespace-nowrap">
