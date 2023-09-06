@@ -49,7 +49,7 @@ const Customers = ({ customer }) => {
 
             balance += dr - cr;
         }
-        return balance < 0 ? `${Math.abs(balance)} ADV` : balance.toFixed(2);
+        return balance.toFixed(2);
     };
 
     const calculateTotalBalance = (customerData) => {
