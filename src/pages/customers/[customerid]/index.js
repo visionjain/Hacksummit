@@ -419,7 +419,7 @@ const Landing = () => {
                         />
                     </div>
                     <div className="mt-2 font-medium print:hidden">
-                        Old Bakaya Balance: {initialBalance}
+                        Old Due Balance: {initialBalance}
                     </div>
 
                     <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto mb-10">
@@ -453,28 +453,28 @@ const Landing = () => {
                                 {customer && customer.data && filteredTableItems
                                     ? filteredTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.numberid}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.numberid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.salesdate}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.drivername}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.autono}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autono}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.Limea ? `${item.Limea} X ${item.LimeaPrice}` : ''}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.Limew ? `${item.Limew} X ${item.LimewPrice}` : ''}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.Limeb ? `${item.Limeb} X ${item.LimebPrice}` : ''}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.Limeoffw ? `${item.Limeoffw} X ${item.LimeoffwPrice}` : ''}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.jhiki ? `${item.jhiki} X ${item.jhikiPrice}` : ''}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.rs ? `${item.rs} KG X ${item.rsPrice}` : ''}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
@@ -493,23 +493,23 @@ const Landing = () => {
                                                     ).toFixed(2)
                                                 }
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.labourcharge}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.autocharge}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.labourcharge}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autocharge}</td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.balance < 0 ? `${Math.abs(item.balance)} ADV` : item.balance}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap print:hidden">
+                                            <td className="px-6 py-4 whitespace-nowrap print:hidden font-bold">
                                                 <button
                                                     onClick={() => handleViewData(customer.customerid, item.numberid)}
-                                                    className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
+                                                    className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg font-bold"
                                                 >
                                                     Generate Bill
                                                 </button>
                                             </td>
-                                            <td className="text-right px-6 whitespace-nowrap print:hidden">
+                                            <td className="text-right px-6 whitespace-nowrap print:hidden font-bold">
                                                 <button
                                                     onClick={() => handleEditClick(idx, item.numberid)} // Call handleEditClick with the index
                                                     className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
