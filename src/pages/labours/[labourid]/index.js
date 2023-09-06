@@ -271,7 +271,7 @@ const Landing = () => {
             <td className="px-6 py-4 whitespace-nowrap font-bold">
                 {item.amount}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap font-bold">20</td>
+            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.gas}</td>
             <td className="px-6 py-4 whitespace-nowrap font-bold">
                 {item.cashrec}
             </td>
