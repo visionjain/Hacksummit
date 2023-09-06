@@ -170,11 +170,13 @@ const Landing = () => {
         let balance = 0;
         for (const item of data) {
             const amount = parseFloat(item.amount) || 0;
+            const gas = parseFloat(item.gas) || 0;
             const cashrec = parseFloat(item.cashrec) || 0;
-            balance += amount - 20 - cashrec;
+            balance += amount - gas - cashrec;
             item.totalamount = balance; // Update the totalamount field in each row
         }
     };
+
 
     if (labour) {
         calculateBalance(labour.data); // Calculate balances
@@ -329,6 +331,14 @@ const Landing = () => {
                                         name="wages"
                                         placeholder="Wages"
                                         value={newData.wages}
+                                        onChange={handleFormChange}
+                                        className="border p-2 rounded-md"
+                                    />
+                                    <input
+                                        type="text"
+                                        name="gas"
+                                        placeholder="Gas"
+                                        value={newData.gas}
                                         onChange={handleFormChange}
                                         className="border p-2 rounded-md"
                                     />
