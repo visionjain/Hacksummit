@@ -237,6 +237,21 @@ const Labours = ({ labour }) => {
         }
     };
 
+    const calculateBalanceForLabour = (labour) => {
+        let balance = 0;
+    
+        // Iterate through the labour's data and calculate the balance
+        for (const item of labour.data) {
+            const amount = parseFloat(item.amount) || 0;
+            const cashrec = parseFloat(item.cashrec) || 0;
+            balance += amount - 20 - cashrec;
+        }
+    
+        // If the balance is negative, return it with "ADV", otherwise, return as is
+        return balance < 0 ? `${Math.abs(balance)} ADV` : balance;
+    };
+    
+
 
 
 
@@ -303,6 +318,8 @@ const Labours = ({ labour }) => {
                                         <th className="py-3 px-6">S. NO.</th>
                                         <th className="py-3 px-6">Labour Name</th>
                                         <th className="py-3 px-6">View Data</th>
+                                        <th className="py-3 px-6">Last Entry Date</th>
+                                        <th className="py-3 px-6">Balance</th>
                                         <th className="py-3 px-6"></th>
                                     </tr>
                                 </thead>
@@ -320,6 +337,10 @@ const Labours = ({ labour }) => {
                                                 </button>
 
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {item.data.length > 0 ? item.data[item.data.length - 1].date : ''}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">{calculateBalanceForLabour(item)}</td>
                                             <td className="text-right px-6 whitespace-nowrap">
                                                 {isEditing && editingIndex && editingIndex.pageIndex === pageNumber && editingIndex.indexWithinPage === _id ? (
                                                     <>

@@ -21,11 +21,11 @@ const handler = async (req, res) => {
             // Update nested data if provided
             if (data) {
                 const updatedData = data.map(item => ({
-                    number: item.number,
                     date: item.date,
                     lot: item.lot,
                     wages: item.wages,
                     amount: item.amount,
+                    gas: item.gas,
                     cashrec: item.cashrec,
                     totalamount: item.totalamount
                 }));

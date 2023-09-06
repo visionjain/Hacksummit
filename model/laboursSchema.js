@@ -8,9 +8,7 @@ const LabourSchema = new mongoose.Schema({
         type: String
     },
     data: [{
-        number: {
-            type: String,
-        },
+        
         date: {
             type: String,
         },
@@ -22,6 +20,9 @@ const LabourSchema = new mongoose.Schema({
         },
         amount: {
             type: String
+        },
+        gas: {
+            type: String,
         },
         cashrec: {
             type: String,

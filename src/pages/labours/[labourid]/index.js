@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { calculateDRAndBalance } from '../../../components/landing/calculateDRAndBalance';
 import { useRouter } from 'next/router';
 import ExcelGenerator from '../../../components/landing/ExcelGenerator';
 import axios from 'axios';
 
-
-
-
-
-
 const Landing = () => {
     const [labour, setLabour] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
+    const [newData, setNewData] = useState({
+        date: '',
+        lot: '',
+        wages: '',
+        amount: '',
+        gas: '',
+        cashrec: '',
+        totalamount: '',
+    }); // Define setNewData here
 
     const router = useRouter();
     const labourid = router.query.labourid;
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,10 +26,27 @@ const Landing = () => {
                 const allLabourData = response.data.labour;
 
                 // Find the customer that matches the current customer ID (slug)
-                const matchingLabour = allLabourData.find(labour => labour.labourid === labourid);
+                const matchingLabour = allLabourData.find(
+                    (labour) => labour.labourid === labourid
+                );
 
                 if (matchingLabour) {
-                    setLabour(matchingLabour); // Set the matching customer object
+                    // Calculate the initial "amount" based on "lot * 450"
+                    const initialAmount = matchingLabour.lot * 450;
+
+                    // Set the "amount" and other properties in the newData state
+                    setNewData({
+                        date: '',
+                        lot: matchingLabour.lot, // Set the lot value
+                        wages: '',
+                        amount: initialAmount, // Set the initial amount
+                        gas: '',
+                        cashrec: '',
+                        totalamount: '',
+                    });
+
+                    // Set the matching customer object
+                    setLabour(matchingLabour);
                     setIsLoading(false); // Turn off loading state after data fetch
                 } else {
                     setIsLoading(false);
@@ -40,122 +58,40 @@ const Landing = () => {
         };
         fetchData();
     }, [labourid]);
-
-
-    // const [translatedSiteAddresses, setTranslatedSiteAddresses] = useState([]);
-
-    // useEffect(() => {
-    //     const translateSiteAddresses = async () => {
-    //         if (!customer) return;
-
-    //         const siteAddresses = customer.data.map(item => item.siteaddress);
-
-    //         try {
-    //             const apiKey = '7fe898c8a155dbcbb5bd';
-    //             const email = 'visionjain118@gmail.com'; // Provide a valid email here
-    //             const translations = await Promise.all(
-    //                 siteAddresses.map(address => translate(address, apiKey, email))
-    //             );
-
-    //             const translatedAddresses = translations.map(res => res.data.responseData.translatedText);
-    //             setTranslatedSiteAddresses(translatedAddresses);
-    //         } catch (error) {
-    //             console.error('Translation error:', error);
-    //         }
-    //     };
-
-    //     translateSiteAddresses();
-    // }, [customer]);
-
-    // const translate = async (text, apiKey, email) => {
-    //     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
-    //     return axios.get(url);
-    // };
-
-    // const [translatedDriverNames, setTranslatedDriverNames] = useState([]);
-    // const [translationsFetched, setTranslationsFetched] = useState(false);
-    // useEffect(() => {
-    //     const translateDriverNames = async () => {
-    //         if (!customer) return;
-
-    //         const driverNames = customer.data.map(item => item.drivername);
-
-    //         try {
-    //             const translations = await Promise.all(driverNames.map(name => translate(name)));
-    //             const translatedNames = translations.map(res => res.data.responseData.translatedText);
-    //             setTranslatedDriverNames(translatedNames);
-    //             setTranslationsFetched(true); // Set translationsFetched to true when translations are available
-    //         } catch (error) {
-    //             console.error('Translation error:', error);
-    //         }
-    //     };
-
-    //     const translate = async (text) => {
-    //         const apiKey = '7fe898c8a155dbcbb5bd';
-    //         const email = 'visionjain118@gmail.com';
-    //         const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|hi&key=${apiKey}&de=${email}`;
-
-    //         return axios.get(url);
-    //     };
-
-    //     translateDriverNames();
-    // }, [customer]);
-
+    const handleAddDataClick = () => {
+        setIsAddingData(true);
+        setEditingIndex(null); // Clear editing index when adding new data
+    };
 
     const handlePrint = () => {
         window.print();
     };
-
-
-    const [initialCalculationDone, setInitialCalculationDone] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
-    const filteredTableItems = labour && labour.data
-        ? labour.data.filter(item =>
-            item.number.includes(searchQuery) ||
-            item.date.includes(searchQuery)
-        )
-        : [];
-
-
-
-    // useEffect(() => {
-    //     const calculateDRAndBalance = (data, previousBalance) => {
-    //         const totalProductAmount =
-    //             (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
-    //             (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
-    //             (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
-    //             (valueToNumber(data.Limeoffw) * valueToNumber(data.LimeoffwPrice)) +
-    //             (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
-    //             (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
-
-    //         const dr = (totalProductAmount + valueToNumber(data.autocharge)).toFixed(2);
-    //         const balance = (previousBalance + parseFloat(dr)).toFixed(2);
-
-    //         return { dr, balance };
-    //     };
-
-    //     setCustomer(prevCustomer => {
-    //         if (!prevCustomer) return prevCustomer;
-
-    //         let previousBalance = 0; // Initialize previousBalance here
-
-    //         const updatedData = prevCustomer.data.map(item => {
-    //             const { dr, balance } = calculateDRAndBalance(item, previousBalance);
-    //             previousBalance = parseFloat(balance);
-    //             return {
-    //                 ...item,
-    //                 dr,
-    //                 balance,
-    //             };
-    //         });
-
-    //         return { ...prevCustomer, data: updatedData };
-    //     });
-
-    // }, []);
-
+    const [searchQuery, setSearchQuery] = useState('');
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
+    const filteredTableItems = labour && labour.data
+  ? labour.data.filter(item => item.date.includes(searchQuery))
+  : [];
+
+
+  const handleDeleteClick = async (index, itemId) => {
+    const shouldDelete = window.confirm("Are you sure you want to delete this item?");
+    if (shouldDelete) {
+        try {
+            await axios.delete(`/api/deletelabitem?labourid=${labour.labourid}&itemid=${itemId}`);
+
+            // Update the local state after successful deletion
+            const updatedTableItems = labour.data.filter((item, idx) => idx !== index);
+            setLabour(prevLabour => ({
+                ...prevLabour,
+                data: updatedTableItems,
+            }));
+            window.location.reload(true);
+        } catch (error) {
+            console.error('Error deleting data entry:', error);
+        }
+    }
+};
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
@@ -163,73 +99,16 @@ const Landing = () => {
         setIsAddingData(true);
     };
 
-    const handleDeleteClick = async (index, itemId) => {
-        const shouldDelete = window.confirm("Are you sure you want to delete this item?");
-        if (shouldDelete) {
-            try {
-                await axios.delete(`/api/deletelabitem?labourid=${labour.labourid}&itemid=${itemId}`);
-
-                // Update the local state after successful deletion
-                const updatedTableItems = labour.data.filter((item, idx) => idx !== index);
-                setLabour(prevLabour => ({
-                    ...prevLabour,
-                    data: updatedTableItems,
-                }));
-                window.location.reload(true);
-            } catch (error) {
-                console.error('Error deleting data entry:', error);
-            }
-        }
-    };
-
-
-
-
-
-
-    const [newData, setNewData] = useState({
-        number: '',
-        date: '',
-        lot: '',
-        wages: '',
-        amount: '',
-        cashrec: '',
-        totalamount: '',
-
-    });
-
-
-
-    const handleAddDataClick = () => {
-        setIsAddingData(true);
-        setEditingIndex(null); // Clear editing index when adding new data
-    };
-
-
-
     const handleFormChange = (event) => {
         const { name, value } = event.target;
-        let updatedNewData = { ...newData };
-        updatedNewData[name] = value;
-        setNewData(updatedNewData);
+        setNewData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
-
-
-    const valueToNumber = (value) => {
-        const numericValue = parseFloat(value);
-        return isNaN(numericValue) ? 0 : numericValue;
-    };
-
-
-
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-
-        // Calculate DR and balance for the new data
-        // const { dr, balance } = calculateDRAndBalance(newData, 0);
-        // newData.dr = dr;
-        // newData.balance = balance;
 
         try {
             if (editingIndex !== null) {
@@ -239,15 +118,27 @@ const Landing = () => {
                 );
 
                 // Send a PUT request to update the item
-                await axios.put(`/api/updatelabitem?labourid=${labour.labourid}`, newData);
+                await axios.put(
+                    `/api/updatelabitem?labourid=${labour.labourid}`,
+                    newData
+                );
 
                 setLabour((prevLabour) => ({
                     ...prevLabour,
                     data: updatedTableItems,
                 }));
             } else {
+                // Calculate the "amount" based on the "lot" value and a fixed rate of 450
+                const calculatedAmount = parseFloat(newData.lot) === 0 ? 0 : parseFloat(newData.lot) * 450 || '';
+
+                // Set the calculated amount in the newData
+                newData.amount = calculatedAmount;
+
                 // Send a POST request to add the new data
-                await axios.post(`/api/addlabitem?labourid=${labour.labourid}`, newData);
+                await axios.post(
+                    `/api/addlabitem?labourid=${labour.labourid}`,
+                    newData
+                );
 
                 // Update local state with the new data
                 const updatedTableItems = [...labour.data, newData];
@@ -259,11 +150,11 @@ const Landing = () => {
 
             // Reset form and state
             setNewData({
-                number: '',
                 date: '',
                 lot: '',
                 wages: '',
-                amount: '',
+                amount: '', // Reset the amount
+                gas: '',
                 cashrec: '',
                 totalamount: '',
             });
@@ -274,49 +165,21 @@ const Landing = () => {
             console.error('Error adding data entry:', error);
         }
     };
-    // const handleViewData = (labourid, number) => {
-    //     // Navigate to the DetailPage with the corresponding customerid
-    //     window.location.href = `/customers/${customerid}/bill/${numberid}`;
-    // };
 
+    const calculateBalance = (data) => {
+        let balance = 0;
+        for (const item of data) {
+            const amount = parseFloat(item.amount) || 0;
+            const cashrec = parseFloat(item.cashrec) || 0;
+            balance += amount - 20 - cashrec;
+            item.totalamount = balance; // Update the totalamount field in each row
+        }
+    };
 
+    if (labour) {
+        calculateBalance(labour.data); // Calculate balances
 
-
-    // useEffect(() => {
-    //     if (labour && labour.data && !initialCalculationDone) {
-    //         let previousBalance = 0;
-
-    //         const updatedItemsWithBalance = labour.data.map(item => {
-    //             const { dr, balance } = calculateDRAndBalance(item, previousBalance);
-    //             previousBalance = parseFloat(balance);
-
-    //             return {
-    //                 ...item,
-    //                 dr,
-    //                 balance,
-    //             };
-    //         });
-
-    //         setLabour(prevLabour => ({
-    //             ...prevLabour,
-    //             data: updatedItemsWithBalance,
-    //         }));
-
-    //         setInitialCalculationDone(true);
-    //     }
-    // }, [labour, initialCalculationDone]);
-
-
-
-
-
-
-
-    if (!labour) {
-        <div className="flex justify-center items-center h-screen">
-            <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-blue-500"></div>
-        </div>
-    } else {
+    
 
 
 
@@ -328,7 +191,7 @@ const Landing = () => {
                     <div className="items-start justify-between md:flex">
                         <div className="max-w-lg">
                             <h3 className="text-gray-800 text-xl font-bold sm:text-2xl mb-4">
-                                {labour.labourname}&apos;s Data
+                                {labour.labourname}&apos;s खाता
                             </h3>
                             <ExcelGenerator tableItems={labour.data} />
                         </div>
@@ -382,55 +245,56 @@ const Landing = () => {
                         <table className="w-full table-auto text-sm text-left">
                             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
                                 <tr className='divide-x'>
-                                    <th className="py-3 px-6">S. NO.</th>
                                     <th className="py-3 px-6">Date</th>
                                     <th className="py-3 px-6">LOT</th>
                                     <th className="py-3 px-6">WAGES</th>
                                     <th className="py-3 px-6">Amount</th>
+                                    <th className='py-3 px-6'>Gas</th>
                                     <th className="py-3 px-6">Daily Cash Recieved</th>
-                                    <th className="py-3 px-6">Total Amount</th>
+                                    <th className="py-3 px-6">Total Balance</th>
+                                    <th className="py-3 px-6">Signature</th>
                                     <th className="py-3 px-6 print:hidden"></th>
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 divide-y">
 
-                                {labour && labour.data && filteredTableItems
-                                    ? filteredTableItems.map((item, idx) => (
-                                        <tr key={idx} className="divide-x">
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.number}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.date}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {item.lot}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.wages}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {item.amount}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {item.cashrec}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                {item.totalamount}
-                                            </td>
-                                            <td className="text-right px-6 whitespace-nowrap print:hidden">
-                                                <button
-                                                    onClick={() => handleEditClick(idx, item.number)} // Call handleEditClick with the index
-                                                    className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDeleteClick(idx, item.number)} // Call the delete handler with item._id
-                                                    className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        
-                                    
-                                        
-                                    )) : null}
+                            {labour && labour.data && filteredTableItems
+    ? filteredTableItems.map((item, idx) => (
+        <tr key={idx} className="divide-x">
+            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.date}</td>
+            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                {item.lot}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.wages}</td>
+            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                {item.amount}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap font-bold">20</td>
+            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                {item.cashrec}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap font-bold">
+            {item.totalamount < 0 ? `${Math.abs(item.totalamount)} ADV` : item.totalamount}
+            </td>
+            <td className="px-6 py-4 whitespace-nowrap"></td>
+            <td className="text-right px-6 whitespace-nowrap print:hidden">
+                <button
+                    onClick={() => handleEditClick(idx, item._id)}
+                    className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                >
+                    Edit
+                </button>
+                <button
+                    onClick={() => handleDeleteClick(idx, item._id)}
+                    className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                >
+                    Delete
+                </button>
+            </td>
+        </tr>
+    ))
+    : null}
+
                             </tbody>
                         </table>
 
@@ -444,14 +308,6 @@ const Landing = () => {
                             <h2 className="text-xl font-semibold mb-4">Add New Data</h2>
                             <form onSubmit={handleFormSubmit}>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <input
-                                        type="text"
-                                        name="number"
-                                        placeholder="S. NO."
-                                        value={newData.number}
-                                        onChange={handleFormChange}
-                                        className="border p-2 rounded-md"
-                                    />
                                     <input
                                         type="text"
                                         name="date"
@@ -478,25 +334,9 @@ const Landing = () => {
                                     />
                                     <input
                                         type="text"
-                                        name="amount"
-                                        placeholder="Amount"
-                                        value={newData.amount}
-                                        onChange={handleFormChange}
-                                        className="border p-2 rounded-md"
-                                    />
-                                    <input
-                                        type="text"
                                         name="cashrec"
                                         placeholder="Daily Cash Recieved"
                                         value={newData.cashrec}
-                                        onChange={handleFormChange}
-                                        className="border p-2 rounded-md"
-                                    />
-                                     <input
-                                        type="text"
-                                        name="totalamount"
-                                        placeholder="Total Amount"
-                                        value={newData.totalamount}
                                         onChange={handleFormChange}
                                         className="border p-2 rounded-md"
                                     />
@@ -522,8 +362,13 @@ const Landing = () => {
                 </div>
             </div>
         );
-    };
-}
+    } else {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-blue-500"></div>
+            </div>
+        );
+    }
+};
 
-
-export default Landing
+export default Landing;

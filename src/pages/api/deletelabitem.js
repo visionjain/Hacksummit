@@ -16,7 +16,7 @@ const handler = async (req, res) => {
             }
 
             // Find the index of the item to delete
-            const itemIndex = labour.data.findIndex(item => item.number.toString() === itemid);
+            const itemIndex = labour.data.findIndex(item => item._id.toString() === itemid);
 
             if (itemIndex === -1) {
                 return res.status(404).json({ error: "Item not found in customer's data" });
