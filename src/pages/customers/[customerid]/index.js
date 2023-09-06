@@ -314,9 +314,9 @@ const Landing = () => {
             console.error('Error adding data entry:', error);
         }
     };
-    const handleViewData = (customerid, numberid) => {
+    const handleViewData = (customerid, _id) => {
         // Navigate to the DetailPage with the corresponding customerid
-        window.location.href = `/customers/${customerid}/bill/${numberid}`;
+        window.location.href = `/customers/${customerid}/bill/${_id}`;
     };
 
 
@@ -503,7 +503,7 @@ const Landing = () => {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap print:hidden font-bold">
                                                 <button
-                                                    onClick={() => handleViewData(customer.customerid, item.numberid)}
+                                                    onClick={() => handleViewData(customer.customerid, item._id)}
                                                     className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg font-bold"
                                                 >
                                                     Generate Bill
