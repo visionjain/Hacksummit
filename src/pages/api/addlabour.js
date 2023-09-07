@@ -6,11 +6,11 @@ const handler = async (req, res) => {
         try {
             for (let i = 0; i < req.body.length; i++) {
                 let data = req.body[i].data.map(item => ({
-                    number: item.number,
                     date: item.date,
                     lot: item.lot,
                     wages: item.wages,
                     amount: item.amount,
+                    gas: item.gas,
                     cashrec: item.cashrec,
                     totalamount: item.totalamount
                 }));

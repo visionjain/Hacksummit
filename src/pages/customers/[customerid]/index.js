@@ -255,7 +255,7 @@ const Landing = () => {
         event.preventDefault();
 
         // Calculate DR and balance for the new data
-        const { dr, balance } = calculateDRAndBalance(newData, 0);
+        const { dr, balance } = calculateDRAndBalance(newData, initialBalance);
         newData.dr = dr;
         newData.balance = balance;
 

@@ -244,7 +244,8 @@ const Labours = ({ labour }) => {
         for (const item of labour.data) {
             const amount = parseFloat(item.amount) || 0;
             const cashrec = parseFloat(item.cashrec) || 0;
-            balance += amount - 20 - cashrec;
+            const gas = parseFloat(item.gas) || 0;
+            balance += amount - gas - cashrec;
         }
     
         // If the balance is negative, return it with "ADV", otherwise, return as is
