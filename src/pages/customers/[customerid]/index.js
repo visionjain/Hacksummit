@@ -109,10 +109,14 @@ const Landing = () => {
                 (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
 
             const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
-            const balance = (previousBalance + valueToNumber(dr) - valueToNumber(data.cr)).toFixed(2);
+            const cr = valueToNumber(data.cr) || 0;
+            const balance = (previousBalance + valueToNumber(dr) - valueToNumber(cr)).toFixed(2);
+
 
             return { dr, balance };
         };
+
+
 
         if (customer && customer.data) {
             let previousBalance = initialBalance;
@@ -183,12 +187,17 @@ const Landing = () => {
         autono: '',
         km: '',
         Limea: '',
+        LimeaPrice: '',
         Limew: '',
+        LimewPrice: '',
         Limeb: '',
+        LimebPrice: '',
         Limeoffw: '',
         LimeoffwPrice: '',
         jhiki: '',
+        jhikiPrice: '',
         rs: '',
+        rsPrice: '',
         siteaddress: '',
         labourcharge: '',
         autocharge: '',
@@ -212,6 +221,7 @@ const Landing = () => {
 
         let updatedNewData = { ...newData };
         updatedNewData[name] = value;
+        // updatedNewData.cr = updatedNewData.cr || '0.00';
 
         const products = ["Limea", "LimeaPrice", "Limew", "LimewPrice", "Limeb", "LimebPrice", "Limeoffw", "LimeoffwPrice", "jhiki", "jhikiPrice", "rs", "rsPrice"];
         let totalAmount = 0;
@@ -243,9 +253,6 @@ const Landing = () => {
 
 
     const valueToNumber = (value) => {
-        if (value === '' || value === null) {
-            return 0;
-        }
 
         const numericValue = parseFloat(value);
         return isNaN(numericValue) ? 0 : numericValue;
@@ -261,6 +268,7 @@ const Landing = () => {
         const { dr, balance } = calculateDRAndBalance(newData, initialBalance);
         newData.dr = dr;
         newData.balance = balance;
+        newData.cr = newData.cr === "" ? "0" : newData.cr;
 
         try {
             if (editingIndex !== null) {
@@ -459,7 +467,7 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.numberid === '' ? '-' : item.numberid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.salesdate === '' ? '-' : item.salesdate}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                            {item.drivername === '' ? '-' : item.drivername}
+                                                {item.drivername === '' ? '-' : item.drivername}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autono === '' ? '-' : item.autono}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
@@ -494,7 +502,7 @@ const Landing = () => {
                                             </td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                            {item.siteaddress === '' ? '-' : item.siteaddress}
+                                                {item.siteaddress === '' ? '-' : item.siteaddress}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {isNaN(item.amount) || item.amount === '' ? '0' : parseFloat(item.amount).toFixed(2)}
@@ -505,7 +513,10 @@ const Landing = () => {
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autocharge === '' ? '-' : item.autocharge}</td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.cr === '' ? '-' : item.cr}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {item.cr === '' ? 0 : item.cr}
+                                            </td>
+
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.balance < 0 ? `${Math.abs(item.balance)} ADV` : item.balance}
                                             </td>

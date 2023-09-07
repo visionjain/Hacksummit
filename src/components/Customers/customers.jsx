@@ -49,23 +49,29 @@ const Customers = ({ customer }) => {
       
           balance += dr - cr;
         }
+        if (balance < 0) {
+            return `${Math.abs(balance).toFixed(2)} ADV `;
+          }
       
         return balance.toFixed(2);
       };
       
 
-    const calculateTotalBalance = (customerData) => {
+      const calculateTotalBalance = (customerData) => {
         let totalBalance = 0;
-
+      
         customerData.customer.forEach((customer) => {
-            totalBalance += parseFloat(customer.initialbalance);
-            customer.data.forEach((entry) => {
-                totalBalance += parseFloat(entry.dr) - parseFloat(entry.cr);
-            });
+          totalBalance += parseFloat(customer.initialbalance);
+          customer.data.forEach((entry) => {
+            const dr = parseFloat(entry.dr);
+            const cr = parseFloat(entry.cr) || 0; // Use 0 if cr is empty or NaN
+            totalBalance += dr - cr;
+          });
         });
-
+      
         return totalBalance.toFixed(2); // Round to 2 decimal places
-    };
+      };
+      
 
 
 
