@@ -430,7 +430,7 @@ const Customers = ({ customer }) => {
                                                         <input
                                                             type="text"
                                                             name="initialbalance"
-                                                            placeholder='Initial Balance'
+                                                            placeholder='Opening Balance'
                                                             value={newData.initialbalance}
                                                             onChange={handleFormChange}
                                                             className="border p-2 rounded-md"
@@ -554,7 +554,7 @@ const Customers = ({ customer }) => {
                                         <input
                                             type="tel"
                                             name="initialbalance"
-                                            placeholder="Initial Balance"
+                                            placeholder="Opening Balance"
                                             value={newData.initialbalance} // Corrected value attribute
                                             onChange={handleFormChange}
                                             className="ml-2 border p-2 rounded-md"
