@@ -42,15 +42,17 @@ const Customers = ({ customer }) => {
 
     const calculateBalanceForCustomer = (customer) => {
         let balance = parseFloat(customer.initialbalance);
-
+      
         for (const entry of customer.data) {
-            const dr = parseFloat(entry.dr);
-            const cr = parseFloat(entry.cr);
-
-            balance += dr - cr;
+          const dr = parseFloat(entry.dr);
+          const cr = parseFloat(entry.cr) || 0; // Use 0 if cr is empty or NaN
+      
+          balance += dr - cr;
         }
+      
         return balance.toFixed(2);
-    };
+      };
+      
 
     const calculateTotalBalance = (customerData) => {
         let totalBalance = 0;
