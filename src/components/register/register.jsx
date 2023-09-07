@@ -25,7 +25,7 @@ const Register = () => {
             if (response.status === 201) {
                 setUsername('');
                 setPassword('');
-                setReferralCode(''); npm
+                setReferralCode('');
                 setSuccessMessage('Registration successful');
             } else {
                 // Handle unexpected response status
