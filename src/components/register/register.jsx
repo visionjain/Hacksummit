@@ -25,7 +25,7 @@ const Register = () => {
             if (response.status === 201) {
                 setUsername('');
                 setPassword('');
-                setReferralCode('');
+                setReferralCode(''); npm
                 setSuccessMessage('Registration successful');
             } else {
                 // Handle unexpected response status
@@ -58,14 +58,14 @@ const Register = () => {
     return (
         <div>
             <div>
-        <Image
-                src={jlc}
-                width={150}
-                height={200}
-                className='absolute ml-10'
-                alt="Logo"
-              />
-        </div>
+                <Image
+                    src={jlc}
+                    width={150}
+                    height={200}
+                    className='absolute md:ml-10 md:w-40 w-24 ml-36'
+                    alt="Logo"
+                />
+            </div>
             <main className="w-full h-screen flex flex-col items-center justify-center px-4">
                 <div className="max-w-sm w-full text-gray-600 space-y-8">
                     <div className="text-center">
