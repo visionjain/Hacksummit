@@ -97,51 +97,51 @@ const Landing = () => {
 
 
 
-        const prevCustomerDataRef = useRef();
-        useEffect(() => {
-            const calculateDRAndBalance = (data, previousBalance) => {
-              const totalProductAmount =
+    const prevCustomerDataRef = useRef();
+    useEffect(() => {
+        const calculateDRAndBalance = (data, previousBalance) => {
+            const totalProductAmount =
                 (valueToNumber(data.Limea) * valueToNumber(data.LimeaPrice)) +
                 (valueToNumber(data.Limew) * valueToNumber(data.LimewPrice)) +
                 (valueToNumber(data.Limeb) * valueToNumber(data.LimebPrice)) +
                 (valueToNumber(data.Limeoffw) * valueToNumber(data.LimeoffwPrice)) +
                 (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
                 (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
-        
-              const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
-              const balance = (previousBalance + valueToNumber(dr) - valueToNumber(data.cr)).toFixed(2);
-        
-              return { dr, balance };
-            };
-        
-            if (customer && customer.data) {
-              let previousBalance = initialBalance;
-        
-              const updatedItemsWithBalance = customer.data.map(item => {
+
+            const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
+            const balance = (previousBalance + valueToNumber(dr) - valueToNumber(data.cr)).toFixed(2);
+
+            return { dr, balance };
+        };
+
+        if (customer && customer.data) {
+            let previousBalance = initialBalance;
+
+            const updatedItemsWithBalance = customer.data.map(item => {
                 const { dr, balance } = calculateDRAndBalance(item, previousBalance);
                 previousBalance = parseFloat(balance);
-        
+
                 return {
-                  ...item,
-                  dr,
-                  balance,
+                    ...item,
+                    dr,
+                    balance,
                 };
-              });
-        
-              // Only update the state if the customer data has changed
-              if (JSON.stringify(customer.data) !== JSON.stringify(prevCustomerDataRef.current)) {
+            });
+
+            // Only update the state if the customer data has changed
+            if (JSON.stringify(customer.data) !== JSON.stringify(prevCustomerDataRef.current)) {
                 setCustomer(prevCustomer => ({
-                  ...prevCustomer,
-                  data: updatedItemsWithBalance,
+                    ...prevCustomer,
+                    data: updatedItemsWithBalance,
                 }));
-        
+
                 prevCustomerDataRef.current = customer.data; // Update the ref
-              }
-        
-              setInitialCalculationDone(true);
             }
-          }, [customer, initialBalance]);
-        
+
+            setInitialCalculationDone(true);
+        }
+    }, [customer, initialBalance]);
+
 
     const [isAddingData, setIsAddingData] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
@@ -222,7 +222,6 @@ const Landing = () => {
 
             const productValue = valueToNumber(updatedNewData[valueName]);
             const productPrice = valueToNumber(updatedNewData[priceName]);
-
             if (!isNaN(productValue) && !isNaN(productPrice)) {
                 const totalProductAmount =
                     (valueToNumber(updatedNewData.Limea) * valueToNumber(updatedNewData.LimeaPrice)) +
@@ -244,6 +243,10 @@ const Landing = () => {
 
 
     const valueToNumber = (value) => {
+        if (value === '' || value === null) {
+            return 0;
+        }
+
         const numericValue = parseFloat(value);
         return isNaN(numericValue) ? 0 : numericValue;
     };
@@ -325,27 +328,27 @@ const Landing = () => {
     useEffect(() => {
         if (customer && customer.data && !initialCalculationDone) {
             let previousBalance = 0;
-    
+
             const updatedItemsWithBalance = customer.data.map(item => {
                 const { dr, balance } = calculateDRAndBalance(item, previousBalance);
                 previousBalance = parseFloat(balance);
-    
+
                 return {
                     ...item,
                     dr,
                     balance,
                 };
             });
-    
+
             setCustomer(prevCustomer => ({
                 ...prevCustomer,
                 data: updatedItemsWithBalance,
             }));
-    
+
             setInitialCalculationDone(true);
         }
     }, [customer, initialCalculationDone]);
-    
+
 
 
 
@@ -453,51 +456,56 @@ const Landing = () => {
                                 {customer && customer.data && filteredTableItems
                                     ? filteredTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.numberid}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.salesdate}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.numberid === '' ? '-' : item.numberid}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.salesdate === '' ? '-' : item.salesdate}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.drivername}
+                                            {item.drivername === '' ? '-' : item.drivername}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autono}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autono === '' ? '-' : item.autono}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.Limea ? `${item.Limea} X ${item.LimeaPrice}` : ''}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.Limew ? `${item.Limew} X ${item.LimewPrice}` : ''}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.Limeb ? `${item.Limeb} X ${item.LimebPrice}` : ''}
+                                                {item.Limea ? (
+                                                    `${item.Limea} X ${item.LimeaPrice}`
+                                                ) : '-'}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.Limeoffw ? `${item.Limeoffw} X ${item.LimeoffwPrice}` : ''}
+                                                {item.Limew ? (
+                                                    `${item.Limew} X ${item.LimewPrice}`
+                                                ) : '-'}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.jhiki ? `${item.jhiki} X ${item.jhikiPrice}` : ''}
+                                                {item.Limeb ? (
+                                                    `${item.Limeb} X ${item.LimebPrice}`
+                                                ) : '-'}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.rs ? `${item.rs} KG X ${item.rsPrice}` : ''}
+                                                {item.Limeoffw ? (
+                                                    `${item.Limeoffw} X ${item.LimeoffwPrice}`
+                                                ) : '-'}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.siteaddress}
+                                                {item.jhiki ? (
+                                                    `${item.jhiki} X ${item.jhikiPrice}`
+                                                ) : '-'}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                                {item.amount === '' ?
-                                                    '' :
-                                                    (
-                                                        parseFloat(item.Limea) * parseFloat(item.LimeaPrice) +
-                                                        parseFloat(item.Limew) * parseFloat(item.LimewPrice) +
-                                                        parseFloat(item.Limeb) * parseFloat(item.LimebPrice) +
-                                                        parseFloat(item.jhiki) * parseFloat(item.jhikiPrice) +
-                                                        parseFloat(item.Limeoffw) * parseFloat(item.LimeoffwPrice) +
-                                                        parseFloat(item.rs) * parseFloat(item.rsPrice)
-                                                    ).toFixed(2)
-                                                }
+                                                {item.rs ? (
+                                                    `${item.rs} KG X ${item.rsPrice}`
+                                                ) : '-'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.labourcharge}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autocharge}</td>
+
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                            {item.siteaddress === '' ? '-' : item.siteaddress}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                                {isNaN(item.amount) || item.amount === '' ? '0' : parseFloat(item.amount).toFixed(2)}
+                                            </td>
+
+
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.labourcharge === '' ? '-' : item.labourcharge}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.autocharge === '' ? '-' : item.autocharge}</td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.cr}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.cr === '' ? '-' : item.cr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.balance < 0 ? `${Math.abs(item.balance)} ADV` : item.balance}
                                             </td>
