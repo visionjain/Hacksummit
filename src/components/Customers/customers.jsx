@@ -42,19 +42,22 @@ const Customers = ({ customer }) => {
 
     const calculateBalanceForCustomer = (customer) => {
         let balance = parseFloat(customer.initialbalance);
-      
+    
         for (const entry of customer.data) {
-          const dr = parseFloat(entry.dr);
-          const cr = parseFloat(entry.cr) || 0; // Use 0 if cr is empty or NaN
-      
-          balance += dr - cr;
+            const dr = parseFloat(entry.dr);
+            const cr = parseFloat(entry.cr) || 0; // Use 0 if cr is empty or NaN
+    
+            balance += dr - cr;
         }
+        const formattedBalance = balance.toLocaleString('en-IN'); // 'en-IN' for the Indian numbering format with commas
+    
         if (balance < 0) {
-            return `${Math.abs(balance).toFixed(2)} ADV `;
-          }
-      
-        return balance.toFixed(2);
-      };
+            return `${Math.abs(formattedBalance).toFixed(2)} ADV`;
+        }
+    
+        return formattedBalance;
+    };
+    
       
 
       const calculateTotalBalance = (customerData) => {

@@ -358,6 +358,54 @@ const Landing = () => {
     }, [customer, initialCalculationDone]);
 
 
+    //pagiantion
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    const paginatedTableItems = customer && customer.data
+        ? filteredTableItems.slice(startIndex, endIndex)
+        : [];
+    const nextPage = () => {
+        if (currentPage < Math.ceil(filteredTableItems.length / itemsPerPage)) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+    const totalPages = Math.ceil(filteredTableItems.length / itemsPerPage);
+    const goToFirstPage = () => {
+        setCurrentPage(1);
+    };
+
+    const goToLastPage = () => {
+        setCurrentPage(totalPages);
+    };
+   
+    useEffect(() => {
+        // Check if localStorage is available in the browser environment
+        if (typeof window !== 'undefined' && window.localStorage) {
+          const savedPage = parseInt(localStorage.getItem('currentPage')) || 1;
+          setCurrentPage(savedPage);
+        }
+      }, []);
+      useEffect(() => {
+        // Check if localStorage is available in the browser environment
+        if (typeof window !== 'undefined' && window.localStorage) {
+          localStorage.setItem('currentPage', currentPage);
+        }
+      }, [currentPage]);
+    
+
+
+
+
+
 
 
 
@@ -461,8 +509,8 @@ const Landing = () => {
                             </thead>
                             <tbody className="text-gray-600 divide-y">
 
-                                {customer && customer.data && filteredTableItems
-                                    ? filteredTableItems.map((item, idx) => (
+                                {customer && customer.data && paginatedTableItems
+                                    ? paginatedTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
                                             <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.numberid === '' ? '-' : item.numberid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold"> {item.salesdate === '' ? '-' : item.salesdate}</td>
@@ -760,9 +808,46 @@ const Landing = () => {
 
                             </form>
 
+
+
                         </div>
                     </div>
                 )}
+                <div className="flex justify-center space-x-2">
+                    <button
+                        onClick={goToFirstPage}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 active:bg-indigo-700 font-bold"
+                    >
+                        First Page
+                    </button>
+                    <button
+                        onClick={prevPage}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 active:bg-indigo-700 font-bold"
+                    >
+                        Previous Page
+                    </button>
+                    <span className="text-gray-600">
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                        onClick={nextPage}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 active:bg-indigo-700 font-bold"
+                    >
+                        Next Page
+                    </button>
+                    <button
+                        onClick={goToLastPage}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 active:bg-indigo-700 font-bold"
+                    >
+                        Last Page
+                    </button>
+                </div>
+
+
                 <div className="mt-10 py-4 border-t md:text-center">
                     <p>© 2023  Jai Lime & Chemical. All rights reserved.</p>
                 </div>
