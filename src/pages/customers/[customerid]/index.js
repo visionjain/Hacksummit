@@ -813,7 +813,7 @@ const Landing = () => {
                         </div>
                     </div>
                 )}
-                <div className="flex justify-center space-x-2">
+                <div className="flex justify-center space-x-2 print:hidden">
                     <button
                         onClick={goToFirstPage}
                         disabled={currentPage === 1}
