@@ -74,6 +74,10 @@ const Customers = ({ customer }) => {
       
         return totalBalance.toFixed(2); // Round to 2 decimal places
       };
+
+      const handlePrint = () => {
+        window.print();
+    };
       
 
 
@@ -333,6 +337,12 @@ const Customers = ({ customer }) => {
                                 >
                                     Add Customer
                                 </a>
+                                <button
+                                onClick={handlePrint}
+                                className="bg-red-600 text-white px-4 py-2 rounded-lg ml-10 print:hidden"
+                            >
+                                Print Table
+                            </button>
                             </div>
                         </div>
                         <table className="border-2 border-black mx-auto">
@@ -362,7 +372,7 @@ const Customers = ({ customer }) => {
                                 value={searchQuery}
                                 onChange={event => setSearchQuery(event.target.value)}
                                 onClick={handleSearchClick} // Add this line
-                                className="border p-2 rounded-md w-full"
+                                className="border p-2 rounded-md w-full print:hidden"
                             />
                         </div>
                         <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
@@ -372,11 +382,11 @@ const Customers = ({ customer }) => {
                                         <th className="py-3 px-6">S. NO.</th>
                                         <th className="py-3 px-6">Customers Name</th>
                                         <th className="py-3 px-6">Contact No.</th>
-                                        <th className="py-3 px-6">Alt. Contact No.</th>
-                                        <th className="py-3 px-6">View Data</th>
+                                        <th className="py-3 px-6 print:hidden">Alt. Contact No.</th>
+                                        <th className="py-3 px-6 print:hidden">View Data</th>
                                         <th className="py-3 px-6">Last Entry Date</th>
                                         <th className="py-3 px-6">Balance</th>
-                                        <th className="py-3 px-6"></th>
+                                        <th className="py-3 px-6 print:hidden"></th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-600 divide-y">
@@ -385,9 +395,9 @@ const Customers = ({ customer }) => {
                                             <td className="px-6 py-4 whitespace-nowrap">{item.customerid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.customername}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{item.phoneno}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.phoneno2}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap print:hidden">{item.phoneno2}</td>
 
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap print:hidden">
                                                 <button
                                                     onClick={() => handleViewData(item.customerid)}
                                                     className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
@@ -465,14 +475,14 @@ const Customers = ({ customer }) => {
                                                     <>
                                                         <button
                                                             onClick={() => handleEditClick(pageNumber, _id)}
-                                                            className="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
+                                                            className="print:hidden py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg"
                                                         >
                                                             Edit
                                                         </button>
 
                                                         <button
                                                             onClick={() => handleDeleteClick(item.customerid)}
-                                                            className="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
+                                                            className="print:hidden py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg"
                                                         >
                                                             Delete
                                                         </button>
