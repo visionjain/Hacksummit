@@ -485,26 +485,26 @@ const Landing = () => {
                         <table className="w-full table-auto text-sm text-left">
                             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
                                 <tr className='divide-x'>
-                                    <th className="py-3 px-6">S. NO.</th>
-                                    <th className="py-3 px-6">Sales Date</th>
-                                    <th className="py-3 px-6">Driver Name</th>
-                                    <th className="py-3 px-6">Auto No.</th>
-                                    <th className="py-3 px-6">Lime (A)</th>
-                                    <th className="py-3 px-6">Lime (W)</th>
-                                    <th className="py-3 px-6">Lime (B)</th>
-                                    <th className="py-3 px-6">Lime (OFF_W)</th>
-                                    <th className="py-3 px-6">Jhiki (झिकीं)</th>
-                                    <th className="py-3 px-6">Aaras (आरस)</th>
-                                    <th className="py-3 px-6">Site Address</th>
-                                    <th className="py-3 px-6">Amount</th>
-                                    <th className="py-3 px-2">Labour Charge</th>
-                                    <th className="py-3 px-2">Auto Charge</th>
+                                    <th className="py-3 px-6 text-3xl">S. NO.</th>
+                                    <th className="py-3 px-6 text-3xl">Sales Date</th>
+                                    <th className="py-3 px-6 text-3xl">Driver Name</th>
+                                    <th className="py-3 px-6 text-3xl">Auto No.</th>
+                                    <th className="py-3 px-6 text-3xl">Lime (A)</th>
+                                    <th className="py-3 px-6 text-3xl">Lime (W)</th>
+                                    <th className="py-3 px-6 text-3xl">Lime (B)</th>
+                                    <th className="py-3 px-6 text-3xl">Lime (OFF_W)</th>
+                                    <th className="py-3 px-6 text-3xl">Jhiki (झिकीं)</th>
+                                    <th className="py-3 px-6 text-3xl">Aaras (आरस)</th>
+                                    <th className="py-3 px-6 text-3xl">Site Address</th>
+                                    <th className="py-3 px-6 text-3xl">Amount</th>
+                                    <th className="py-3 px-2 text-3xl">Labour Charge</th>
+                                    <th className="py-3 px-2 text-3xl">Auto Charge</th>
 
-                                    <th className="py-3 px-6">DR (बकाया)</th>
-                                    <th className="py-3 px-6">CR (जमा)</th>
-                                    <th className="py-3 px-6">Balance (शेष)</th>
+                                    <th className="py-3 px-6 text-3xl">DR (बकाया)</th>
+                                    <th className="py-3 px-6 text-3xl">CR (जमा)</th>
+                                    <th className="py-3 px-6 text-3xl">Balance (शेष)</th>
                                     <th className="py-3 px-6 print:hidden">Generate Bill</th>
-                                    <th className="py-3 px-6 print:hidden"></th>
+                                    <th className="py-3 px-6 print:hidden "></th>
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 divide-y">
