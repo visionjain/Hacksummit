@@ -485,25 +485,25 @@ const Landing = () => {
                         <table className="w-full table-auto text-sm text-left">
                             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
                                 <tr className='divide-x'>
-                                    <th className="py-3 px-2 text-3xl">S. NO.</th>
-                                    <th className="py-3 px-6 text-3xl">Sales Date</th>
-                                    <th className="py-3 px-2 text-3xl">Driver Name</th>
-                                    <th className="py-3 px-6 text-3xl">Auto No.</th>
-                                    <th className="py-3 px-6 text-3xl">Lime (A)</th>
-                                    <th className="py-3 px-6 text-3xl">Lime (W)</th>
-                                    <th className="py-3 px-6 text-3xl">Lime (B)</th>
-                                    <th className="py-3 px-6 text-3xl">Lime (OFF_W)</th>
-                                    <th className="py-3 px-6 text-3xl">Jhiki (झिकीं)</th>
-                                    <th className="py-3 px-6 text-3xl">Aaras (आरस)</th>
-                                    <th className="py-3 px-6 text-3xl">Site Address</th>
-                                    <th className="py-3 px-6 text-3xl">Amount</th>
-                                    <th className="py-3 px-2 text-3xl">Labour Charge</th>
-                                    <th className="py-3 px-2 text-3xl">Auto Charge</th>
+                                    <th className="py-3 px-2 text-2xl">S. NO.</th>
+                                    <th className="py-3 px-6 text-2xl">Sales Date</th>
+                                    <th className="py-3 px-2 text-2xl">Driver Name</th>
+                                    <th className="py-3 px-6 text-2xl">Auto No.</th>
+                                    <th className="py-3 px-6 text-2xl">Lime (A)</th>
+                                    <th className="py-3 px-6 text-2xl">Lime (W)</th>
+                                    <th className="py-3 px-6 text-2xl">Lime (B)</th>
+                                    <th className="py-3 px-6 text-2xl">Lime (OFF_W)</th>
+                                    <th className="py-3 px-6 text-2xl">Jhiki (झिकीं)</th>
+                                    <th className="py-3 px-6 text-2xl">Aaras (आरस)</th>
+                                    <th className="py-3 px-6 text-2xl">Site Address</th>
+                                    <th className="py-3 px-6 text-2xl">Amount</th>
+                                    <th className="py-3 px-2 text-2xl">Labour Charge</th>
+                                    <th className="py-3 px-2 text-2xl">Auto Charge</th>
 
-                                    <th className="py-3 px-6 text-3xl">DR (बकाया)</th>
-                                    <th className="py-3 px-2 text-3xl">CR (जमा)</th>
-                                    <th className="py-3 px-6 text-3xl">Balance (शेष)</th>
-                                    <th className="py-3 px-6 text-3xl print:hidden">Generate Bill</th>
+                                    <th className="py-3 px-6 text-2xl">DR (बकाया)</th>
+                                    <th className="py-3 px-2 text-2xl">CR (जमा)</th>
+                                    <th className="py-3 px-6 text-2xl">Balance (शेष)</th>
+                                    <th className="py-3 px-6 text-2xl print:hidden">Generate Bill</th>
                                     <th className="py-3 px-6 print:hidden "></th>
                                 </tr>
                             </thead>
@@ -512,60 +512,60 @@ const Landing = () => {
                                 {customer && customer.data && paginatedTableItems
                                     ? paginatedTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
-                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-3xl"> {item.numberid === '' ? '-' : item.numberid}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl"> {item.salesdate === '' ? '-' : item.salesdate}</td>
-                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl"> {item.numberid === '' ? '-' : item.numberid}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl"> {item.salesdate === '' ? '-' : item.salesdate}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.drivername === '' ? '-' : item.drivername}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">{item.autono === '' ? '-' : item.autono}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">{item.autono === '' ? '-' : item.autono}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.Limea ? (
                                                     `${item.Limea} X ${item.LimeaPrice}`
                                                 ) : '-'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.Limew ? (
                                                     `${item.Limew} X ${item.LimewPrice}`
                                                 ) : '-'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.Limeb ? (
                                                     `${item.Limeb} X ${item.LimebPrice}`
                                                 ) : '-'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.Limeoffw ? (
                                                     `${item.Limeoffw} X ${item.LimeoffwPrice}`
                                                 ) : '-'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.jhiki ? (
                                                     `${item.jhiki} X ${item.jhikiPrice}`
                                                 ) : '-'}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.rs ? (
                                                     `${item.rs} KG X ${item.rsPrice}`
                                                 ) : '-'}
                                             </td>
 
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.siteaddress === '' ? '-' : item.siteaddress}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {isNaN(item.amount) || item.amount === '' ? '0' : parseFloat(item.amount).toFixed(2)}
                                             </td>
 
 
-                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-3xl">{item.labourcharge === '' ? '-' : item.labourcharge}</td>
-                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-3xl">{item.autocharge === '' ? '-' : item.autocharge}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-2xl">{item.labourcharge === '' ? '-' : item.labourcharge}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-2xl">{item.autocharge === '' ? '-' : item.autocharge}</td>
 
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">{item.dr}</td>
-                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">{item.dr}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.cr === '' ? 0 : item.cr}
                                             </td>
 
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">
                                                 {item.balance < 0 ? `${Math.abs(item.balance)} ADV` : item.balance}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap print:hidden font-bold">
