@@ -558,7 +558,7 @@ const Landing = () => {
 
 
                                             <td className="px-2 py-4 whitespace-nowrap font-bold text-center">{item.labourcharge === '' ? '-' : item.labourcharge}</td>
-                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-xl">{item.autocharge === '' ? '-' : item.autocharge}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-2xl">{item.autocharge === '' ? '-' : item.autocharge}</td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
