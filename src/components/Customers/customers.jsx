@@ -110,7 +110,7 @@ const Customers = ({ customer }) => {
     const [pageNumber, setPageNumber] = useState(savedPageNumber ? parseInt(savedPageNumber) : 0);
 
     // Number of customers to display per page
-    const customersPerPage = 10;
+    const customersPerPage = 15;
 
     // Calculate the offset based on the page number
     const offset = pageNumber * customersPerPage;
