@@ -413,7 +413,7 @@ const Customers = ({ customer }) => {
                                             
 
 
-                                            <td className="text-right px-6 whitespace-nowrap">
+                                            <td className="text-right px-6 whitespace-nowrap print:hidden">
                                                 {isEditing && editingIndex && editingIndex.pageIndex === pageNumber && editingIndex.indexWithinPage === _id ? (
                                                     <>
                                                         <input
