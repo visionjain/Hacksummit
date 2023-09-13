@@ -485,9 +485,9 @@ const Landing = () => {
                         <table className="w-full table-auto text-sm text-left">
                             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
                                 <tr className='divide-x'>
-                                    <th className="py-3 px-6 text-3xl">S. NO.</th>
+                                    <th className="py-3 px-2 text-3xl">S. NO.</th>
                                     <th className="py-3 px-6 text-3xl">Sales Date</th>
-                                    <th className="py-3 px-6 text-3xl">Driver Name</th>
+                                    <th className="py-3 px-2 text-3xl">Driver Name</th>
                                     <th className="py-3 px-6 text-3xl">Auto No.</th>
                                     <th className="py-3 px-6 text-3xl">Lime (A)</th>
                                     <th className="py-3 px-6 text-3xl">Lime (W)</th>
@@ -501,9 +501,9 @@ const Landing = () => {
                                     <th className="py-3 px-2 text-3xl">Auto Charge</th>
 
                                     <th className="py-3 px-6 text-3xl">DR (बकाया)</th>
-                                    <th className="py-3 px-6 text-3xl">CR (जमा)</th>
+                                    <th className="py-3 px-2 text-3xl">CR (जमा)</th>
                                     <th className="py-3 px-6 text-3xl">Balance (शेष)</th>
-                                    <th className="py-3 px-6 print:hidden">Generate Bill</th>
+                                    <th className="py-3 px-6 text-3xl print:hidden">Generate Bill</th>
                                     <th className="py-3 px-6 print:hidden "></th>
                                 </tr>
                             </thead>
@@ -512,9 +512,9 @@ const Landing = () => {
                                 {customer && customer.data && paginatedTableItems
                                     ? paginatedTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl"> {item.numberid === '' ? '-' : item.numberid}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-3xl"> {item.numberid === '' ? '-' : item.numberid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl"> {item.salesdate === '' ? '-' : item.salesdate}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-3xl">
                                                 {item.drivername === '' ? '-' : item.drivername}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">{item.autono === '' ? '-' : item.autono}</td>
@@ -561,7 +561,7 @@ const Landing = () => {
                                             <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-3xl">{item.autocharge === '' ? '-' : item.autocharge}</td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">{item.dr}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap font-bold text-3xl">
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-3xl">
                                                 {item.cr === '' ? 0 : item.cr}
                                             </td>
 
