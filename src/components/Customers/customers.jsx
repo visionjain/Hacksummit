@@ -325,12 +325,12 @@ const Customers = ({ customer }) => {
 
                     <div className="w-full px-4 md:px-8">
                         <div className="items-start justify-between md:flex">
-                            <div className="max-w-lg">
+                            <div className="max-w-lg ">
                                 <h3 className="text-gray-800 text-xl font-bold sm:text-2xl">
                                     All Customers
                                 </h3>
                             </div>
-                            <div className="mt-3 mb-3 md:mt-0">
+                            <div className="mt-3 mb-3 md:mt-0 print:hidden">
                                 <a
                                     className="cursor-pointer inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
                                     onClick={handleAddDataClick}
@@ -392,12 +392,12 @@ const Customers = ({ customer }) => {
                                 <tbody className="text-gray-600 divide-y">
                                     {displayedCustomers.map((item, _id) => (
                                         <tr key={_id} className="divide-x">
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.customerid}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.customername}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{item.phoneno}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap print:hidden">{item.phoneno2}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.customerid}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.customername}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{item.phoneno}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap print:hidden font-bold">{item.phoneno2}</td>
 
-                                            <td className="px-6 py-4 whitespace-nowrap print:hidden">
+                                            <td className="px-6 py-4 whitespace-nowrap print:hidden font-bold">
                                                 <button
                                                     onClick={() => handleViewData(item.customerid)}
                                                     className="px-4 py-2 text-white bg-green-600 rounded-lg duration-150 hover:bg-green-700 active:shadow-lg"
@@ -406,10 +406,10 @@ const Customers = ({ customer }) => {
                                                 </button>
 
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">
                                                 {item.data.length > 0 ? item.data[item.data.length - 1].salesdate : ''}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{calculateBalanceForCustomer(item)}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap font-bold">{calculateBalanceForCustomer(item)}</td>
                                             
 
 
@@ -501,7 +501,7 @@ const Customers = ({ customer }) => {
                                 <div className="text-2xl font-bold">{calculateTotalBalance(customerData)} INR</div>
                             </div>
                         )}
-                        <div className="mt-4">
+                        <div className="mt-4 print:hidden">
                             <button
                                 onClick={goToFirstPage}
                                 className="mr-2 px-2 py-1 border rounded border-gray-300 hover:bg-blue-500 hover:text-white"
