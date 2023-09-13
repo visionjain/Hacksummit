@@ -497,8 +497,8 @@ const Landing = () => {
                                     <th className="py-3 px-6">Aaras (आरस)</th>
                                     <th className="py-3 px-6">Site Address</th>
                                     <th className="py-3 px-6">Amount</th>
-                                    <th className="py-3">Labour Charge</th>
-                                    <th className="py-3">Auto Charge</th>
+                                    <th className="py-3 px-2">Labour Charge</th>
+                                    <th className="py-3 px-2">Auto Charge</th>
 
                                     <th className="py-3 px-6">DR (बकाया)</th>
                                     <th className="py-3 px-6">CR (जमा)</th>
@@ -557,8 +557,8 @@ const Landing = () => {
                                             </td>
 
 
-                                            <td className=" py-4 whitespace-nowrap font-bold">{item.labourcharge === '' ? '-' : item.labourcharge}</td>
-                                            <td className="py-4 whitespace-nowrap font-bold">{item.autocharge === '' ? '-' : item.autocharge}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold">{item.labourcharge === '' ? '-' : item.labourcharge}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold">{item.autocharge === '' ? '-' : item.autocharge}</td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">{item.dr}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold">
