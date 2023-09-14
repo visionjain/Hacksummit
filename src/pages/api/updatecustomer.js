@@ -49,6 +49,7 @@ const handler = async (req, res) => {
                     siteaddress: item.siteaddress,
                     labourcharge: item.labourcharge,
                     autocharge: item.autocharge,
+                    extracharge: item.extracharge,
                     amount: item.amount,
                     dr: item.dr,
                     cr: item.cr,

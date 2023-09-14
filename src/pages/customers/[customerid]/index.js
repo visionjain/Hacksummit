@@ -108,7 +108,7 @@ const Landing = () => {
                 (valueToNumber(data.jhiki) * valueToNumber(data.jhikiPrice)) +
                 (valueToNumber(data.rs) * valueToNumber(data.rsPrice));
 
-            const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge)).toFixed(2);
+            const dr = (totalProductAmount + valueToNumber(data.autocharge) + valueToNumber(data.labourcharge) + valueToNumber(data.extracharge)).toFixed(2);
             const cr = valueToNumber(data.cr) || 0;
             const balance = (previousBalance + valueToNumber(dr) - valueToNumber(cr)).toFixed(2);
 
@@ -201,6 +201,7 @@ const Landing = () => {
         siteaddress: '',
         labourcharge: '',
         autocharge: '',
+        extracharge: '',
         amount: '',
         dr: '',
         cr: '',
@@ -240,7 +241,7 @@ const Landing = () => {
                     (valueToNumber(updatedNewData.jhiki) * valueToNumber(updatedNewData.jhikiPrice)) +
                     (valueToNumber(updatedNewData.Limeoffw) * valueToNumber(updatedNewData.LimeoffwPrice)) +
                     (valueToNumber(updatedNewData.rs) * valueToNumber(updatedNewData.rsPrice));
-                updatedNewData.dr = (totalProductAmount + valueToNumber(updatedNewData.autocharge) + valueToNumber(updatedNewData.labourcharge)).toFixed(2);
+                updatedNewData.dr = (totalProductAmount + valueToNumber(updatedNewData.autocharge) + valueToNumber(updatedNewData.labourcharge) + valueToNumber(updatedNewData.extracharge)).toFixed(2);
                 totalAmount += productValue * productPrice;
             }
             if (index === products.length - 1) {
@@ -313,6 +314,7 @@ const Landing = () => {
                 siteaddress: "",
                 labourcharge: "",
                 autocharge: "",
+                extracharge:'',
                 amount: "",
                 dr: "",
                 cr: "",
@@ -499,7 +501,7 @@ const Landing = () => {
                                     <th className="py-3 px-6 text-2xl">Amount</th>
                                     <th className="py-3 px-2 text-2xl">Labour Charge</th>
                                     <th className="py-3 px-2 text-2xl">Auto Charge</th>
-
+                                    <th className="py-3 px-2 text-2xl">Extra Charges</th>
                                     <th className="py-3 px-6 text-2xl">DR (बकाया)</th>
                                     <th className="py-3 px-2 text-2xl">CR (जमा)</th>
                                     <th className="py-3 px-6 text-2xl">Balance (शेष)</th>
@@ -559,6 +561,7 @@ const Landing = () => {
 
                                             <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-2xl">{item.labourcharge === '' ? '-' : item.labourcharge}</td>
                                             <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-2xl">{item.autocharge === '' ? '-' : item.autocharge}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-center text-2xl">{item.extracharge === '' ? '-' : item.extracharge}</td>
 
                                             <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl">{item.dr}</td>
                                             <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl">
@@ -791,6 +794,14 @@ const Landing = () => {
                                         name="cr"
                                         placeholder="CR"
                                         value={newData.cr}
+                                        onChange={handleFormChange}
+                                        className="border p-2 rounded-md"
+                                    />
+                                    <input
+                                        type="text"
+                                        name="extracharge"
+                                        placeholder="Extra Charge"
+                                        value={newData.extracharge}
                                         onChange={handleFormChange}
                                         className="border p-2 rounded-md"
                                     />

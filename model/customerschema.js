@@ -77,6 +77,9 @@ const CustomerSchema = new mongoose.Schema({
         autocharge: {
             type: String
         },
+        extracharge: {
+            type: String
+        },
         amount: {
             type: String
         },
