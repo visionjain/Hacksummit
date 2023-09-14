@@ -487,7 +487,7 @@ const Landing = () => {
                         <table className="w-full table-auto text-sm text-left">
                             <thead className="bg-gray-50 text-gray-600 font-medium border-b">
                                 <tr className='divide-x'>
-                                    <th className="py-3 px-2 text-2xl">NO.</th>
+                                    <th className="py-3 px-2 text-2xl print:hidden">NO.</th>
                                     <th className="py-3 px-2 text-2xl">S. NO.</th>
                                     <th className="py-3 px-6 text-2xl">Sales Date</th>
                                     <th className="py-3 px-2 text-2xl">Driver Name</th>
@@ -515,7 +515,7 @@ const Landing = () => {
                                 {customer && customer.data && paginatedTableItems
                                     ? paginatedTableItems.map((item, idx) => (
                                         <tr key={idx} className="divide-x">
-                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl">{idx + 1}</td>
+                                            <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl print:hidden">{idx + 1}</td>
                                             <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl"> {item.numberid === '' ? '-' : item.numberid}</td>
                                             <td className="px-6 py-4 whitespace-nowrap font-bold text-2xl"> {item.salesdate === '' ? '-' : item.salesdate}</td>
                                             <td className="px-2 py-4 whitespace-nowrap font-bold text-2xl">
