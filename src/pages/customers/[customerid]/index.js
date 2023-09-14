@@ -3,6 +3,8 @@ import { calculateDRAndBalance } from '../../../components/landing/calculateDRAn
 import { useRouter } from 'next/router';
 import ExcelGenerator from '../../../components/landing/ExcelGenerator';
 import axios from 'axios';
+import Image from 'next/image';
+import jlc from '../../../../public/jlc.png';
 
 
 
@@ -428,11 +430,14 @@ const Landing = () => {
 
                 <div className="w-full px-4 md:px-8">
                     <div className="items-start justify-between md:flex">
-                        <div className="max-w-lg">
-                            <h3 className="text-gray-800 text-xl font-bold sm:text-4xl mb-4">
-                                {customer.customername}&apos;s खाता
-                            </h3>
-                            <ExcelGenerator tableItems={customer.data} />
+                        <div>
+                            <Image
+                                src={jlc}
+                                width={150}
+                                height={200}
+                                className='absolute md:ml-10 md:w-40 w-24 ml-36'
+                                alt="Logo"
+                            />
                         </div>
                         <div className="mt-3 mb-3 md:mt-0">
                             <a
@@ -447,6 +452,7 @@ const Landing = () => {
                             >
                                 Print Table
                             </button>
+                            <ExcelGenerator tableItems={customer.data} />
                         </div>
 
                     </div>
@@ -470,6 +476,12 @@ const Landing = () => {
                             </tr>
                         </tbody>
                     </table>
+                    <div className="max-w-lg">
+                        <h3 className="text-gray-800 text-xl font-bold sm:text-4xl mb-4">
+                            {customer.customername}&apos;s खाता
+                        </h3>
+
+                    </div>
                     <div className="mt-10 print:hidden">
                         <input
                             type="text"
