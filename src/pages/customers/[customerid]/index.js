@@ -805,7 +805,6 @@ const Landing = () => {
                                         onChange={handleFormChange}
                                         className="border p-2 rounded-md"
                                     />
-                                    
                                 </div>
                                 <div className="flex mt-4">
                                     <button type="submit" className='bg-indigo-600 p-3 px-6 rounded mr-4'>{editingIndex !== null ? 'Update' : 'Add'}</button>
