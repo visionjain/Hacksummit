@@ -435,7 +435,7 @@ const Landing = () => {
                                 src={jlc}
                                 width={150}
                                 height={200}
-                                className='absolute md:ml-10 md:w-40 w-24 ml-36'
+                                className='absolute md:ml-10 md:w-52 w-24 ml-36'
                                 alt="Logo"
                             />
                         </div>
