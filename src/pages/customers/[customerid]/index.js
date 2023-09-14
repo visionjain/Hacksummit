@@ -460,16 +460,16 @@ const Landing = () => {
                         <tbody>
                             <tr>
                                 <td className="border-2 border-black p-6 md:px-40 px-8 text-center">
-                                    <div className='text-5xl font-bold font-serif'>
+                                    <div className='text-6xl font-bold font-serif'>
                                         JAI LIME & CHEMICAL
                                     </div>
-                                    <div>
+                                    <div className='text-xl'>
                                         H-1, 503, Road No 15, Bhamashah Ind. Area, Kaladwas, Udaipur
                                     </div>
-                                    <div>
+                                    <div className='text-xl'>
                                         Mo. : 99508 35585, 85296 22695
                                     </div>
-                                    <div>
+                                    <div className='text-xl'>
                                         GST No. 08ADVPJ9429L1ZL &nbsp; &nbsp; Email: jailime79@gmail.com
                                     </div>
                                 </td>
@@ -480,7 +480,6 @@ const Landing = () => {
                         <h3 className="text-gray-800 text-xl font-bold sm:text-4xl mb-4">
                             {customer.customername}&apos;s खाता
                         </h3>
-
                     </div>
                     <div className="mt-10 print:hidden">
                         <input
