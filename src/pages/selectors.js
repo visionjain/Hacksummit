@@ -65,7 +65,7 @@ const Selectors = () => {
                     </button>
 
                     <div className='text-3xl left-48 bottom-[190px] mt-10 text-center text-yellow-400 font-bold absolute w-96' style={headingStyle}>
-                        Our High Quality Organic Products
+                    Make an Energy-Efficient Home With Us
                     </div>
                     <div class='absolute text-lg text-white bottom-[-70px] w-96 ml-48 text-center mt-20'>Partner with us to create your energy-efficient dream home. Our experts use sustainable materials and innovative designs to maximize energy efficiency, reduce carbon footprint, and lower utility costs. Join us in building a comfortable, eco-friendly sanctuary that benefits your wallet and the planet.</div>
 
