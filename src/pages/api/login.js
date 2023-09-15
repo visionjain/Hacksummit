@@ -10,7 +10,7 @@ const handler = async (req, res) => {
 
             if (user && user.password === password) {
                 // Redirect to /customers upon successful login
-                res.redirect(302, '/selector');
+                res.redirect(302, '/selectors');
             } else {
                 res.status(401).json({ error: "Invalid credentials" });
             }
