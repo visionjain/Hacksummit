@@ -36,7 +36,7 @@ const Selectors = () => {
                     <button className='absolute top-[120px] right-60 w-60'>
                         <a
                             className="group relative inline-flex items-center overflow-hidden rounded px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
-                            href="https://visionjain.github.io/Microsoft-future-ready-talent-project/"
+                            href="https://microsoft-future-ready-talent-project.vercel.app/"
                             style={{
                                 background: 'linear-gradient(313deg, #F98214 -15.02%, rgba(249, 130, 20, 0.00) 137.34%)',
                                 borderRadius: '66px',
@@ -75,7 +75,7 @@ const Selectors = () => {
                         <button className='absolute top-[120px] left-64 w-60'>
                             <a
                                 className="group relative inline-flex items-center overflow-hidden rounded px-8 py-3 text-white focus:outline-none focus:ring active:bg-indigo-500"
-                                href="https://visionjain.github.io/Microsoft-future-ready-talent-project/"
+                                href="https://microsoft-future-ready-talent-project.vercel.app/"
                                 style={{
                                     background: 'linear-gradient(313deg, #F98214 -15.02%, rgba(249, 130, 20, 0.00) 137.34%)',
                                     borderRadius: '66px',
