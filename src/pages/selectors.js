@@ -22,10 +22,12 @@ const Selectors = () => {
 
     return (
         <div style={{ position: 'relative', width: '100vw', height: '100vh' }}>
+            
             <Image src={backnavi} alt="Background Image" className='h-screen w-screen' />
 
             {/* Content to overlay on the image */}
             <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+           
                 <div>
                     <div className='text-3xl mt-10 text-center text-yellow-400 font-bold absolute bottom-[190px] w-96 right-44' style={headingStyle}>
                         Our High Quality Organic Products

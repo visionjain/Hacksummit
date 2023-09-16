@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import logoagri from '../../../public/logoagri.png'
+import { Link } from "react-router-dom";
 
 const Register = () => {
     const [userid, setUsername] = useState('');
@@ -218,7 +219,10 @@ const Register = () => {
                             >
                                 Register
                             </button>
+                            
                         </form>
+                        <div>if already registered</div>
+                        <button href="/login" className="text-indigo-600">click here</button>
                     </div>
                 </div>
             </main>
