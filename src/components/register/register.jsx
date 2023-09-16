@@ -3,14 +3,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import logoagri from '../../../public/logoagri.png'
-import { Link } from "react-router-dom";
-
+import pattaBackground from "../../../public/patta.jpg";
+import Link from "next/link";
 const Register = () => {
     const [userid, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [referralCode, setReferralCode] = useState('');
     const [error, setError] = useState('');
     const [showAlert, setShowAlert] = useState(false);
+    const backgroundStyle = {
+        backgroundImage: `url(${pattaBackground.src})`, // Use .src to get the image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '750px', // Add a height to the div to make sure it's visible
+    };
 
     const router = useRouter(); // Initialize the Next.js router
     const handleSubmit = async (event) => {
@@ -61,12 +67,7 @@ const Register = () => {
             <main className="w-full flex">
                 <div className="relative flex-1 hidden items-center justify-center h-screen bg-gray-900 lg:flex">
                     <div className="relative z-10 w-full max-w-md">
-                        <Image
-                            src={logoagri}
-                            width={350}
-                            height={400}
-                            alt="Logo"
-                        />
+
                         <div className=" mt-16 space-y-3">
                             <h3 className="text-white text-3xl font-bold">Start growing your business quickly</h3>
                             <p className="text-gray-300">
@@ -86,9 +87,7 @@ const Register = () => {
                     </div>
                     <div
                         className="absolute inset-0 my-auto h-[500px]"
-                        style={{
-                            background: "linear-gradient(152.92deg, rgb(168, 232, 144) 4.54%, rgb(168, 232, 144) 34.2%, #749F82 77.55%)", filter: "blur(118px)"
-                        }}
+                        style={backgroundStyle}
                     >
 
                     </div>
@@ -125,7 +124,7 @@ const Register = () => {
                             <button className="flex items-center justify-center py-2.5 border rounded-lg hover:bg-gray-50 duration-150 active:bg-gray-100">
                                 <svg className="w-5 h-5" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_910_21)">
-                                        <path fill-rule="evenodd"  d="M24.0005 1C18.303 1.00296 12.7923 3.02092 8.45374 6.69305C4.11521 10.3652 1.23181 15.452 0.319089 21.044C-0.593628 26.636 0.523853 32.3684 3.47174 37.2164C6.41963 42.0643 11.0057 45.7115 16.4099 47.5059C17.6021 47.7272 18.0512 46.9883 18.0512 46.36C18.0512 45.7317 18.0273 43.91 18.0194 41.9184C11.3428 43.3608 9.93197 39.101 9.93197 39.101C8.84305 36.3349 7.26927 35.6078 7.26927 35.6078C5.09143 34.1299 7.43223 34.1576 7.43223 34.1576C9.84455 34.3275 11.1123 36.6194 11.1123 36.6194C13.2504 40.2667 16.7278 39.2116 18.0949 38.5952C18.3095 37.0501 18.9335 35.999 19.621 35.4023C14.2877 34.8017 8.68408 32.7548 8.68408 23.6108C8.65102 21.2394 9.53605 18.9461 11.156 17.2054C10.9096 16.6047 10.087 14.1785 11.3905 10.8829C11.3905 10.8829 13.4054 10.2427 17.9916 13.3289C21.9253 12.2592 26.0757 12.2592 30.0095 13.3289C34.5917 10.2427 36.6026 10.8829 36.6026 10.8829C37.9101 14.1706 37.0875 16.5968 36.8411 17.2054C38.4662 18.9464 39.353 21.2437 39.317 23.6187C39.317 32.7824 33.7015 34.8017 28.3602 35.3905C29.2186 36.1334 29.9856 37.5836 29.9856 39.8122C29.9856 43.0051 29.9578 45.5736 29.9578 46.36C29.9578 46.9962 30.391 47.7391 31.6071 47.5059C37.0119 45.7113 41.5984 42.0634 44.5462 37.2147C47.4941 32.3659 48.611 26.6326 47.6972 21.0401C46.7835 15.4476 43.8986 10.3607 39.5587 6.68921C35.2187 3.01771 29.7067 1.00108 24.0085 1H24.0005Z" fill="#191717" />
+                                        <path fill-rule="evenodd" d="M24.0005 1C18.303 1.00296 12.7923 3.02092 8.45374 6.69305C4.11521 10.3652 1.23181 15.452 0.319089 21.044C-0.593628 26.636 0.523853 32.3684 3.47174 37.2164C6.41963 42.0643 11.0057 45.7115 16.4099 47.5059C17.6021 47.7272 18.0512 46.9883 18.0512 46.36C18.0512 45.7317 18.0273 43.91 18.0194 41.9184C11.3428 43.3608 9.93197 39.101 9.93197 39.101C8.84305 36.3349 7.26927 35.6078 7.26927 35.6078C5.09143 34.1299 7.43223 34.1576 7.43223 34.1576C9.84455 34.3275 11.1123 36.6194 11.1123 36.6194C13.2504 40.2667 16.7278 39.2116 18.0949 38.5952C18.3095 37.0501 18.9335 35.999 19.621 35.4023C14.2877 34.8017 8.68408 32.7548 8.68408 23.6108C8.65102 21.2394 9.53605 18.9461 11.156 17.2054C10.9096 16.6047 10.087 14.1785 11.3905 10.8829C11.3905 10.8829 13.4054 10.2427 17.9916 13.3289C21.9253 12.2592 26.0757 12.2592 30.0095 13.3289C34.5917 10.2427 36.6026 10.8829 36.6026 10.8829C37.9101 14.1706 37.0875 16.5968 36.8411 17.2054C38.4662 18.9464 39.353 21.2437 39.317 23.6187C39.317 32.7824 33.7015 34.8017 28.3602 35.3905C29.2186 36.1334 29.9856 37.5836 29.9856 39.8122C29.9856 43.0051 29.9578 45.5736 29.9578 46.36C29.9578 46.9962 30.391 47.7391 31.6071 47.5059C37.0119 45.7113 41.5984 42.0634 44.5462 37.2147C47.4941 32.3659 48.611 26.6326 47.6972 21.0401C46.7835 15.4476 43.8986 10.3607 39.5587 6.68921C35.2187 3.01771 29.7067 1.00108 24.0085 1H24.0005Z" fill="#191717" />
                                         <path d="M9.08887 35.264C9.03721 35.3826 8.84645 35.4181 8.69146 35.3351C8.53646 35.2522 8.42122 35.098 8.47686 34.9755C8.5325 34.853 8.71928 34.8214 8.87428 34.9044C9.02927 34.9874 9.14848 35.1455 9.08887 35.264Z" fill="#191717" />
                                         <path d="M10.0626 36.3428C9.98028 36.384 9.88612 36.3955 9.79622 36.3753C9.70632 36.3551 9.62629 36.3045 9.56979 36.2321C9.41479 36.0662 9.38298 35.837 9.50221 35.7342C9.62143 35.6315 9.83606 35.6789 9.99105 35.8449C10.146 36.0108 10.1818 36.24 10.0626 36.3428Z" fill="#191717" />
                                         <path d="M11.0085 37.714C10.8614 37.8167 10.6111 37.714 10.472 37.5085C10.4335 37.4716 10.4029 37.4274 10.382 37.3785C10.3611 37.3297 10.3503 37.2771 10.3503 37.224C10.3503 37.1709 10.3611 37.1183 10.382 37.0694C10.4029 37.0205 10.4335 36.9763 10.472 36.9395C10.619 36.8407 10.8694 36.9395 11.0085 37.141C11.1476 37.3425 11.1516 37.6112 11.0085 37.714Z" fill="#191717" />
@@ -210,107 +209,28 @@ const Register = () => {
                                     value={referralCode}
                                     onChange={(e) => setReferralCode(e.target.value)}
                                     className="w-full mb-4 mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                                /> 
+                                />
                             </div>
                             {error && <p className="text-red-500">{error}</p>}
                             <button
-                                 type="submit"
+                                type="submit"
                                 className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
                             >
                                 Register
                             </button>
-                            
+
                         </form>
-                        <div>if already registered</div>
-                        <button href="/login" className="text-indigo-600">click here</button>
+                        <p className="text-gray-500 text-sm">
+                            Already registered?{' '}
+                            <Link href="/login">
+                                Login here
+                            </Link>
+                        </p>
+
                     </div>
                 </div>
             </main>
         </div>
-        // <div>
-        //     <div>
-        //         <Image
-        //             src={jlc}
-        //             width={150}
-        //             height={200}
-        //             className='absolute md:ml-10 md:w-40 w-24 ml-36'
-        //             alt="Logo"
-        //         />
-        //     </div>
-        //     <main className="w-full h-screen flex flex-col items-center justify-center px-4">
-        //         <div className="max-w-sm w-full text-gray-600 space-y-8">
-        //             <div className="text-center">
-        //                 <Image
-        //                     src="/loginicon.png"
-        //                     width={150}
-        //                     height={150}
-        //                     className='mx-auto'
-        //                     alt="Logo"
-        //                 />
-        //                 <div className="mt-5 space-y-2">
-        //                     <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">Register for your account</h3>
-        //                 </div>
-        //             </div>
-        //             <form onSubmit={handleSubmit}>
-        //                 {showAlert && (
-        //                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        //                         <strong className="font-bold">Referral code is incorrect!</strong>
-        //                         <span className="block sm:inline"> Please check your referral code and try again.</span>
-        //                         <span className="absolute top-0 bottom-0 right-0 px-4 py-3" onClick={() => setShowAlert(false)}>
-        //                             <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-        //                                 <title>Close</title>
-        //                                 <path d="M14.348 5.652a.5.5 0 01-.708 0L10 9.293 6.06 5.353a.5.5 0 01.708-.708L10 8.293l3.94-3.94a.5.5 0 01.708.708L10 9.293l3.348-3.641a.5.5 0 010-.708z" clipRule="evenodd" fillRule="evenodd"></path>
-        //                             </svg>
-        //                         </span>
-        //                     </div>
-        //                 )}
-        //                 <div>
-        //                     <label className="font-medium">Username</label>
-        //                     <input
-        //                         type="text"
-        //                         name='userid'
-        //                         placeholder='Type your username'
-        //                         required
-        //                         value={userid}
-        //                         onChange={(e) => setUsername(e.target.value)}
-        //                         className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-        //                     />
-        //                 </div>
-        //                 <div>
-        //                     <label className="font-medium">Password</label>
-        //                     <input
-        //                         type="password"
-        //                         name='password'
-        //                         placeholder='Type your password'
-        //                         required
-        //                         value={password}
-        //                         onChange={(e) => setPassword(e.target.value)}
-        //                         className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-        //                     />
-        //                 </div>
-        //                 <div>
-        //                     <label className="font-medium">Code</label>
-        //                     <input
-        //                         type="text"
-        //                         name="referralCode"
-        //                         placeholder="Type Code To Register"
-        //                         required
-        //                         value={referralCode}
-        //                         onChange={(e) => setReferralCode(e.target.value)}
-        //                         className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-        //                     />
-        //                 </div>
-        //                 {error && <p className="text-red-500">{error}</p>}
-        //                 <button
-        //                     className="w-full mt-4 px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150 cursor-pointer"
-        //                     type="submit"
-        //                 >
-        //                     Register
-        //                 </button>
-        //             </form>
-        //         </div>
-        //     </main>
-        // </div>
     );
 }
 
